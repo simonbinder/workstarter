@@ -1,0 +1,30 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "offeringValue",
+            "otherEntityName": "offering",
+            "otherEntityRelationshipName": "student"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "matrikelNummer",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170403132317",
+    "entityTableName": "student",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

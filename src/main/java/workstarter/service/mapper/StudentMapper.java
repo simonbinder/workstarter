@@ -1,8 +1,10 @@
 package workstarter.service.mapper;
 
 import workstarter.domain.Authority;
+import workstarter.domain.Offering;
+import workstarter.domain.Student;
 import workstarter.domain.User;
-import workstarter.service.dto.UserDTO;
+import workstarter.service.dto.StudentDTO;
 import org.mapstruct.*;
 
 import java.util.List;
@@ -13,11 +15,11 @@ import java.util.stream.Collectors;
  * Mapper for the entity User and its DTO UserDTO.
  */
 @Mapper(componentModel = "spring", uses = {})
-public interface UserMapper {
+public interface StudentMapper {
 
-    UserDTO userToUserDTO(User user);
+    StudentDTO studentStudentDTO(Student student);
 
-    List<UserDTO> usersToUserDTOs(List<User> users);
+    List<StudentDTO> studentsToStudentDTOs(List<Student> students);
 
     @Mapping(target = "createdBy", ignore = true)
     @Mapping(target = "createdDate", ignore = true)
@@ -27,17 +29,17 @@ public interface UserMapper {
     @Mapping(target = "resetKey", ignore = true)
     @Mapping(target = "resetDate", ignore = true)
     @Mapping(target = "password", ignore = true)
-    User userDTOToUser(UserDTO userDTO);
+    Student studentDTOToStudent(StudentDTO studentDTO);
 
-    List<User> userDTOsToUsers(List<UserDTO> userDTOs);
+    List<Student> studentDTOsToStudents(List<StudentDTO> studentDTOs);
 
-    default User userFromId(Long id) {
+    default Student userFromId(Long id) {
         if (id == null) {
             return null;
         }
-        User user = new User();
-        user.setId(id);
-        return user;
+        Student student = new Student();
+        student.setId(id);
+        return student;
     }
 
     default Set<String> stringsFromAuthorities (Set<Authority> authorities) {
@@ -52,4 +54,18 @@ public interface UserMapper {
             return auth;
         }).collect(Collectors.toSet());
     }
+    
+    default Set<String> stringsFromOfferings (Set<Offering> offerings) {
+        return offerings.stream().map(Offering::getOfferingvalues)
+            .collect(Collectors.toSet());
+    }
+    
+    default Set<Offering> offeringsFromStrings(Set<String> strings) {
+        return strings.stream().map(string -> {
+            Offering off = new Offering();
+            off.setOfferingvalues(string);
+            return off;
+        }).collect(Collectors.toSet());
+    }
+    
 }

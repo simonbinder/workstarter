@@ -22,11 +22,13 @@ import java.time.ZonedDateTime;
 /**
  * A user.
  */
-@Entity
 @Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "user")
-public class User extends AbstractAuditingEntity implements Serializable {
+@MappedSuperclass
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="discriminator")
+public abstract class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -53,7 +55,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Size(max = 50)
     @Column(name = "last_name", length = 50)
     private String lastName;
-
+    
     @Email
     @Size(min = 5, max = 100)
     @Column(length = 100, unique = true)
@@ -118,22 +120,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -157,8 +143,24 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public void setActivated(boolean activated) {
         this.activated = activated;
     }
+    
+    public String getFirstName() {
+		return firstName;
+	}
 
-    public String getActivationKey() {
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getActivationKey() {
         return activationKey;
     }
 
@@ -221,9 +223,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     public String toString() {
         return "User{" +
             "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", firstname='" + firstName + '\'' +
+             ", lastname='" + lastName + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +

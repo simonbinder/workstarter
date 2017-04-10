@@ -1,9 +1,10 @@
 package workstarter.service;
 
 import workstarter.domain.Authority;
+import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
-import workstarter.repository.UserRepository;
+import workstarter.repository.StudentRepository;
 import workstarter.repository.search.UserSearchRepository;
 
 import org.apache.commons.lang3.RandomStringUtils;
@@ -33,14 +34,14 @@ public class SocialService {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final UserRepository userRepository;
+    private final StudentRepository userRepository;
 
     private final MailService mailService;
 
     private final UserSearchRepository userSearchRepository;
 
     public SocialService(UsersConnectionRepository usersConnectionRepository, AuthorityRepository authorityRepository,
-            PasswordEncoder passwordEncoder, UserRepository userRepository,
+            PasswordEncoder passwordEncoder, StudentRepository userRepository,
             MailService mailService, UserSearchRepository userSearchRepository) {
 
         this.usersConnectionRepository = usersConnectionRepository;
@@ -68,12 +69,12 @@ public class SocialService {
         UserProfile userProfile = connection.fetchUserProfile();
         String providerId = connection.getKey().getProviderId();
         String imageUrl = connection.getImageUrl();
-        User user = createUserIfNotExist(userProfile, langKey, providerId, imageUrl);
-        createSocialConnection(user.getLogin(), connection);
-        mailService.sendSocialRegistrationValidationEmail(user, providerId);
+        Student student = createUserIfNotExist(userProfile, langKey, providerId, imageUrl);
+        createSocialConnection(student.getLogin(), connection);
+        mailService.sendSocialRegistrationValidationEmail(student, providerId);
     }
 
-    private User createUserIfNotExist(UserProfile userProfile, String langKey, String providerId, String imageUrl) {
+    private Student createUserIfNotExist(UserProfile userProfile, String langKey, String providerId, String imageUrl) {
         String email = userProfile.getEmail();
         String userName = userProfile.getUsername();
         if (!StringUtils.isBlank(userName)) {
@@ -88,10 +89,10 @@ public class SocialService {
             throw new IllegalArgumentException("Email cannot be null with an existing login");
         }
         if (!StringUtils.isBlank(email)) {
-            Optional<User> user = userRepository.findOneByEmail(email);
-            if (user.isPresent()) {
+            Optional<Student> student = userRepository.findOneByEmail(email);
+            if (student.isPresent()) {
                 log.info("User already exist associate the connection to this account");
-                return user.get();
+                return student.get();
             }
         }
 
@@ -100,7 +101,7 @@ public class SocialService {
         Set<Authority> authorities = new HashSet<>(1);
         authorities.add(authorityRepository.findOne("ROLE_USER"));
 
-        User newUser = new User();
+        Student newUser = new Student();
         newUser.setLogin(login);
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userProfile.getFirstName());

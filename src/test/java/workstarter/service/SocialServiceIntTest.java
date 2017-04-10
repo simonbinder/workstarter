@@ -2,9 +2,10 @@ package workstarter.service;
 
 import workstarter.WorkstarterApp;
 import workstarter.domain.Authority;
+import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
-import workstarter.repository.UserRepository;
+import workstarter.repository.StudentRepository;
 import workstarter.repository.search.UserSearchRepository;
 import workstarter.service.MailService;
 
@@ -39,7 +40,7 @@ public class SocialServiceIntTest {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private UserRepository userRepository;
+    private StudentRepository userRepository;
     @Autowired
     private UserSearchRepository userSearchRepository;
 
@@ -110,7 +111,7 @@ public class SocialServiceIntTest {
     @Test(expected = IllegalArgumentException.class)
     public void testCreateSocialUserShouldThrowExceptionIfConnectionHasNoEmailAndLoginAlreadyExist() {
         // Setup
-        User user = createExistingUser("@LOGIN",
+        Student student = createExistingStudent("@LOGIN",
             "mail@mail.com",
             "OTHER_FIRST_NAME",
             "OTHER_LAST_NAME",
@@ -128,7 +129,7 @@ public class SocialServiceIntTest {
             socialService.createSocialUser(connection, "fr");
         } finally {
             // Teardown
-            userRepository.delete(user);
+            userRepository.delete(student);
         }
     }
 
@@ -146,11 +147,11 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         // Verify
-        final Optional<User> user = userRepository.findOneByEmail("mail@mail.com");
-        assertThat(user).isPresent();
+        final Optional<Student> student = userRepository.findOneByEmail("mail@mail.com");
+        assertThat(student).isPresent();
 
         // Teardown
-        userRepository.delete(user.get());
+        userRepository.delete(student.get());
     }
 
     @Test
@@ -167,13 +168,13 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         //Verify
-        User user = userRepository.findOneByEmail("mail@mail.com").get();
-        assertThat(user.getFirstName()).isEqualTo("FIRST_NAME");
-        assertThat(user.getLastName()).isEqualTo("LAST_NAME");
-        assertThat(user.getImageUrl()).isEqualTo("IMAGE_URL");
+        Student student = userRepository.findOneByEmail("mail@mail.com").get();
+        assertThat(student.getFirstName()).isEqualTo("FIRST_NAME");
+        assertThat(student.getLastName()).isEqualTo("LAST_NAME");
+        assertThat(student.getImageUrl()).isEqualTo("IMAGE_URL");
 
         // Teardown
-        userRepository.delete(user);
+        userRepository.delete(student);
     }
 
     @Test
@@ -190,14 +191,14 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         //Verify
-        User user = userRepository.findOneByEmail("mail@mail.com").get();
-        assertThat(user.getActivated()).isEqualTo(true);
-        assertThat(user.getPassword()).isNotEmpty();
+        Student student = userRepository.findOneByEmail("mail@mail.com").get();
+        assertThat(student.getActivated()).isEqualTo(true);
+        assertThat(student.getPassword()).isNotEmpty();
         Authority userAuthority = authorityRepository.findOne("ROLE_USER");
-        assertThat(user.getAuthorities().toArray()).containsExactly(userAuthority);
+        assertThat(student.getAuthorities().toArray()).containsExactly(userAuthority);
 
         // Teardown
-        userRepository.delete(user);
+        userRepository.delete(student);
     }
 
     @Test
@@ -214,11 +215,11 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         //Verify
-        final User user = userRepository.findOneByEmail("mail@mail.com").get();
-        assertThat(user.getLangKey()).isEqualTo("fr");
+        final Student student = userRepository.findOneByEmail("mail@mail.com").get();
+        assertThat(student.getLangKey()).isEqualTo("fr");
 
         // Teardown
-        userRepository.delete(user);
+        userRepository.delete(student);
     }
 
     @Test
@@ -235,11 +236,11 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         //Verify
-        User user = userRepository.findOneByEmail("mail@mail.com").get();
-        assertThat(user.getLogin()).isEqualTo("mail@mail.com");
+        Student student = userRepository.findOneByEmail("mail@mail.com").get();
+        assertThat(student.getLogin()).isEqualTo("mail@mail.com");
 
         // Teardown
-        userRepository.delete(user);
+        userRepository.delete(student);
     }
 
     @Test
@@ -256,11 +257,11 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         //Verify
-        User user = userRepository.findOneByEmail("mail@mail.com").get();
-        assertThat(user.getLogin()).isEqualToIgnoringCase("@LOGIN");
+        Student student = userRepository.findOneByEmail("mail@mail.com").get();
+        assertThat(student.getLogin()).isEqualToIgnoringCase("@LOGIN");
 
         // Teardown
-        userRepository.delete(user);
+        userRepository.delete(student);
     }
 
     @Test
@@ -280,14 +281,14 @@ public class SocialServiceIntTest {
         verify(mockConnectionRepository, times(1)).addConnection(connection);
 
         // Teardown
-        User userToDelete = userRepository.findOneByEmail("mail@mail.com").get();
-        userRepository.delete(userToDelete);
+        Student studentToDelete = userRepository.findOneByEmail("mail@mail.com").get();
+        userRepository.delete(studentToDelete);
     }
 
     @Test
     public void testCreateSocialUserShouldNotCreateUserIfEmailAlreadyExist() {
         // Setup
-        createExistingUser("@OTHER_LOGIN",
+        createExistingStudent("@OTHER_LOGIN",
             "mail@mail.com",
             "OTHER_FIRST_NAME",
             "OTHER_LAST_NAME",
@@ -307,14 +308,14 @@ public class SocialServiceIntTest {
         assertThat(userRepository.count()).isEqualTo(initialUserCount);
 
         // Teardown
-        User userToDelete = userRepository.findOneByEmail("mail@mail.com").get();
-        userRepository.delete(userToDelete);
+        Student studentToDelete = userRepository.findOneByEmail("mail@mail.com").get();
+        userRepository.delete(studentToDelete);
     }
 
     @Test
     public void testCreateSocialUserShouldNotChangeUserIfEmailAlreadyExist() {
         // Setup
-        createExistingUser("@OTHER_LOGIN",
+        createExistingStudent("@OTHER_LOGIN",
             "mail@mail.com",
             "OTHER_FIRST_NAME",
             "OTHER_LAST_NAME",
@@ -330,13 +331,13 @@ public class SocialServiceIntTest {
         socialService.createSocialUser(connection, "fr");
 
         //Verify
-        User userToVerify = userRepository.findOneByEmail("mail@mail.com").get();
-        assertThat(userToVerify.getLogin()).isEqualTo("@other_login");
-        assertThat(userToVerify.getFirstName()).isEqualTo("OTHER_FIRST_NAME");
-        assertThat(userToVerify.getLastName()).isEqualTo("OTHER_LAST_NAME");
-        assertThat(userToVerify.getImageUrl()).isEqualTo("OTHER_IMAGE_URL");
+        Student studentToVerify = userRepository.findOneByEmail("mail@mail.com").get();
+        assertThat(studentToVerify.getLogin()).isEqualTo("@other_login");
+        assertThat(studentToVerify.getFirstName()).isEqualTo("OTHER_FIRST_NAME");
+        assertThat(studentToVerify.getLastName()).isEqualTo("OTHER_LAST_NAME");
+        assertThat(studentToVerify.getImageUrl()).isEqualTo("OTHER_IMAGE_URL");
         // Teardown
-        userRepository.delete(userToVerify);
+        userRepository.delete(studentToVerify);
     }
 
     @Test
@@ -356,8 +357,8 @@ public class SocialServiceIntTest {
         verify(mockMailService, times(1)).sendSocialRegistrationValidationEmail(anyObject(), anyString());
 
         // Teardown
-        User userToDelete = userRepository.findOneByEmail("mail@mail.com").get();
-        userRepository.delete(userToDelete);
+        Student studentToDelete = userRepository.findOneByEmail("mail@mail.com").get();
+        userRepository.delete(studentToDelete);
     }
 
     private Connection<?> createConnection(String login,
@@ -381,18 +382,18 @@ public class SocialServiceIntTest {
         return connection;
     }
 
-    private User createExistingUser(String login,
+    private Student createExistingStudent(String login,
                                     String email,
                                     String firstName,
                                     String lastName,
                                     String imageUrl) {
-        User user = new User();
-        user.setLogin(login);
-        user.setPassword(passwordEncoder.encode("password"));
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setImageUrl(imageUrl);
-        return userRepository.saveAndFlush(user);
+        Student student = new Student();
+        student.setLogin(login);
+        student.setPassword(passwordEncoder.encode("password"));
+        student.setEmail(email);
+        student.setFirstName(firstName);
+        student.setLastName(lastName);
+        student.setImageUrl(imageUrl);
+        return userRepository.saveAndFlush(student);
     }
 }

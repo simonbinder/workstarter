@@ -3,19 +3,21 @@ package workstarter.service.dto;
 import workstarter.config.Constants;
 
 import workstarter.domain.Authority;
-import workstarter.domain.User;
+import workstarter.domain.Offering;
+import workstarter.domain.Student;
 
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * A DTO representing a user, with his authorities.
  */
-public class UserDTO {
+public class StudentDTO {
 
     private Long id;
 
@@ -42,31 +44,28 @@ public class UserDTO {
     private String langKey;
 
     private String createdBy;
-
     private ZonedDateTime createdDate;
-
     private String lastModifiedBy;
-
     private ZonedDateTime lastModifiedDate;
-
     private Set<String> authorities;
-
-    public UserDTO() {
+    private Set<String> offeringValues;
+    
+    public StudentDTO() {
         // Empty constructor needed for MapStruct.
     }
 
-    public UserDTO(User user) {
-        this(user.getId(), user.getLogin(), user.getFirstName(), user.getLastName(),
-            user.getEmail(), user.getActivated(), user.getImageUrl(), user.getLangKey(),
-            user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
-            user.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()));
+    public StudentDTO(Student student) {
+        this(student.getId(), student.getLogin(), student.getFirstName(), student.getLastName(),
+            student.getEmail(), student.getActivated(), student.getImageUrl(), student.getLangKey(),
+            student.getCreatedBy(), student.getCreatedDate(), student.getLastModifiedBy(), student.getLastModifiedDate(),
+            student.getAuthorities().stream().map(Authority::getName)
+                .collect(Collectors.toSet()), student.getOfferingValues().stream().map(Offering::getOfferingvalues).collect(Collectors.toSet()) );
     }
 
-    public UserDTO(Long id, String login, String firstName, String lastName,
+    public StudentDTO(Long id, String login, String firstName, String lastName,
         String email, boolean activated, String imageUrl, String langKey,
         String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
-        Set<String> authorities) {
+        Set<String> authorities, Set<String> offeringValues) {
 
         this.id = id;
         this.login = login;
@@ -81,6 +80,7 @@ public class UserDTO {
         this.lastModifiedBy = lastModifiedBy;
         this.lastModifiedDate = lastModifiedDate;
         this.authorities = authorities;
+        this.offeringValues = offeringValues;
     }
 
     public Long getId() {
@@ -146,6 +146,11 @@ public class UserDTO {
     public Set<String> getAuthorities() {
         return authorities;
     }
+    
+    public Set<String> getOfferingValues(){
+    	return offeringValues;
+    }
+    
 
     @Override
     public String toString() {

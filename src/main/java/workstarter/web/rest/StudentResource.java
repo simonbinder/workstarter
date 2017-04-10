@@ -2,13 +2,15 @@ package workstarter.web.rest;
 
 import workstarter.config.Constants;
 import com.codahale.metrics.annotation.Timed;
+
+import workstarter.domain.Student;
 import workstarter.domain.User;
-import workstarter.repository.UserRepository;
+import workstarter.repository.StudentRepository;
 import workstarter.repository.search.UserSearchRepository;
 import workstarter.security.AuthoritiesConstants;
 import workstarter.service.MailService;
-import workstarter.service.UserService;
-import workstarter.service.dto.UserDTO;
+import workstarter.service.StudentService;
+import workstarter.service.dto.StudentDTO;
 import workstarter.web.rest.vm.ManagedUserVM;
 import workstarter.web.rest.util.HeaderUtil;
 import workstarter.web.rest.util.PaginationUtil;
@@ -59,22 +61,22 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
  */
 @RestController
 @RequestMapping("/api")
-public class UserResource {
+public class StudentResource {
 
-    private final Logger log = LoggerFactory.getLogger(UserResource.class);
+    private final Logger log = LoggerFactory.getLogger(StudentResource.class);
 
     private static final String ENTITY_NAME = "userManagement";
 
-    private final UserRepository userRepository;
+    private final StudentRepository userRepository;
 
     private final MailService mailService;
 
-    private final UserService userService;
+    private final StudentService userService;
 
     private final UserSearchRepository userSearchRepository;
 
-    public UserResource(UserRepository userRepository, MailService mailService,
-            UserService userService, UserSearchRepository userSearchRepository) {
+    public StudentResource(StudentRepository userRepository, MailService mailService,
+            StudentService userService, UserSearchRepository userSearchRepository) {
 
         this.userRepository = userRepository;
         this.mailService = mailService;
@@ -114,7 +116,7 @@ public class UserResource {
                 .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "Email already in use"))
                 .body(null);
         } else {
-            User newUser = userService.createUser(managedUserVM);
+            User newUser = userService.createStudent(managedUserVM);
             mailService.sendCreationEmail(newUser);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
                 .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
@@ -133,9 +135,9 @@ public class UserResource {
     @PutMapping("/users")
     @Timed
     @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<UserDTO> updateUser(@RequestBody ManagedUserVM managedUserVM) {
+    public ResponseEntity<StudentDTO> updateUser(@RequestBody ManagedUserVM managedUserVM) {
         log.debug("REST request to update User : {}", managedUserVM);
-        Optional<User> existingUser = userRepository.findOneByEmail(managedUserVM.getEmail());
+        Optional<Student> existingUser = userRepository.findOneByEmail(managedUserVM.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getId().equals(managedUserVM.getId()))) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "E-mail already in use")).body(null);
         }
@@ -143,7 +145,7 @@ public class UserResource {
         if (existingUser.isPresent() && (!existingUser.get().getId().equals(managedUserVM.getId()))) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "userexists", "Login already in use")).body(null);
         }
-        Optional<UserDTO> updatedUser = userService.updateUser(managedUserVM);
+        Optional<StudentDTO> updatedUser = userService.updateUser(managedUserVM);
 
         return ResponseUtil.wrapOrNotFound(updatedUser,
             HeaderUtil.createAlert("userManagement.updated", managedUserVM.getLogin()));
@@ -157,8 +159,8 @@ public class UserResource {
      */
     @GetMapping("/users")
     @Timed
-    public ResponseEntity<List<UserDTO>> getAllUsers(@ApiParam Pageable pageable) {
-        final Page<UserDTO> page = userService.getAllManagedUsers(pageable);
+    public ResponseEntity<List<StudentDTO>> getAllUsers(@ApiParam Pageable pageable) {
+        final Page<StudentDTO> page = userService.getAllManagedUsers(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -171,11 +173,11 @@ public class UserResource {
      */
     @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
     @Timed
-    public ResponseEntity<UserDTO> getUser(@PathVariable String login) {
+    public ResponseEntity<StudentDTO> getUser(@PathVariable String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(
             userService.getUserWithAuthoritiesByLogin(login)
-                .map(UserDTO::new));
+                .map(StudentDTO::new));
     }
 
     /**

@@ -2,12 +2,13 @@ package workstarter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 
+import workstarter.domain.Student;
 import workstarter.domain.User;
-import workstarter.repository.UserRepository;
+import workstarter.repository.StudentRepository;
 import workstarter.security.SecurityUtils;
 import workstarter.service.MailService;
-import workstarter.service.UserService;
-import workstarter.service.dto.UserDTO;
+import workstarter.service.StudentService;
+import workstarter.service.dto.StudentDTO;
 import workstarter.web.rest.vm.KeyAndPasswordVM;
 import workstarter.web.rest.vm.ManagedUserVM;
 import workstarter.web.rest.util.HeaderUtil;
@@ -34,13 +35,13 @@ public class AccountResource {
 
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
 
-    private final UserRepository userRepository;
+    private final StudentRepository userRepository;
 
-    private final UserService userService;
+    private final StudentService userService;
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService,
+    public AccountResource(StudentRepository userRepository, StudentService userService,
             MailService mailService) {
 
         this.userRepository = userRepository;
@@ -67,12 +68,12 @@ public class AccountResource {
             .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
                 .map(user -> new ResponseEntity<>("e-mail address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
                 .orElseGet(() -> {
-                    User user = userService
-                        .createUser(managedUserVM.getLogin(), managedUserVM.getPassword(),
+                    Student student = userService
+                        .createStudent(managedUserVM.getLogin(), managedUserVM.getPassword(),
                             managedUserVM.getFirstName(), managedUserVM.getLastName(),
                             managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(), managedUserVM.getLangKey());
 
-                    mailService.sendActivationEmail(user);
+                    mailService.sendActivationEmail(student);
                     return new ResponseEntity<>(HttpStatus.CREATED);
                 })
         );
@@ -112,9 +113,9 @@ public class AccountResource {
      */
     @GetMapping("/account")
     @Timed
-    public ResponseEntity<UserDTO> getAccount() {
+    public ResponseEntity<StudentDTO> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-            .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
+            .map(user -> new ResponseEntity<>(new StudentDTO(user), HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
@@ -126,15 +127,15 @@ public class AccountResource {
      */
     @PostMapping("/account")
     @Timed
-    public ResponseEntity saveAccount(@Valid @RequestBody UserDTO userDTO) {
-        Optional<User> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
+    public ResponseEntity saveAccount(@Valid @RequestBody StudentDTO userDTO) {
+        Optional<Student> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userDTO.getLogin()))) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use")).body(null);
         }
         return userRepository
             .findOneByLogin(SecurityUtils.getCurrentUserLogin())
             .map(u -> {
-                userService.updateUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
+                userService.updateStudent(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
                     userDTO.getLangKey());
                 return new ResponseEntity(HttpStatus.OK);
             })

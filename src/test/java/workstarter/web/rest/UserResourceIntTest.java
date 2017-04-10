@@ -1,11 +1,12 @@
 package workstarter.web.rest;
 
 import workstarter.WorkstarterApp;
+import workstarter.domain.Student;
 import workstarter.domain.User;
-import workstarter.repository.UserRepository;
+import workstarter.repository.StudentRepository;
 import workstarter.repository.search.UserSearchRepository;
 import workstarter.service.MailService;
-import workstarter.service.UserService;
+import workstarter.service.StudentService;
 import workstarter.web.rest.errors.ExceptionTranslator;
 import workstarter.web.rest.vm.ManagedUserVM;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -24,6 +25,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -38,10 +41,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Test class for the UserResource REST controller.
  *
- * @see UserResource
+ * @see StudentResource
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = WorkstarterApp.class)
+//@RunWith(SpringRunner.class)
+//@SpringBootTest(classes = WorkstarterApp.class)
 public class UserResourceIntTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";
@@ -66,7 +69,7 @@ public class UserResourceIntTest {
     private static final String UPDATED_LANGKEY = "fr";
 
     @Autowired
-    private UserRepository userRepository;
+    private StudentRepository userRepository;
 
     @Autowired
     private UserSearchRepository userSearchRepository;
@@ -75,7 +78,7 @@ public class UserResourceIntTest {
     private MailService mailService;
 
     @Autowired
-    private UserService userService;
+    private StudentService userService;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -91,12 +94,12 @@ public class UserResourceIntTest {
 
     private MockMvc restUserMockMvc;
 
-    private User user;
+    private Student user;
 
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        UserResource userResource = new UserResource(userRepository, mailService, userService, userSearchRepository);
+        StudentResource userResource = new StudentResource(userRepository, mailService, userService, userSearchRepository);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -110,8 +113,8 @@ public class UserResourceIntTest {
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which has a required relationship to the User entity.
      */
-    public static User createEntity(EntityManager em) {
-        User user = new User();
+    public static Student createEntity(EntityManager em) {
+        Student user = new Student();
         user.setLogin(DEFAULT_LOGIN);
         user.setPassword(RandomStringUtils.random(60));
         user.setActivated(true);
@@ -135,6 +138,7 @@ public class UserResourceIntTest {
 
         // Create the User
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             null,
@@ -150,7 +154,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         restUserMockMvc.perform(post("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -158,7 +164,7 @@ public class UserResourceIntTest {
             .andExpect(status().isCreated());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<Student> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate + 1);
         User testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getLogin()).isEqualTo(DEFAULT_LOGIN);
@@ -175,6 +181,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             1L,
@@ -190,7 +197,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserMockMvc.perform(post("/api/users")
@@ -199,7 +208,7 @@ public class UserResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<Student> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -212,6 +221,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             null,
@@ -227,7 +237,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -236,7 +248,7 @@ public class UserResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<Student> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -249,6 +261,7 @@ public class UserResourceIntTest {
         int databaseSizeBeforeCreate = userRepository.findAll().size();
 
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             null,
@@ -264,7 +277,9 @@ public class UserResourceIntTest {
             null,
             null,
             null,
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         // Create the User
         restUserMockMvc.perform(post("/api/users")
@@ -273,7 +288,7 @@ public class UserResourceIntTest {
             .andExpect(status().isBadRequest());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<Student> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeCreate);
     }
 
@@ -335,6 +350,7 @@ public class UserResourceIntTest {
         User updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
@@ -350,7 +366,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -358,7 +376,7 @@ public class UserResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<Student> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeUpdate);
         User testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
@@ -380,6 +398,7 @@ public class UserResourceIntTest {
         User updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
@@ -395,7 +414,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -403,9 +424,9 @@ public class UserResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the User in the database
-        List<User> userList = userRepository.findAll();
+        List<Student> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeUpdate);
-        User testUser = userList.get(userList.size() - 1);
+        Student testUser = userList.get(userList.size() - 1);
         assertThat(testUser.getLogin()).isEqualTo(UPDATED_LOGIN);
         assertThat(testUser.getFirstName()).isEqualTo(UPDATED_FIRSTNAME);
         assertThat(testUser.getLastName()).isEqualTo(UPDATED_LASTNAME);
@@ -421,7 +442,7 @@ public class UserResourceIntTest {
         userRepository.saveAndFlush(user);
         userSearchRepository.save(user);
 
-        User anotherUser = new User();
+        Student anotherUser = new Student();
         anotherUser.setLogin("jhipster");
         anotherUser.setPassword(RandomStringUtils.random(60));
         anotherUser.setActivated(true);
@@ -434,9 +455,10 @@ public class UserResourceIntTest {
         userSearchRepository.save(anotherUser);
 
         // Update the user
-        User updatedUser = userRepository.findOne(user.getId());
+        Student updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
@@ -452,7 +474,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -467,7 +491,7 @@ public class UserResourceIntTest {
         userRepository.saveAndFlush(user);
         userSearchRepository.save(user);
 
-        User anotherUser = new User();
+        Student anotherUser = new Student();
         anotherUser.setLogin("jhipster");
         anotherUser.setPassword(RandomStringUtils.random(60));
         anotherUser.setActivated(true);
@@ -480,9 +504,10 @@ public class UserResourceIntTest {
         userSearchRepository.save(anotherUser);
 
         // Update the user
-        User updatedUser = userRepository.findOne(user.getId());
+        Student updatedUser = userRepository.findOne(user.getId());
 
         Set<String> authorities = new HashSet<>();
+        Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
         ManagedUserVM managedUserVM = new ManagedUserVM(
             updatedUser.getId(),
@@ -498,7 +523,9 @@ public class UserResourceIntTest {
             updatedUser.getCreatedDate(),
             updatedUser.getLastModifiedBy(),
             updatedUser.getLastModifiedDate(),
-            authorities);
+            authorities,
+            offeringValues
+            );
 
         restUserMockMvc.perform(put("/api/users")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -520,16 +547,16 @@ public class UserResourceIntTest {
             .andExpect(status().isOk());
 
         // Validate the database is empty
-        List<User> userList = userRepository.findAll();
+        List<Student> userList = userRepository.findAll();
         assertThat(userList).hasSize(databaseSizeBeforeDelete - 1);
     }
 
     @Test
     @Transactional
     public void equalsVerifier() throws Exception {
-        User userA = new User();
+        Student userA = new Student();
         userA.setLogin("AAA");
-        User userB = new User();
+        Student userB = new Student();
         userB.setLogin("BBB");
         assertThat(userA).isNotEqualTo(userB);
     }

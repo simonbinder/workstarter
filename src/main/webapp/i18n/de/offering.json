@@ -1,0 +1,23 @@
+{
+    "workstarterApp": {
+        "offering" : {
+            "home": {
+                "title": "Offerings",
+                "createLabel": "Offering erstellen",
+                "createOrEditLabel": "Offering erstellen oder bearbeiten",
+                "search": "Suche nach Offering"
+            },
+            "created": "Offering erstellt mit ID {{ param }}",
+            "updated": "Offering aktualisiert mit ID {{ param }}",
+            "deleted": "Offering gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Offering {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Offering"
+            },
+            "offeringvalues": "Offeringvalues",
+            "student": "Student"
+        }
+    }
+}

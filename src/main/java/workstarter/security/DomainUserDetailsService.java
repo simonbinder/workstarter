@@ -1,7 +1,7 @@
 package workstarter.security;
 
 import workstarter.domain.User;
-import workstarter.repository.UserRepository;
+import workstarter.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,9 +23,9 @@ public class DomainUserDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);
 
-    private final UserRepository userRepository;
+    private final StudentRepository userRepository;
 
-    public DomainUserDetailsService(UserRepository userRepository) {
+    public DomainUserDetailsService(StudentRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -34,7 +34,7 @@ public class DomainUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(final String login) {
         log.debug("Authenticating {}", login);
         String lowercaseLogin = login.toLowerCase(Locale.ENGLISH);
-        Optional<User> userFromDatabase = userRepository.findOneWithAuthoritiesByLogin(lowercaseLogin);
+        Optional<? extends User> userFromDatabase = userRepository.findOneWithAuthoritiesByLogin(lowercaseLogin);
         return userFromDatabase.map(user -> {
             if (!user.getActivated()) {
                 throw new UserNotActivatedException("User " + lowercaseLogin + " was not activated");

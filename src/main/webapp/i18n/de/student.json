@@ -15,7 +15,14 @@
             },
             "detail": {
                 "title": "Student"
-            }
+            },
+            "matrikelNummer": "Matrikel Nummer",
+            "university": "University",
+            "university": "University",
+            "portfolio": "Portfolio",
+            "offeringValue": "Offering Value",
+            "searchingValue": "Searching Value",
+            "resumes": "Resumes"
         }
     }
 }

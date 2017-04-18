@@ -1,63 +1,28 @@
 package workstarter.web.rest;
 
-import workstarter.config.Constants;
 import com.codahale.metrics.annotation.Timed;
-
 import workstarter.domain.Student;
-import workstarter.domain.User;
-import workstarter.repository.StudentRepository;
-import workstarter.repository.search.UserSearchRepository;
-import workstarter.security.AuthoritiesConstants;
-import workstarter.service.MailService;
-import workstarter.service.StudentService;
-import workstarter.service.dto.StudentDTO;
-import workstarter.web.rest.vm.ManagedUserVM;
-import workstarter.web.rest.util.HeaderUtil;
-import workstarter.web.rest.util.PaginationUtil;
-import io.github.jhipster.web.util.ResponseUtil;
-import io.swagger.annotations.ApiParam;
 
+import workstarter.repository.StudentRepository;
+import workstarter.repository.search.StudentSearchRepository;
+import workstarter.web.rest.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
- * REST controller for managing users.
- *
- * <p>This class accesses the User entity, and needs to fetch its collection of authorities.</p>
- * <p>
- * For a normal use-case, it would be better to have an eager relationship between User and Authority,
- * and send everything to the client side: there would be no View Model and DTO, a lot less code, and an outer-join
- * which would be good for performance.
- * </p>
- * <p>
- * We use a View Model and a DTO for 3 reasons:
- * <ul>
- * <li>We want to keep a lazy association between the user and the authorities, because people will
- * quite often do relationships with the user, and we don't want them to get the authorities all
- * the time for nothing (for performance reasons). This is the #1 goal: we should not impact our users'
- * application because of this use-case.</li>
- * <li> Not having an outer join causes n+1 requests to the database. This is not a real issue as
- * we have by default a second-level cache. This means on the first HTTP call we do the n+1 requests,
- * but then all authorities come from the cache, so in fact it's much better than doing an outer join
- * (which will get lots of data from the database, for each HTTP call).</li>
- * <li> As this manages users, for security reasons, we'd rather have a DTO layer.</li>
- * </ul>
- * <p>Another option would be to have a specific JPA entity graph to handle this case.</p>
+ * REST controller for managing Student.
  */
 @RestController
 @RequestMapping("/api")
@@ -65,148 +30,118 @@ public class StudentResource {
 
     private final Logger log = LoggerFactory.getLogger(StudentResource.class);
 
-    private static final String ENTITY_NAME = "userManagement";
+    private static final String ENTITY_NAME = "student";
+        
+    private final StudentRepository studentRepository;
 
-    private final StudentRepository userRepository;
+    private final StudentSearchRepository studentSearchRepository;
 
-    private final MailService mailService;
-
-    private final StudentService userService;
-
-    private final UserSearchRepository userSearchRepository;
-
-    public StudentResource(StudentRepository userRepository, MailService mailService,
-            StudentService userService, UserSearchRepository userSearchRepository) {
-
-        this.userRepository = userRepository;
-        this.mailService = mailService;
-        this.userService = userService;
-        this.userSearchRepository = userSearchRepository;
+    public StudentResource(StudentRepository studentRepository, StudentSearchRepository studentSearchRepository) {
+        this.studentRepository = studentRepository;
+        this.studentSearchRepository = studentSearchRepository;
     }
 
     /**
-     * POST  /users  : Creates a new user.
-     * <p>
-     * Creates a new user if the login and email are not already used, and sends an
-     * mail with an activation link.
-     * The user needs to be activated on creation.
-     * </p>
+     * POST  /students : Create a new student.
      *
-     * @param managedUserVM the user to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new user, or with status 400 (Bad Request) if the login or email is already in use
+     * @param student the student to create
+     * @return the ResponseEntity with status 201 (Created) and with body the new student, or with status 400 (Bad Request) if the student has already an ID
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PostMapping("/users")
+    @PostMapping("/students")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity createUser(@RequestBody ManagedUserVM managedUserVM) throws URISyntaxException {
-        log.debug("REST request to save User : {}", managedUserVM);
-
-        if (managedUserVM.getId() != null) {
-            return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new user cannot already have an ID"))
-                .body(null);
-        // Lowercase the user login before comparing with database
-        } else if (userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).isPresent()) {
-            return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "userexists", "Login already in use"))
-                .body(null);
-        } else if (userRepository.findOneByEmail(managedUserVM.getEmail()).isPresent()) {
-            return ResponseEntity.badRequest()
-                .headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "Email already in use"))
-                .body(null);
-        } else {
-            User newUser = userService.createStudent(managedUserVM);
-            mailService.sendCreationEmail(newUser);
-            return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
-                .headers(HeaderUtil.createAlert( "userManagement.created", newUser.getLogin()))
-                .body(newUser);
+    public ResponseEntity<Student> createStudent(@RequestBody Student student) throws URISyntaxException {
+        log.debug("REST request to save Student : {}", student);
+        if (student.getId() != null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new student cannot already have an ID")).body(null);
         }
+        Student result = studentRepository.save(student);
+        studentSearchRepository.save(result);
+        return ResponseEntity.created(new URI("/api/students/" + result.getId()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .body(result);
     }
 
     /**
-     * PUT  /users : Updates an existing User.
+     * PUT  /students : Updates an existing student.
      *
-     * @param managedUserVM the user to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated user,
-     * or with status 400 (Bad Request) if the login or email is already in use,
-     * or with status 500 (Internal Server Error) if the user couldn't be updated
+     * @param student the student to update
+     * @return the ResponseEntity with status 200 (OK) and with body the updated student,
+     * or with status 400 (Bad Request) if the student is not valid,
+     * or with status 500 (Internal Server Error) if the student couldnt be updated
+     * @throws URISyntaxException if the Location URI syntax is incorrect
      */
-    @PutMapping("/users")
+    @PutMapping("/students")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<StudentDTO> updateUser(@RequestBody ManagedUserVM managedUserVM) {
-        log.debug("REST request to update User : {}", managedUserVM);
-        Optional<Student> existingUser = userRepository.findOneByEmail(managedUserVM.getEmail());
-        if (existingUser.isPresent() && (!existingUser.get().getId().equals(managedUserVM.getId()))) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "emailexists", "E-mail already in use")).body(null);
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student) throws URISyntaxException {
+        log.debug("REST request to update Student : {}", student);
+        if (student.getId() == null) {
+            return createStudent(student);
         }
-        existingUser = userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase());
-        if (existingUser.isPresent() && (!existingUser.get().getId().equals(managedUserVM.getId()))) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "userexists", "Login already in use")).body(null);
-        }
-        Optional<StudentDTO> updatedUser = userService.updateUser(managedUserVM);
-
-        return ResponseUtil.wrapOrNotFound(updatedUser,
-            HeaderUtil.createAlert("userManagement.updated", managedUserVM.getLogin()));
+        Student result = studentRepository.save(student);
+        studentSearchRepository.save(result);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, student.getId().toString()))
+            .body(result);
     }
 
     /**
-     * GET  /users : get all users.
+     * GET  /students : get all the students.
      *
-     * @param pageable the pagination information
-     * @return the ResponseEntity with status 200 (OK) and with body all users
+     * @return the ResponseEntity with status 200 (OK) and the list of students in body
      */
-    @GetMapping("/users")
+    @GetMapping("/students")
     @Timed
-    public ResponseEntity<List<StudentDTO>> getAllUsers(@ApiParam Pageable pageable) {
-        final Page<StudentDTO> page = userService.getAllManagedUsers(pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/users");
-        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    public List<Student> getAllStudents() {
+        log.debug("REST request to get all Students");
+        List<Student> students = studentRepository.findAll();
+        return students;
     }
 
     /**
-     * GET  /users/:login : get the "login" user.
+     * GET  /students/:id : get the "id" student.
      *
-     * @param login the login of the user to find
-     * @return the ResponseEntity with status 200 (OK) and with body the "login" user, or with status 404 (Not Found)
+     * @param id the id of the student to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the student, or with status 404 (Not Found)
      */
-    @GetMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
+    @GetMapping("/students/{id}")
     @Timed
-    public ResponseEntity<StudentDTO> getUser(@PathVariable String login) {
-        log.debug("REST request to get User : {}", login);
-        return ResponseUtil.wrapOrNotFound(
-            userService.getUserWithAuthoritiesByLogin(login)
-                .map(StudentDTO::new));
+    public ResponseEntity<Student> getStudent(@PathVariable Long id) {
+        log.debug("REST request to get Student : {}", id);
+        Student student = studentRepository.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(student));
     }
 
     /**
-     * DELETE /users/:login : delete the "login" User.
+     * DELETE  /students/:id : delete the "id" student.
      *
-     * @param login the login of the user to delete
+     * @param id the id of the student to delete
      * @return the ResponseEntity with status 200 (OK)
      */
-    @DeleteMapping("/users/{login:" + Constants.LOGIN_REGEX + "}")
+    @DeleteMapping("/students/{id}")
     @Timed
-    @Secured(AuthoritiesConstants.ADMIN)
-    public ResponseEntity<Void> deleteUser(@PathVariable String login) {
-        log.debug("REST request to delete User: {}", login);
-        userService.deleteUser(login);
-        return ResponseEntity.ok().headers(HeaderUtil.createAlert( "userManagement.deleted", login)).build();
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        log.debug("REST request to delete Student : {}", id);
+        studentRepository.delete(id);
+        studentSearchRepository.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 
     /**
-     * SEARCH  /_search/users/:query : search for the User corresponding
+     * SEARCH  /_search/students?query=:query : search for the student corresponding
      * to the query.
      *
-     * @param query the query to search
+     * @param query the query of the student search 
      * @return the result of the search
      */
-    @GetMapping("/_search/users/{query}")
+    @GetMapping("/_search/students")
     @Timed
-    public List<User> search(@PathVariable String query) {
+    public List<Student> searchStudents(@RequestParam String query) {
+        log.debug("REST request to search Students for query {}", query);
         return StreamSupport
-            .stream(userSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+            .stream(studentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+
+
 }

@@ -2,23 +2,47 @@
     "fluentMethods": true,
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "relationshipName": "university",
+            "otherEntityName": "school",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "student"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "portfolio",
+            "otherEntityName": "portfolio",
+            "otherEntityField": "id",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "student"
+        },
+        {
             "relationshipType": "one-to-many",
             "relationshipName": "offeringValue",
             "otherEntityName": "offering",
+            "otherEntityRelationshipName": "student"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "searchingValue",
+            "otherEntityName": "searching",
+            "otherEntityRelationshipName": "student"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "resumes",
+            "otherEntityName": "resume",
             "otherEntityRelationshipName": "student"
         }
     ],
     "fields": [
         {
-            "fieldName": "firstName",
-            "fieldType": "String"
-        },
-        {
-            "fieldName": "lastName",
-            "fieldType": "String"
-        },
-        {
             "fieldName": "matrikelNummer",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "university",
             "fieldType": "String"
         }
     ],

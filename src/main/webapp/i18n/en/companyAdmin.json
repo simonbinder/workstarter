@@ -1,0 +1,25 @@
+{
+    "workstarterApp": {
+        "companyAdmin" : {
+            "home": {
+                "title": "Company Admins",
+                "createLabel": "Create a new Company Admin",
+                "createOrEditLabel": "Create or edit a Company Admin",
+                "search": "Search for Company Admin"
+            },
+            "created": "A new Company Admin is created with identifier {{ param }}",
+            "updated": "A Company Admin is updated with identifier {{ param }}",
+            "deleted": "A Company Admin is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Company Admin {{ id }}?"
+            },
+            "detail": {
+                "title": "Company Admin"
+            },
+            "firstname": "Firstname",
+            "lastname": "Lastname",
+            "companies": "Companies",
+            "company": "Company"
+        }
+    }
+}

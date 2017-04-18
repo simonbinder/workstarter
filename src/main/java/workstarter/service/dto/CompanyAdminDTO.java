@@ -52,17 +52,17 @@ public class CompanyAdminDTO {
 	        // Empty constructor needed for MapStruct.
 	    }
 
-	    public CompanyAdminDTO(CompanyAdmin company) {
-	        this(company.getId(), company.getLogin(), 
-	            company.getEmail(), company.getActivated(), company.getImageUrl(), company.getFirstName(), company.getLastName(),  company.getLangKey(),
-	            company.getCreatedBy(), company.getCreatedDate(), company.getLastModifiedBy(), company.getLastModifiedDate(), company.getWebsite(), 
-	            company.getAuthorities().stream().map(Authority::getName)
+	    public CompanyAdminDTO(CompanyAdmin companyAdmin) {
+	        this(companyAdmin.getId(), companyAdmin.getLogin(), 
+	            companyAdmin.getEmail(), companyAdmin.getActivated(), companyAdmin.getImageUrl(), companyAdmin.getFirstName(), companyAdmin.getLastName(),  companyAdmin.getLangKey(),
+	            companyAdmin.getCreatedBy(), companyAdmin.getCreatedDate(), companyAdmin.getLastModifiedBy(), companyAdmin.getLastModifiedDate(), 
+	            companyAdmin.getAuthorities().stream().map(Authority::getName)
 	                .collect(Collectors.toSet()));
 	    }
 
 	    public CompanyAdminDTO(Long id, String login,
 	        String email, boolean activated, String imageUrl, String langKey, String firstName, String lastName,
-	        String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, String website, 
+	        String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, 
 	        Set<String> authorities) {
 
 	        this.id = id;
@@ -75,7 +75,6 @@ public class CompanyAdminDTO {
 	        this.langKey = langKey;
 	        this.createdBy = createdBy;
 	        this.createdDate = createdDate;
-	        this.website = website;
 	        this.lastModifiedBy = lastModifiedBy;
 	        this.lastModifiedDate = lastModifiedDate;
 	        this.authorities = authorities;

@@ -1,0 +1,53 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "student",
+            "otherEntityName": "student",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "schools",
+            "otherEntityName": "school",
+            "otherEntityRelationshipName": "resume"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "companies",
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "resume"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "internships",
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "resume"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "qualifications",
+            "otherEntityName": "qualification",
+            "otherEntityRelationshipName": "resume"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170410171951",
+    "entityTableName": "resume",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,0 +1,27 @@
+{
+    "workstarterApp": {
+        "company" : {
+            "home": {
+                "title": "Companies",
+                "createLabel": "Company erstellen",
+                "createOrEditLabel": "Company erstellen oder bearbeiten",
+                "search": "Suche nach Company"
+            },
+            "created": "Company erstellt mit ID {{ param }}",
+            "updated": "Company aktualisiert mit ID {{ param }}",
+            "deleted": "Company gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Company {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Company"
+            },
+            "companyName": "Company Name",
+            "companyAdmin": "Company Admin",
+            "resume": "Resume",
+            "resume": "Resume",
+            "jobadvertisment": "Jobadvertisment",
+            "admins": "Admins"
+        }
+    }
+}

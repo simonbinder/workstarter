@@ -9,6 +9,14 @@
                 "main": "Entitäten",
                 "student": "Student",
                 "offering": "Offering",
+                "company": "Company",
+                "companyAdmin": "Company Admin",
+                "jobadvertisment": "Jobadvertisment",
+                "portfolio": "Portfolio",
+                "qualification": "Qualification",
+                "resume": "Resume",
+                "school": "School",
+                "searching": "Searching",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

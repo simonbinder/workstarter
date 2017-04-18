@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "student",
+            "otherEntityName": "student",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "searchingvalues",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170410171951",
+    "entityTableName": "searching",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

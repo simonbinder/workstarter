@@ -1,0 +1,32 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "companies",
+            "otherEntityName": "company",
+            "otherEntityRelationshipName": "companyAdmin"
+        },
+        {
+            "relationshipName": "company",
+            "otherEntityName": "company",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "firstname",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastname",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170410171951",
+    "entityTableName": "company_admin",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

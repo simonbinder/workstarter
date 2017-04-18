@@ -1,0 +1,23 @@
+{
+    "workstarterApp": {
+        "searching" : {
+            "home": {
+                "title": "Searchings",
+                "createLabel": "Create a new Searching",
+                "createOrEditLabel": "Create or edit a Searching",
+                "search": "Search for Searching"
+            },
+            "created": "A new Searching is created with identifier {{ param }}",
+            "updated": "A Searching is updated with identifier {{ param }}",
+            "deleted": "A Searching is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Searching {{ id }}?"
+            },
+            "detail": {
+                "title": "Searching"
+            },
+            "searchingvalues": "Searchingvalues",
+            "student": "Student"
+        }
+    }
+}

@@ -16,10 +16,13 @@
             "detail": {
                 "title": "Student"
             },
-            "firstName": "First Name",
-            "lastName": "Last Name",
             "matrikelNummer": "Matrikel Nummer",
-            "offeringValue": "Offering Value"
+            "university": "University",
+            "university": "University",
+            "portfolio": "Portfolio",
+            "offeringValue": "Offering Value",
+            "searchingValue": "Searching Value",
+            "resumes": "Resumes"
         }
     }
 }

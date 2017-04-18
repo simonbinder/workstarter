@@ -68,6 +68,10 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         new writeFilePlugin(),
         new webpack.WatchIgnorePlugin([
             path.resolve('./src/test'),
-        ])
+        ]),
+        new webpack.ProvidePlugin({
+           $: "jquery",
+           jQuery: "jquery"
+       })
     ]
 });

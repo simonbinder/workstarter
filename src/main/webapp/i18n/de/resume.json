@@ -1,0 +1,28 @@
+{
+    "workstarterApp": {
+        "resume" : {
+            "home": {
+                "title": "Resumes",
+                "createLabel": "Resume erstellen",
+                "createOrEditLabel": "Resume erstellen oder bearbeiten",
+                "search": "Suche nach Resume"
+            },
+            "created": "Resume erstellt mit ID {{ param }}",
+            "updated": "Resume aktualisiert mit ID {{ param }}",
+            "deleted": "Resume gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Resume {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Resume"
+            },
+            "title": "Title",
+            "description": "Description",
+            "student": "Student",
+            "schools": "Schools",
+            "companies": "Companies",
+            "internships": "Internships",
+            "qualifications": "Qualifications"
+        }
+    }
+}

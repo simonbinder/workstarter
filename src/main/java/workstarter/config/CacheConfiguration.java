@@ -45,6 +45,22 @@ public class CacheConfiguration {
             cm.createCache(workstarter.domain.CompanyAdmin.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(workstarter.domain.Student.class.getName() + ".offeringValues", jcacheConfiguration);
             cm.createCache(workstarter.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.Student.class.getName() + ".searchingValues", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Student.class.getName() + ".resumes", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Company.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.Company.class.getName() + ".jobadvertisments", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Company.class.getName() + ".admins", jcacheConfiguration);
+            cm.createCache(workstarter.domain.CompanyAdmin.class.getName() + ".companies", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Jobadvertisment.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.Portfolio.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.Qualification.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.Resume.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.Resume.class.getName() + ".schools", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Resume.class.getName() + ".companies", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Resume.class.getName() + ".internships", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Resume.class.getName() + ".qualifications", jcacheConfiguration);
+            cm.createCache(workstarter.domain.School.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.Searching.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

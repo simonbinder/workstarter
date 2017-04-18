@@ -1,22 +1,20 @@
 package workstarter.repository;
 
 import workstarter.domain.Student;
-import workstarter.domain.User;
-
-import java.time.ZonedDateTime;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.*;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Spring Data JPA repository for the User entity.
+ * Spring Data JPA repository for the Student entity.
  */
-public interface StudentRepository extends JpaRepository<Student, Long> {
+@SuppressWarnings("unused")
+public interface StudentRepository extends JpaRepository<Student,Long> {
 
     Optional<Student> findOneByActivationKey(String activationKey);
 

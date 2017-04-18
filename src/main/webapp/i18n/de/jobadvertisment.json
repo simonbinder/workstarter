@@ -1,0 +1,29 @@
+{
+    "workstarterApp": {
+        "jobadvertisment" : {
+            "home": {
+                "title": "Jobadvertisments",
+                "createLabel": "Jobadvertisment erstellen",
+                "createOrEditLabel": "Jobadvertisment erstellen oder bearbeiten",
+                "search": "Suche nach Jobadvertisment"
+            },
+            "created": "Jobadvertisment erstellt mit ID {{ param }}",
+            "updated": "Jobadvertisment aktualisiert mit ID {{ param }}",
+            "deleted": "Jobadvertisment gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Jobadvertisment {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Jobadvertisment"
+            },
+            "jobname": "Jobname",
+            "description": "Description",
+            "title": "Title",
+            "exercises": "Exercises",
+            "contact": "Contact",
+            "location": "Location",
+            "tasks": "Tasks",
+            "company": "Company"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "workstarterApp": {
+        "portfolio" : {
+            "home": {
+                "title": "Portfolios",
+                "createLabel": "Portfolio erstellen",
+                "createOrEditLabel": "Portfolio erstellen oder bearbeiten",
+                "search": "Suche nach Portfolio"
+            },
+            "created": "Portfolio erstellt mit ID {{ param }}",
+            "updated": "Portfolio aktualisiert mit ID {{ param }}",
+            "deleted": "Portfolio gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Portfolio {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Portfolio"
+            },
+            "title": "Title",
+            "description": "Description",
+            "titleImage": "Title Image",
+            "appendix": "Appendix"
+        }
+    }
+}

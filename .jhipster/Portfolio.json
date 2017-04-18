@@ -1,0 +1,30 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "titleImage",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "appendix",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170410171951",
+    "entityTableName": "portfolio",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

@@ -1,16 +1,18 @@
 package workstarter.domain;
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Objects;
+
+/**
+ * A CompanyAdmin.
+ */
 @Entity
 @DiscriminatorValue("Company")
 @Document(indexName = "company")
@@ -18,27 +20,100 @@ import org.springframework.data.elasticsearch.annotations.Document;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CompanyAdmin extends User {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Size(min = 5, max = 60)
-	@Column(name = "website", length = 60, nullable=true)
-	private String website;
+    @OneToMany(mappedBy = "companyAdmin")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Company> companies = new HashSet<>();
 
-	public CompanyAdmin(){
-		// empty Constructor needed for Hibernate
-	}
-	
-	public String getWebsite() {
-		return website;
+    @ManyToOne
+    private Company company;
+
+    public Set<Company> getCompanies() {
+        return companies;
+    }
+
+    public CompanyAdmin companies(Set<Company> companies) {
+        this.companies = companies;
+        return this;
+    }
+
+    public CompanyAdmin addCompanies(Company company) {
+        this.companies.add(company);
+        company.setCompanyAdmin(this);
+        return this;
+    }
+
+    public CompanyAdmin removeCompanies(Company company) {
+        this.companies.remove(company);
+        company.setCompanyAdmin(null);
+        return this;
+    }
+
+    public void setCompanies(Set<Company> companies) {
+        this.companies = companies;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public CompanyAdmin company(Company company) {
+        this.company = company;
+        return this;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    
+    
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + ((companies == null) ? 0 : companies.hashCode());
+		result = prime * result + ((company == null) ? 0 : company.hashCode());
+		return result;
 	}
 
-	public void setWebsite(String website) {
-		this.website = website;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		CompanyAdmin other = (CompanyAdmin) obj;
+		if (companies == null) {
+			if (other.companies != null)
+				return false;
+		} else if (!companies.equals(other.companies))
+			return false;
+		if (company == null) {
+			if (other.company != null)
+				return false;
+		} else if (!company.equals(other.company))
+			return false;
+		return true;
 	}
 
-	public CompanyAdmin(String website) {
-		this.website = website;
+	@Override
+	public String toString() {
+		return "CompanyAdmin [companies=" + companies + ", company=" + company + ", getId()=" + getId()
+				+ ", getLogin()=" + getLogin() + ", getPassword()=" + getPassword() + ", getEmail()=" + getEmail()
+				+ ", getImageUrl()=" + getImageUrl() + ", getActivated()=" + getActivated() + ", getFirstName()="
+				+ getFirstName() + ", getLastName()=" + getLastName() + ", getActivationKey()=" + getActivationKey()
+				+ ", getResetKey()=" + getResetKey() + ", getResetDate()=" + getResetDate() + ", getLangKey()="
+				+ getLangKey() + ", getAuthorities()=" + getAuthorities() + ", hashCode()=" + hashCode()
+				+ ", toString()=" + super.toString() + ", getCreatedBy()=" + getCreatedBy() + ", getCreatedDate()="
+				+ getCreatedDate() + ", getLastModifiedBy()=" + getLastModifiedBy() + ", getLastModifiedDate()="
+				+ getLastModifiedDate() + ", getClass()=" + getClass() + "]";
 	}
-	
-	
+    
+    
+
 }

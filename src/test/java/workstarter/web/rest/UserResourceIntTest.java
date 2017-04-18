@@ -4,6 +4,7 @@ import workstarter.WorkstarterApp;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.StudentRepository;
+import workstarter.repository.search.StudentSearchRepository;
 import workstarter.repository.search.UserSearchRepository;
 import workstarter.service.MailService;
 import workstarter.service.StudentService;
@@ -72,7 +73,7 @@ public class UserResourceIntTest {
     private StudentRepository userRepository;
 
     @Autowired
-    private UserSearchRepository userSearchRepository;
+    private StudentSearchRepository userSearchRepository;
 
     @Autowired
     private MailService mailService;
@@ -99,7 +100,7 @@ public class UserResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        StudentResource userResource = new StudentResource(userRepository, mailService, userService, userSearchRepository);
+        StudentResource userResource = new StudentResource(userRepository, userSearchRepository);
         this.restUserMockMvc = MockMvcBuilders.standaloneSetup(userResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

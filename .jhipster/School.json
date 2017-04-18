@@ -1,0 +1,33 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "resume",
+            "otherEntityName": "resume",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "address",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "coreSubjects",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170410171951",
+    "entityTableName": "school",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

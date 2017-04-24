@@ -1,0 +1,82 @@
+
+
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myJobadvertismentLabel" jhiTranslate="workstarterApp.jobadvertisment.home.createOrEditLabel">Create or edit a Jobadvertisment</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!jobadvertisment.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="jobadvertisment.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="workstarterApp.jobadvertisment.jobname" for="field_jobname">Jobname</label>
+            <input type="text" class="form-control" name="jobname" id="field_jobname"
+                [(ngModel)]="jobadvertisment.jobname"
+            required />
+            <div [hidden]="!(editForm.controls.jobname?.dirty && editForm.controls.jobname?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.jobname?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="workstarterApp.jobadvertisment.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="jobadvertisment.description"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="workstarterApp.jobadvertisment.title" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                [(ngModel)]="jobadvertisment.title"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="workstarterApp.jobadvertisment.exercises" for="field_exercises">Exercises</label>
+            <input type="text" class="form-control" name="exercises" id="field_exercises"
+                [(ngModel)]="jobadvertisment.exercises"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="workstarterApp.jobadvertisment.contact" for="field_contact">Contact</label>
+            <input type="text" class="form-control" name="contact" id="field_contact"
+                [(ngModel)]="jobadvertisment.contact"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="workstarterApp.jobadvertisment.location" for="field_location">Location</label>
+            <input type="text" class="form-control" name="location" id="field_location"
+                [(ngModel)]="jobadvertisment.location"
+             />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="workstarterApp.jobadvertisment.tasks" for="field_tasks">Tasks</label>
+            <input type="text" class="form-control" name="tasks" id="field_tasks"
+                [(ngModel)]="jobadvertisment.tasks"
+             />
+        </div>
+
+        <div class="form-group">
+            <label jhiTranslate="workstarterApp.jobadvertisment.company" for="field_company">Company</label>
+            <select class="form-control" id="field_company" name="company" [(ngModel)]="jobadvertisment.company" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="companyOption.id === jobadvertisment.company?.id ? jobadvertisment.company : companyOption" *ngFor="let companyOption of companies; trackBy: trackCompanyById">{{companyOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

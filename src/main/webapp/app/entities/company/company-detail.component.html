@@ -1,0 +1,43 @@
+
+<div *ngIf="company">
+    <h2><span jhiTranslate="workstarterApp.company.detail.title">Company</span> {{company.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="workstarterApp.company.companyName">Company Name</span></dt>
+        <dd>
+            <span>{{company.companyName}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.company.companyAdmin">Company Admin</span></dt>
+        <dd>
+            <div *ngIf="company.companyAdmin">
+                <a [routerLink]="['/company-admin', company.companyAdmin?.id]">{{company.companyAdmin?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.company.resume">Resume</span></dt>
+        <dd>
+            <div *ngIf="company.resume">
+                <a [routerLink]="['/resume', company.resume?.id]">{{company.resume?.id}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.company.resume">Resume</span></dt>
+        <dd>
+            <div *ngIf="company.resume">
+                <a [routerLink]="['/resume', company.resume?.id]">{{company.resume?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'company/'+ company.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

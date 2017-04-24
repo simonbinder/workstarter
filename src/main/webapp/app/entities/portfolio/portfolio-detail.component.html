@@ -1,0 +1,37 @@
+
+<div *ngIf="portfolio">
+    <h2><span jhiTranslate="workstarterApp.portfolio.detail.title">Portfolio</span> {{portfolio.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="workstarterApp.portfolio.title">Title</span></dt>
+        <dd>
+            <span>{{portfolio.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.portfolio.description">Description</span></dt>
+        <dd>
+            <span>{{portfolio.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.portfolio.titleImage">Title Image</span></dt>
+        <dd>
+            <span>{{portfolio.titleImage}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.portfolio.appendix">Appendix</span></dt>
+        <dd>
+            <span>{{portfolio.appendix}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'portfolio/'+ portfolio.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

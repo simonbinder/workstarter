@@ -1,0 +1,35 @@
+
+<div *ngIf="qualification">
+    <h2><span jhiTranslate="workstarterApp.qualification.detail.title">Qualification</span> {{qualification.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="workstarterApp.qualification.name">Name</span></dt>
+        <dd>
+            <span>{{qualification.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.qualification.description">Description</span></dt>
+        <dd>
+            <span>{{qualification.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.qualification.resume">Resume</span></dt>
+        <dd>
+            <div *ngIf="qualification.resume">
+                <a [routerLink]="['/resume', qualification.resume?.id]">{{qualification.resume?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'qualification/'+ qualification.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

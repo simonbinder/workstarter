@@ -1,0 +1,35 @@
+
+<div *ngIf="companyAdmin">
+    <h2><span jhiTranslate="workstarterApp.companyAdmin.detail.title">Company Admin</span> {{companyAdmin.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="workstarterApp.companyAdmin.firstname">Firstname</span></dt>
+        <dd>
+            <span>{{companyAdmin.firstname}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.companyAdmin.lastname">Lastname</span></dt>
+        <dd>
+            <span>{{companyAdmin.lastname}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.companyAdmin.company">Company</span></dt>
+        <dd>
+            <div *ngIf="companyAdmin.company">
+                <a [routerLink]="['/company', companyAdmin.company?.id]">{{companyAdmin.company?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'company-admin/'+ companyAdmin.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,61 @@
+import { Injectable } from '@angular/core';
+import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes, CanActivate } from '@angular/router';
+
+import { UserRouteAccessService } from '../../shared';
+import { PaginationUtil } from 'ng-jhipster';
+
+import { CompanyComponent } from './company.component';
+import { CompanyDetailComponent } from './company-detail.component';
+import { CompanyPopupComponent } from './company-dialog.component';
+import { CompanyDeletePopupComponent } from './company-delete-dialog.component';
+
+import { Principal } from '../../shared';
+
+
+export const companyRoute: Routes = [
+  {
+    path: 'company',
+    component: CompanyComponent,
+    data: {
+        authorities: ['ROLE_USER'],
+        pageTitle: 'workstarterApp.company.home.title'
+    }
+  }, {
+    path: 'company/:id',
+    component: CompanyDetailComponent,
+    data: {
+        authorities: ['ROLE_USER'],
+        pageTitle: 'workstarterApp.company.home.title'
+    }
+  }
+];
+
+export const companyPopupRoute: Routes = [
+  {
+    path: 'company-new',
+    component: CompanyPopupComponent,
+    data: {
+        authorities: ['ROLE_USER'],
+        pageTitle: 'workstarterApp.company.home.title'
+    },
+    outlet: 'popup'
+  },
+  {
+    path: 'company/:id/edit',
+    component: CompanyPopupComponent,
+    data: {
+        authorities: ['ROLE_USER'],
+        pageTitle: 'workstarterApp.company.home.title'
+    },
+    outlet: 'popup'
+  },
+  {
+    path: 'company/:id/delete',
+    component: CompanyDeletePopupComponent,
+    data: {
+        authorities: ['ROLE_USER'],
+        pageTitle: 'workstarterApp.company.home.title'
+    },
+    outlet: 'popup'
+  }
+];

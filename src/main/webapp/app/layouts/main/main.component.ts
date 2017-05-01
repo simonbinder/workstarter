@@ -7,7 +7,10 @@ import { JhiLanguageHelper, StateStorageService } from '../../shared';
     selector: 'jhi-main',
     templateUrl: './main.component.html'
 })
-export class JhiMainComponent implements OnInit {
+export class JhiMainComponent {
+    name = "Maxi";
+    
+    /*implements OnInit {
 
     constructor(
         private jhiLanguageHelper: JhiLanguageHelper,
@@ -43,5 +46,5 @@ export class JhiMainComponent implements OnInit {
                 this.$storageService.storeDestinationState(destination, params, from);
             }
         });
-    }
+    }*/
 }

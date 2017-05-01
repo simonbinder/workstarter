@@ -1,0 +1,45 @@
+<div class="container">
+
+    <div class="contact">
+
+        <div *ngIf="contactTel != null">
+            <a class="contact-tel" href="#">
+                <img src="../../../content/images/telephoneIcon.svg" class="contacticon">
+                {{contactTel}}
+            </a>
+        </div>
+
+        <div *ngIf="contactMes != null" >
+            <a class="contact-mes" href="#">
+                <img src="../../../content/images/messageIcon.svg" class="contacticon">mail
+            </a>
+        </div>
+
+    </div>
+
+    <div class="centered-box profilheader">
+        <div class="profile-img">
+            <img src="http://grosse-bewerbungsfotos.de/wp-content/uploads/referenzen-bewerbungfotos-freiburg/bewerbungsfotos-freiburg-bewerbungsbilder-referenz-kim.jpg">
+        </div>
+        <h1>{{name}}</h1>
+        <p>{{status}}</p>
+    </div>
+
+
+    <div class="spruch"></div>
+
+    <div class="row">
+        <div class="col-6 gives">
+            <div class="small-card" *ngFor="let give of gives">
+                <span>{{give}}</span>
+            </div>
+        </div>
+        <div class="col-6 searches">
+            <div class="small-card" *ngFor="let search of searches">
+                <span>{{search}}</span>
+            </div>
+        </div>
+    </div>
+
+
+</div>

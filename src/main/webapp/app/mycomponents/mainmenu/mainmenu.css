@@ -1,0 +1,30 @@
+.navbar
+{
+  background: #f15f79; /* fallback for old browsers */
+  background: -webkit-linear-gradient(left, #f15f79, #b24592);
+  background: -moz-linear-gradient(left, #f15f79, #b24592);
+  background: -o-linear-gradient(left, #f15f79, #b24592);
+  background: linear-gradient(to right, #f15f79, #b24592); /* Chrome 10-25, Safari 5.1-6 */ /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */padding: 0 1rem;
+  margin-bottom: 8px;
+}
+
+.navbar a, .navbar-light .navbar-nav .open > .nav-link, .navbar-light .navbar-nav .active > .nav-link, .navbar-light .navbar-nav .nav-link.open, .navbar-light .navbar-nav .nav-link.active {
+  color: white;
+}
+
+.btn-outline-secondary
+{
+  color: white;
+  border-color: white;
+}
+
+.logo {
+    height: 35px;
+    width: 70px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url("../../../content/images/octopusWhite.png") no-repeat center center;
+    background-size: contain;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}

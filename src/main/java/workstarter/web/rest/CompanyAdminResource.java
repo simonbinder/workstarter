@@ -180,67 +180,26 @@ public class CompanyAdminResource {
 
 	@PostMapping(path = "/company-admins/register", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE })
 	@Timed
-	public ResponseEntity registerAccount(@Valid @RequestBody ManagedCompanyAdminVM managedUserVM) {
+	public ResponseEntity registerAccount(@Valid @RequestBody ManagedCompanyAdminVM managedCompanyAdminVM) {
 
 		HttpHeaders textPlainHeaders = new HttpHeaders();
 		textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
 
-		return companyAdminRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
-				.map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-				.orElseGet(() -> companyAdminRepository.findOneByEmail(managedUserVM.getEmail())
+		return companyAdminRepository.findOneByLogin(managedCompanyAdminVM.getLogin().toLowerCase())
+				.map(companyAdmin -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
+				.orElseGet(() -> companyAdminRepository.findOneByEmail(managedCompanyAdminVM.getEmail())
 						.map(user -> new ResponseEntity<>("e-mail address already in use", textPlainHeaders,
 								HttpStatus.BAD_REQUEST))
 						.orElseGet(() -> {
-							CompanyAdmin companyAdmin = companyAdminService.createCompany(managedUserVM.getLogin(),
-									managedUserVM.getPassword(), managedUserVM.getFirstName(),
-									managedUserVM.getLastName(), managedUserVM.getEmail().toLowerCase(),
-									managedUserVM.getImageUrl(), managedUserVM.getLangKey());
+							CompanyAdmin companyAdmin = companyAdminService.createCompany(managedCompanyAdminVM.getLogin(),
+									managedCompanyAdminVM.getPassword(), managedCompanyAdminVM.getFirstName(),
+									managedCompanyAdminVM.getLastName(), managedCompanyAdminVM.getEmail().toLowerCase(),
+									managedCompanyAdminVM.getImageUrl(), managedCompanyAdminVM.getLangKey());
 
 							mailService.sendActivationEmail(companyAdmin);
 							return new ResponseEntity<>(HttpStatus.CREATED);
 						}));
 	}
-
-	
-    /**
-     * GET  /activate : activate the registered user.
-     *
-     * @param key the activation key
-     * @return the ResponseEntity with status 200 (OK) and the activated user in body, or status 500 (Internal Server Error) if the user couldn't be activated
-     */
-    @GetMapping("/company-admins/activate")
-    @Timed
-    public ResponseEntity<String> activateAccount(@RequestParam(value = "key") String key) {
-        return companyAdminService.activateRegistration(key)
-            .map(user -> new ResponseEntity<String>(HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-    }
-    
-    /**
-     * GET  /authenticate : check if the user is authenticated, and return its login.
-     *
-     * @param request the HTTP request
-     * @return the login if the user is authenticated
-     */
-    @GetMapping("/company-admins/authenticate")
-    @Timed
-    public String isAuthenticated(HttpServletRequest request) {
-        log.debug("REST request to check if the current user is authenticated");
-        return request.getRemoteUser();
-    }
-    
-    /**
-     * GET  /account : get the current user.
-     *
-     * @return the ResponseEntity with status 200 (OK) and the current user in body, or status 500 (Internal Server Error) if the user couldn't be returned
-     */
-    @GetMapping("/company-admins/account")
-    @Timed
-    public ResponseEntity<CompanyAdminDTO> getAccount() {
-        return Optional.ofNullable(companyAdminService.getUserWithAuthorities())
-            .map(companyadmin -> new ResponseEntity<>(new CompanyAdminDTO(companyadmin), HttpStatus.OK))
-            .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-    }
 
     /**
      * POST  /account : update the current user information.
@@ -263,64 +222,5 @@ public class CompanyAdminResource {
                 return new ResponseEntity(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-    }
-
-    /**
-     * POST  /account/change_password : changes the current user's password
-     *
-     * @param password the new password
-     * @return the ResponseEntity with status 200 (OK), or status 400 (Bad Request) if the new password is not strong enough
-     */
-    @PostMapping(path = "/company-admins/change_password",
-        produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
-    public ResponseEntity changePassword(@RequestBody String password) {
-        if (!checkPasswordLength(password)) {
-            return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
-        }
-        companyAdminService.changePassword(password);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    /**
-     * POST   /account/reset_password/init : Send an e-mail to reset the password of the user
-     *
-     * @param mail the mail of the user
-     * @return the ResponseEntity with status 200 (OK) if the e-mail was sent, or status 400 (Bad Request) if the e-mail address is not registered
-     */
-    @PostMapping(path = "/company-admins/reset_password/init",
-        produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
-    public ResponseEntity requestPasswordReset(@RequestBody String mail) {
-        return companyAdminService.requestPasswordReset(mail)
-            .map(user -> {
-                mailService.sendPasswordResetMail(user);
-                return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
-            }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
-    }
-
-    /**
-     * POST   /account/reset_password/finish : Finish to reset the password of the user
-     *
-     * @param keyAndPassword the generated key and the new password
-     * @return the ResponseEntity with status 200 (OK) if the password has been reset,
-     * or status 400 (Bad Request) or 500 (Internal Server Error) if the password could not be reset
-     */
-    @PostMapping(path = "/company-admins/reset_password/finish",
-        produces = MediaType.TEXT_PLAIN_VALUE)
-    @Timed
-    public ResponseEntity<String> finishPasswordReset(@RequestBody KeyAndPasswordVM keyAndPassword) {
-        if (!checkPasswordLength(keyAndPassword.getNewPassword())) {
-            return new ResponseEntity<>("Incorrect password", HttpStatus.BAD_REQUEST);
-        }
-        return companyAdminService.completePasswordReset(keyAndPassword.getNewPassword(), keyAndPassword.getKey())
-              .map(user -> new ResponseEntity<String>(HttpStatus.OK))
-              .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-    }
-
-    private boolean checkPasswordLength(String password) {
-        return !StringUtils.isEmpty(password) &&
-            password.length() >= ManagedCompanyAdminVM.PASSWORD_MIN_LENGTH &&
-            password.length() <= ManagedCompanyAdminVM.PASSWORD_MAX_LENGTH;
     }
 }

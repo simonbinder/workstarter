@@ -6,6 +6,7 @@ import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
 import workstarter.config.Constants;
 import workstarter.repository.StudentRepository;
+import workstarter.repository.search.StudentSearchRepository;
 import workstarter.repository.search.UserSearchRepository;
 import workstarter.security.AuthoritiesConstants;
 import workstarter.security.SecurityUtils;
@@ -39,16 +40,16 @@ public class StudentService {
 	private final StudentRepository studentRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final SocialService socialService;
-	private final UserSearchRepository userSearchRepository;
+	private final StudentSearchRepository studentSearchRepository;
 	private final AuthorityRepository authorityRepository;
 
 	public StudentService(StudentRepository userRepository, PasswordEncoder passwordEncoder,
-			SocialService socialService, UserSearchRepository userSearchRepository,
+			SocialService socialService, StudentSearchRepository studentSearchRepository,
 			AuthorityRepository authorityRepository) {
 		this.studentRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
-		this.userSearchRepository = userSearchRepository;
+		this.studentSearchRepository = studentSearchRepository;
 		this.authorityRepository = authorityRepository;
 	}
 
@@ -58,7 +59,7 @@ public class StudentService {
 			// activate given user for the registration key.
 			student.setActivated(true);
 			student.setActivationKey(null);
-			userSearchRepository.save(student);
+			studentSearchRepository.save(student);
 			log.debug("Activated user: {}", student);
 			return student;
 		});
@@ -108,7 +109,7 @@ public class StudentService {
 		authorities.add(authority);
 		newStudent.setAuthorities(authorities);
 		studentRepository.save(newStudent);
-		userSearchRepository.save(newStudent);
+		studentSearchRepository.save(newStudent);
 		log.debug("Created Information for User: {}", newStudent);
 		return newStudent;
 	}
@@ -136,7 +137,7 @@ public class StudentService {
 		student.setResetDate(ZonedDateTime.now());
 		student.setActivated(true);
 		studentRepository.save(student);
-		userSearchRepository.save(student);
+		studentSearchRepository.save(student);
 		log.debug("Created Information for User: {}", student);
 		return student;
 	}
@@ -160,7 +161,7 @@ public class StudentService {
 			student.setLastName(lastName);
 			student.setEmail(email);
 			student.setLangKey(langKey);
-			userSearchRepository.save(student);
+			studentSearchRepository.save(student);
 			log.debug("Changed Information for User: {}", student);
 		});
 	}
@@ -193,7 +194,7 @@ public class StudentService {
 		studentRepository.findOneByLogin(login).ifPresent(student -> {
 			socialService.deleteUserSocialConnection(student.getLogin());
 			studentRepository.delete(student);
-			userSearchRepository.delete(student);
+			studentSearchRepository.delete(student);
 			log.debug("Deleted User: {}", student);
 		});
 	}
@@ -239,7 +240,7 @@ public class StudentService {
 		for (Student student : students) {
 			log.debug("Deleting not activated user {}", student.getLogin());
 			studentRepository.delete(student);
-			userSearchRepository.delete(student);
+			studentSearchRepository.delete(student);
 		}
 	}
 }

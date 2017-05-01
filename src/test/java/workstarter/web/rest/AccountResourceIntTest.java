@@ -10,7 +10,7 @@ import workstarter.service.MailService;
 import workstarter.web.rest.TestUtil;
 import workstarter.service.StudentService;
 import workstarter.service.dto.StudentDTO;
-import workstarter.web.rest.vm.ManagedUserVM;
+import workstarter.web.rest.vm.ManagedCompanyAdminVM;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -127,7 +127,7 @@ public class AccountResourceIntTest {
 	@Test
 	@Transactional
 	public void testRegisterValid() throws Exception {
-		ManagedUserVM validUser = new ManagedUserVM(null, // id
+		ManagedCompanyAdminVM validUser = new ManagedCompanyAdminVM(null, // id
 				"joe", // login
 				"password", // password
 				"Joe", // firstName
@@ -154,7 +154,7 @@ public class AccountResourceIntTest {
 	@Test
 	@Transactional
 	public void testRegisterInvalidLogin() throws Exception {
-		ManagedUserVM invalidUser = new ManagedUserVM(null, // id
+		ManagedCompanyAdminVM invalidUser = new ManagedCompanyAdminVM(null, // id
 				"funky-log!n", // login <-- invalid
 				"password", // password
 				"Funky", // firstName
@@ -180,7 +180,7 @@ public class AccountResourceIntTest {
 	@Test
 	@Transactional
 	public void testRegisterInvalidEmail() throws Exception {
-		ManagedUserVM invalidUser = new ManagedUserVM(null, // id
+		ManagedCompanyAdminVM invalidUser = new ManagedCompanyAdminVM(null, // id
 				"bob", // login
 				"password", // password
 				"Bob", // firstName
@@ -206,7 +206,7 @@ public class AccountResourceIntTest {
 	@Test
 	@Transactional
 	public void testRegisterInvalidPassword() throws Exception {
-		ManagedUserVM invalidUser = new ManagedUserVM(null, // id
+		ManagedCompanyAdminVM invalidUser = new ManagedCompanyAdminVM(null, // id
 				"bob", // login
 				"123", // password with only 3 digits
 				"Bob", // firstName
@@ -233,7 +233,7 @@ public class AccountResourceIntTest {
     @Transactional
     public void testRegisterDuplicateLogin() throws Exception {
         // Good
-        ManagedUserVM validUser = new ManagedUserVM(
+        ManagedCompanyAdminVM validUser = new ManagedCompanyAdminVM(
             null,                   // id
             "alice",                // login
             "password",             // password
@@ -251,7 +251,7 @@ public class AccountResourceIntTest {
 			Collections.emptySet());
 
         // Duplicate login, different email
-        ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), validUser.getLogin(), validUser.getPassword(), validUser.getFirstName(), validUser.getLastName(),
+        ManagedCompanyAdminVM duplicatedUser = new ManagedCompanyAdminVM(validUser.getId(), validUser.getLogin(), validUser.getPassword(), validUser.getFirstName(), validUser.getLastName(),
             "alicejr@example.com", true, validUser.getImageUrl(), validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(), validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities(), validUser.getOfferingValues());
 
         // Good user
@@ -276,7 +276,7 @@ public class AccountResourceIntTest {
 	@Transactional
 	public void testRegisterDuplicateEmail() throws Exception {
 		// Good
-		ManagedUserVM validUser = new ManagedUserVM(null, // id
+		ManagedCompanyAdminVM validUser = new ManagedCompanyAdminVM(null, // id
 				"john", // login
 				"password", // password
 				"John", // firstName
@@ -294,7 +294,7 @@ public class AccountResourceIntTest {
 				);
 
 		// Duplicate e-mail, different login
-		ManagedUserVM duplicatedUser = new ManagedUserVM(validUser.getId(), "johnjr", validUser.getPassword(),
+		ManagedCompanyAdminVM duplicatedUser = new ManagedCompanyAdminVM(validUser.getId(), "johnjr", validUser.getPassword(),
 				validUser.getLogin(), validUser.getLastName(), validUser.getEmail(), true, validUser.getImageUrl(),
 				validUser.getLangKey(), validUser.getCreatedBy(), validUser.getCreatedDate(),
 				validUser.getLastModifiedBy(), validUser.getLastModifiedDate(), validUser.getAuthorities(), validUser.getOfferingValues());
@@ -314,7 +314,7 @@ public class AccountResourceIntTest {
 	@Test
 	@Transactional
 	public void testRegisterAdminIsIgnored() throws Exception {
-		ManagedUserVM validUser = new ManagedUserVM(null, // id
+		ManagedCompanyAdminVM validUser = new ManagedCompanyAdminVM(null, // id
 				"badguy", // login
 				"password", // password
 				"Bad", // firstName

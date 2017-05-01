@@ -9,7 +9,7 @@ import workstarter.repository.search.UserSearchRepository;
 import workstarter.service.MailService;
 import workstarter.service.StudentService;
 import workstarter.web.rest.errors.ExceptionTranslator;
-import workstarter.web.rest.vm.ManagedUserVM;
+import workstarter.web.rest.vm.ManagedCompanyAdminVM;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -141,7 +141,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             null,
             DEFAULT_LOGIN,
             DEFAULT_PASSWORD,
@@ -184,7 +184,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             1L,
             DEFAULT_LOGIN,
             DEFAULT_PASSWORD,
@@ -224,7 +224,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             null,
             DEFAULT_LOGIN, // this login should already be used
             DEFAULT_PASSWORD,
@@ -264,7 +264,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             null,
             "anotherlogin",
             DEFAULT_PASSWORD,
@@ -353,7 +353,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             updatedUser.getId(),
             updatedUser.getLogin(),
             UPDATED_PASSWORD,
@@ -401,7 +401,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             updatedUser.getId(),
             UPDATED_LOGIN,
             UPDATED_PASSWORD,
@@ -461,7 +461,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             updatedUser.getId(),
             updatedUser.getLogin(),
             updatedUser.getPassword(),
@@ -510,7 +510,7 @@ public class UserResourceIntTest {
         Set<String> authorities = new HashSet<>();
         Set<String> offeringValues = new HashSet<>();
         authorities.add("ROLE_USER");
-        ManagedUserVM managedUserVM = new ManagedUserVM(
+        ManagedCompanyAdminVM managedUserVM = new ManagedCompanyAdminVM(
             updatedUser.getId(),
             "jhipster", // this login should already be used by anotherUser
             updatedUser.getPassword(),

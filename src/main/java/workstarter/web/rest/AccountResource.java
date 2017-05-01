@@ -10,7 +10,7 @@ import workstarter.service.MailService;
 import workstarter.service.StudentService;
 import workstarter.service.dto.StudentDTO;
 import workstarter.web.rest.vm.KeyAndPasswordVM;
-import workstarter.web.rest.vm.ManagedUserVM;
+import workstarter.web.rest.vm.ManagedCompanyAdminVM;
 import workstarter.web.rest.util.HeaderUtil;
 
 import org.apache.commons.lang3.StringUtils;
@@ -58,7 +58,7 @@ public class AccountResource {
     @PostMapping(path = "/register",
                     produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
     @Timed
-    public ResponseEntity registerAccount(@Valid @RequestBody ManagedUserVM managedUserVM) {
+    public ResponseEntity registerAccount(@Valid @RequestBody ManagedCompanyAdminVM managedUserVM) {
 
         HttpHeaders textPlainHeaders = new HttpHeaders();
         textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
@@ -197,7 +197,7 @@ public class AccountResource {
 
     private boolean checkPasswordLength(String password) {
         return !StringUtils.isEmpty(password) &&
-            password.length() >= ManagedUserVM.PASSWORD_MIN_LENGTH &&
-            password.length() <= ManagedUserVM.PASSWORD_MAX_LENGTH;
+            password.length() >= ManagedCompanyAdminVM.PASSWORD_MIN_LENGTH &&
+            password.length() <= ManagedCompanyAdminVM.PASSWORD_MAX_LENGTH;
     }
 }

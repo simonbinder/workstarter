@@ -11,7 +11,10 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
     selector: 'jhi-student',
-    templateUrl: './student.component.html'
+    templateUrl: './student.component.html',
+    styleUrls: [
+        'student.scss'
+    ]
 })
 export class StudentComponent implements OnInit, OnDestroy {
 students: Student[];

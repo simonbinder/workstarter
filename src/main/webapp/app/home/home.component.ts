@@ -3,6 +3,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { Account, LoginModalService, Principal } from '../shared';
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'jhi-home',
@@ -20,7 +21,8 @@ export class HomeComponent implements OnInit {
         private jhiLanguageService: JhiLanguageService,
         private principal: Principal,
         private loginModalService: LoginModalService,
-        private eventManager: EventManager
+        private eventManager: EventManager,
+        private router: Router
     ) {
         this.jhiLanguageService.setLocations(['home']);
     }
@@ -30,6 +32,8 @@ export class HomeComponent implements OnInit {
             this.account = account;
         });
         this.registerAuthenticationSuccess();
+
+        this.gotoStudent(1);
     }
 
     registerAuthenticationSuccess() {
@@ -46,5 +50,9 @@ export class HomeComponent implements OnInit {
 
     login() {
         this.modalRef = this.loginModalService.open();
+    }
+
+    gotoStudent(id: Number): void {
+        this.router.navigate(['/student', id]);
     }
 }

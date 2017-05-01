@@ -90,7 +90,7 @@ public class CompanyAdminService {
     }
 
     public CompanyAdmin createCompany(String login, String password, String firstName, String lastName, String email,
-        String imageUrl, String langKey, String website) {
+        String imageUrl, String langKey) {
 
         CompanyAdmin newCompany = new CompanyAdmin();
         Authority authority = authorityRepository.findOne(AuthoritiesConstants.USER);

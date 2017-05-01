@@ -12,6 +12,7 @@ import workstarter.security.SecurityUtils;
 import workstarter.service.util.RandomUtil;
 import workstarter.service.dto.StudentDTO;
 
+import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -24,6 +25,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 /**
  * Service class for managing users.
  */
@@ -32,7 +36,7 @@ import java.util.*;
 public class StudentService {
 
 	private final Logger log = LoggerFactory.getLogger(StudentService.class);
-	private final StudentRepository userRepository;
+	private final StudentRepository studentRepository;
 	private final PasswordEncoder passwordEncoder;
 	private final SocialService socialService;
 	private final UserSearchRepository userSearchRepository;
@@ -41,7 +45,7 @@ public class StudentService {
 	public StudentService(StudentRepository userRepository, PasswordEncoder passwordEncoder,
 			SocialService socialService, UserSearchRepository userSearchRepository,
 			AuthorityRepository authorityRepository) {
-		this.userRepository = userRepository;
+		this.studentRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
 		this.userSearchRepository = userSearchRepository;
@@ -50,7 +54,7 @@ public class StudentService {
 
 	public Optional<Student> activateRegistration(String key) {
 		log.debug("Activating user for activation key {}", key);
-		return userRepository.findOneByActivationKey(key).map(student -> {
+		return studentRepository.findOneByActivationKey(key).map(student -> {
 			// activate given user for the registration key.
 			student.setActivated(true);
 			student.setActivationKey(null);
@@ -63,7 +67,7 @@ public class StudentService {
 	public Optional<Student> completePasswordReset(String newPassword, String key) {
 		log.debug("Reset user password for reset key {}", key);
 
-		return userRepository.findOneByResetKey(key).filter(user -> {
+		return studentRepository.findOneByResetKey(key).filter(user -> {
 			ZonedDateTime oneDayAgo = ZonedDateTime.now().minusHours(24);
 			return user.getResetDate().isAfter(oneDayAgo);
 		}).map(user -> {
@@ -75,7 +79,7 @@ public class StudentService {
 	}
 
 	public Optional<Student> requestPasswordReset(String mail) {
-		return userRepository.findOneByEmail(mail).filter(User::getActivated).map(user -> {
+		return studentRepository.findOneByEmail(mail).filter(User::getActivated).map(user -> {
 			user.setResetKey(RandomUtil.generateResetKey());
 			user.setResetDate(ZonedDateTime.now());
 			return user;
@@ -103,7 +107,7 @@ public class StudentService {
 		newStudent.setActivationKey(RandomUtil.generateActivationKey());
 		authorities.add(authority);
 		newStudent.setAuthorities(authorities);
-		userRepository.save(newStudent);
+		studentRepository.save(newStudent);
 		userSearchRepository.save(newStudent);
 		log.debug("Created Information for User: {}", newStudent);
 		return newStudent;
@@ -131,7 +135,7 @@ public class StudentService {
 		student.setResetKey(RandomUtil.generateResetKey());
 		student.setResetDate(ZonedDateTime.now());
 		student.setActivated(true);
-		userRepository.save(student);
+		studentRepository.save(student);
 		userSearchRepository.save(student);
 		log.debug("Created Information for User: {}", student);
 		return student;
@@ -151,7 +155,7 @@ public class StudentService {
 	 *            language key
 	 */
 	public void updateStudent(String firstName, String lastName, String email, String langKey) {
-		userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(student -> {
+		studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(student -> {
 			student.setFirstName(firstName);
 			student.setLastName(lastName);
 			student.setEmail(email);
@@ -169,7 +173,7 @@ public class StudentService {
 	 * @return updated user
 	 */
 	public Optional<StudentDTO> updateUser(StudentDTO studentDTO) {
-		return Optional.of(userRepository.findOne(studentDTO.getId())).map(student -> {
+		return Optional.of(studentRepository.findOne(studentDTO.getId())).map(student -> {
 			student.setLogin(studentDTO.getLogin());
 			student.setFirstName(studentDTO.getFirstName());
 			student.setLastName(studentDTO.getLastName());
@@ -186,16 +190,16 @@ public class StudentService {
 	}
 
 	public void deleteUser(String login) {
-		userRepository.findOneByLogin(login).ifPresent(student -> {
+		studentRepository.findOneByLogin(login).ifPresent(student -> {
 			socialService.deleteUserSocialConnection(student.getLogin());
-			userRepository.delete(student);
+			studentRepository.delete(student);
 			userSearchRepository.delete(student);
 			log.debug("Deleted User: {}", student);
 		});
 	}
 
 	public void changePassword(String password) {
-		userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(student -> {
+		studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(student -> {
 			String encryptedPassword = passwordEncoder.encode(password);
 			student.setPassword(encryptedPassword);
 			log.debug("Changed password for User: {}", student);
@@ -204,22 +208,22 @@ public class StudentService {
 
 	@Transactional(readOnly = true)
 	public Page<StudentDTO> getAllManagedUsers(Pageable pageable) {
-		return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(StudentDTO::new);
+		return studentRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(StudentDTO::new);
 	}
 
 	@Transactional(readOnly = true)
 	public Optional<Student> getUserWithAuthoritiesByLogin(String login) {
-		return userRepository.findOneWithAuthoritiesByLogin(login);
+		return studentRepository.findOneWithAuthoritiesByLogin(login);
 	}
 
 	@Transactional(readOnly = true)
 	public Student getUserWithAuthorities(Long id) {
-		return userRepository.findOneWithAuthoritiesById(id);
+		return studentRepository.findOneWithAuthoritiesById(id);
 	}
 
 	@Transactional(readOnly = true)
 	public Student getUserWithAuthorities() {
-		return userRepository.findOneWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin()).orElse(null);
+		return studentRepository.findOneWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin()).orElse(null);
 	}
 
 	/**
@@ -231,10 +235,10 @@ public class StudentService {
 	@Scheduled(cron = "0 0 1 * * ?")
 	public void removeNotActivatedUsers() {
 		ZonedDateTime now = ZonedDateTime.now();
-		List<Student> students = userRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
+		List<Student> students = studentRepository.findAllByActivatedIsFalseAndCreatedDateBefore(now.minusDays(3));
 		for (Student student : students) {
 			log.debug("Deleting not activated user {}", student.getLogin());
-			userRepository.delete(student);
+			studentRepository.delete(student);
 			userSearchRepository.delete(student);
 		}
 	}

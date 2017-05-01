@@ -34,9 +34,6 @@ public class CompanyAdminDTO {
 	    @Size(max = 50)
 	    private String lastName;
 	    
-	    @Size(max = 60)
-	    private String website;
-
 	    private boolean activated = false;
 
 	    @Size(min = 2, max = 5)
@@ -99,14 +96,6 @@ public class CompanyAdminDTO {
 	    public String getEmail() {
 	        return email;
 	    }
-
-	    public String getWebsite() {
-			return website;
-		}
-
-		public void setWebsite(String website) {
-			this.website = website;
-		}
 
 		public String getImageUrl() {
 	        return imageUrl;
@@ -171,7 +160,6 @@ public class CompanyAdminDTO {
 	            ", langKey='" + langKey + '\'' +
 	            ", createdBy=" + createdBy +
 	            ", createdDate=" + createdDate +
-	            ", website=" + website +
 	            ", lastModifiedBy='" + lastModifiedBy + '\'' +
 	            ", lastModifiedDate=" + lastModifiedDate +
 	            ", authorities=" + authorities +

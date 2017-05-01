@@ -8,7 +8,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.Objects;
 
 /**
  * A CompanyAdmin.
@@ -22,7 +21,7 @@ public class CompanyAdmin extends User {
 
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(mappedBy = "companyAdmin")
+    @OneToMany(mappedBy = "companyAdmin",fetch = FetchType.EAGER)
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Company> companies = new HashSet<>();

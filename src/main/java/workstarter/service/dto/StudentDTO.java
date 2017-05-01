@@ -4,6 +4,9 @@ import workstarter.config.Constants;
 
 import workstarter.domain.Authority;
 import workstarter.domain.Offering;
+import workstarter.domain.Portfolio;
+import workstarter.domain.School;
+import workstarter.domain.Searching;
 import workstarter.domain.Student;
 
 import org.hibernate.validator.constraints.Email;
@@ -19,154 +22,169 @@ import java.util.stream.Collectors;
  */
 public class StudentDTO {
 
-    private Long id;
+	private Long id;
 
-    @Pattern(regexp = Constants.LOGIN_REGEX)
-    @Size(min = 1, max = 100)
-    private String login;
+	@Pattern(regexp = Constants.LOGIN_REGEX)
+	@Size(min = 1, max = 100)
+	private String login;
 
-    @Size(max = 50)
-    private String firstName;
+	@Size(max = 50)
+	private String firstName;
 
-    @Size(max = 50)
-    private String lastName;
+	@Size(max = 50)
+	private String lastName;
 
-    @Email
-    @Size(min = 5, max = 100)
-    private String email;
+	@Email
+	@Size(min = 5, max = 100)
+	private String email;
 
-    @Size(max = 256)
-    private String imageUrl;
+	@Size(max = 256)
+	private String imageUrl;
 
-    private boolean activated = false;
+	private boolean activated = false;
 
-    @Size(min = 2, max = 5)
-    private String langKey;
+	@Size(min = 2, max = 5)
+	private String langKey;
 
-    private String createdBy;
-    private ZonedDateTime createdDate;
-    private String lastModifiedBy;
-    private ZonedDateTime lastModifiedDate;
-    private Set<String> authorities;
-    private Set<String> offeringValues;
-    
-    public StudentDTO() {
-        // Empty constructor needed for MapStruct.
-    }
+	private String createdBy;
+	private ZonedDateTime createdDate;
+	private String lastModifiedBy;
+	private ZonedDateTime lastModifiedDate;
+	private School university;
+	private Portfolio portfolio;
+	private Set<String> authorities;
+	private Set<String> offeringValues;
+	private Set<String> searchingValues;
+	private Set<String> resumes;
 
-    public StudentDTO(Student student) {
-        this(student.getId(), student.getLogin(), student.getFirstName(), student.getLastName(),
-            student.getEmail(), student.getActivated(), student.getImageUrl(), student.getLangKey(),
-            student.getCreatedBy(), student.getCreatedDate(), student.getLastModifiedBy(), student.getLastModifiedDate(),
-            student.getAuthorities().stream().map(Authority::getName)
-                .collect(Collectors.toSet()), student.getOfferingValues().stream().map(Offering::getOfferingvalues).collect(Collectors.toSet()) );
-    }
+	public StudentDTO() {
+		// Empty constructor needed for MapStruct.
+	}
 
-    public StudentDTO(Long id, String login, String firstName, String lastName,
-        String email, boolean activated, String imageUrl, String langKey,
-        String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
-        Set<String> authorities, Set<String> offeringValues) {
+	public StudentDTO(Student student) {
+		this(student.getId(), student.getLogin(), student.getFirstName(), student.getLastName(), student.getEmail(),
+				student.getActivated(), student.getImageUrl(), student.getLangKey(), student.getCreatedBy(),
+				student.getCreatedDate(), student.getLastModifiedBy(), student.getLastModifiedDate(),
+				student.getUniversity(), student.getPortfolio(),
+				student.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()),
+				student.getOfferingValues().stream().map(Offering::getOfferingvalues).collect(Collectors.toSet()),
+				student.getSearchingValues().stream().map(Searching::getSearchingvalues).collect(Collectors.toSet()));
+	}
 
-        this.id = id;
-        this.login = login;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.activated = activated;
-        this.imageUrl = imageUrl;
-        this.langKey = langKey;
-        this.createdBy = createdBy;
-        this.createdDate = createdDate;
-        this.lastModifiedBy = lastModifiedBy;
-        this.lastModifiedDate = lastModifiedDate;
-        this.authorities = authorities;
-        this.offeringValues = offeringValues;
-    }
+	public StudentDTO(Long id, String login, String firstName, String lastName, String email, boolean activated,
+			String imageUrl, String langKey, String createdBy, ZonedDateTime createdDate, String lastModifiedBy,
+			ZonedDateTime lastModifiedDate, School university, Portfolio portfolio, Set<String> authorities,
+			Set<String> offeringValues, Set<String> searchingValues) {
 
-    public Long getId() {
-        return id;
-    }
+		this.id = id;
+		this.login = login;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.activated = activated;
+		this.imageUrl = imageUrl;
+		this.langKey = langKey;
+		this.createdBy = createdBy;
+		this.createdDate = createdDate;
+		this.lastModifiedBy = lastModifiedBy;
+		this.lastModifiedDate = lastModifiedDate;
+		this.university = university;
+		this.portfolio = portfolio;
+		this.authorities = authorities;
+		this.offeringValues = offeringValues;
+		this.searchingValues = searchingValues;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getLogin() {
-        return login;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public boolean isActivated() {
-        return activated;
-    }
+	public String getImageUrl() {
+		return imageUrl;
+	}
 
-    public String getLangKey() {
-        return langKey;
-    }
+	public boolean isActivated() {
+		return activated;
+	}
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+	public String getLangKey() {
+		return langKey;
+	}
 
-    public ZonedDateTime getCreatedDate() {
-        return createdDate;
-    }
+	public String getCreatedBy() {
+		return createdBy;
+	}
 
-    public String getLastModifiedBy() {
-        return lastModifiedBy;
-    }
+	public ZonedDateTime getCreatedDate() {
+		return createdDate;
+	}
 
-    public ZonedDateTime getLastModifiedDate() {
-        return lastModifiedDate;
-    }
+	public String getLastModifiedBy() {
+		return lastModifiedBy;
+	}
 
-    public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
-        this.lastModifiedDate = lastModifiedDate;
-    }
+	public ZonedDateTime getLastModifiedDate() {
+		return lastModifiedDate;
+	}
 
-    public Set<String> getAuthorities() {
-        return authorities;
-    }
-    
-    public Set<String> getOfferingValues(){
-    	return offeringValues;
-    }
-    
+	public void setLastModifiedDate(ZonedDateTime lastModifiedDate) {
+		this.lastModifiedDate = lastModifiedDate;
+	}
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
-    }
+	public Set<String> getAuthorities() {
+		return authorities;
+	}
+
+	public Set<String> getOfferingValues() {
+		return offeringValues;
+	}
+	
+	public School getUniversity() {
+		return university;
+	}
+
+	public Portfolio getPortfolio() {
+		return portfolio;
+	}
+
+	public Set<String> getSearchingValues() {
+		return searchingValues;
+	}
+
+	public Set<String> getResumes() {
+		return resumes;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDTO{" + "login='" + login + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName
+				+ '\'' + ", email='" + email + '\'' + ", imageUrl='" + imageUrl + '\'' + ", activated=" + activated
+				+ ", langKey='" + langKey + '\'' + ", createdBy=" + createdBy + ", createdDate=" + createdDate
+				+ ", lastModifiedBy='" + lastModifiedBy + '\'' + ", lastModifiedDate=" + lastModifiedDate
+				+ ", authorities=" + authorities + "}";
+	}
 }

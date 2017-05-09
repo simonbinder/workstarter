@@ -1,21 +1,44 @@
+<div class="container" *ngIf="student">
 
-<div *ngIf="student">
-    <h2><span jhiTranslate="workstarterApp.student.detail.title">Student</span> {{student.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-    </dl>
+    <div class="contact">
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
+        <div *ngIf="contactTel != null">
+            <a class="contact-tel" href="#">
+                {{contactTel}}
+            </a>
+        </div>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'student/'+ student.id + '/edit'} }]"
-            replaceUrl="true"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+        <div *ngIf="contactMes != null" >
+            <a class="contact-mes" href="#">
+                mail
+            </a>
+        </div>
+
+    </div>
+
+    <div class="centered-box profilheader">
+        <div class="profile-img">
+            <img src="{{student.imageUrl}}">
+        </div>
+        <h1>{{student.firstName}} {{student.lastName}}</h1>
+        <p>{{status}}</p>
+    </div>
+
+
+    <div class="spruch"></div>
+
+    <div class="row">
+        <div class="col-6 gives">
+            <div class="small-card" *ngFor="let give of gives">
+                <span>{{give}}</span>
+            </div>
+        </div>
+        <div class="col-6 searches">
+            <div class="small-card" *ngFor="let search of searches">
+                <span>{{search}}</span>
+            </div>
+        </div>
+    </div>
+
+
 </div>

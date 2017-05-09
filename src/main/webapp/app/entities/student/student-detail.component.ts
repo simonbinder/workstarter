@@ -6,7 +6,10 @@ import { StudentService } from './student.service';
 
 @Component({
     selector: 'jhi-student-detail',
-    templateUrl: './student-detail.component.html'
+    templateUrl: './student-detail.component.html',
+    styleUrls: [
+        'student.scss'
+    ]
 })
 export class StudentDetailComponent implements OnInit, OnDestroy {
 

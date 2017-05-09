@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
-import { Account, LoginModalService, Principal } from '../shared';
+import { Account, User, LoginModalService, Principal, UserService } from '../shared';
 import { Router } from "@angular/router";
 
 @Component({
@@ -16,6 +16,8 @@ import { Router } from "@angular/router";
 export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
+    userService: UserService;
+    user: User;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -33,7 +35,12 @@ export class HomeComponent implements OnInit {
         });
         this.registerAuthenticationSuccess();
 
-        this.gotoStudent(1);
+        this.user = this.userService.find(this.account.login);
+        
+
+        // TODO: Check if Student or CompanyAdmin
+        this.gotoStudent(3);
+        
     }
 
     registerAuthenticationSuccess() {

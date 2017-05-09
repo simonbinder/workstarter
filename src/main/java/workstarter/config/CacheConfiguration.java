@@ -38,6 +38,8 @@ public class CacheConfiguration {
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
             cm.createCache(workstarter.domain.Student.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.User.class.getName(), jcacheConfiguration);
+            cm.createCache(workstarter.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(workstarter.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(workstarter.domain.CompanyAdmin.class.getName(), jcacheConfiguration);
             cm.createCache(workstarter.domain.Offering.class.getName(), jcacheConfiguration);

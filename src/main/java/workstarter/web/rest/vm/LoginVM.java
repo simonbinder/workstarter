@@ -16,7 +16,7 @@ public class LoginVM {
     private String username;
 
     @NotNull
-    @Size(min = ManagedCompanyAdminVM.PASSWORD_MIN_LENGTH, max = ManagedCompanyAdminVM.PASSWORD_MAX_LENGTH)
+    @Size(min = ManagedStudentVM.PASSWORD_MIN_LENGTH, max = ManagedStudentVM.PASSWORD_MAX_LENGTH)
     private String password;
 
     private Boolean rememberMe;

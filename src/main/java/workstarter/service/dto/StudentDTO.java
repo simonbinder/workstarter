@@ -107,6 +107,10 @@ public class StudentDTO {
 		return login;
 	}
 
+	public void setActivated(boolean activated) {
+		this.activated = activated;
+	}
+
 	public void setLogin(String login) {
 		this.login = login;
 	}

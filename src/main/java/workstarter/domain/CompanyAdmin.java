@@ -12,10 +12,9 @@ import java.util.Set;
 /**
  * A CompanyAdmin.
  */
-@Entity
-@DiscriminatorValue("Company")
+@Entity(name="CompanyAdmin")
+@DiscriminatorValue("CompanyAdmin")
 @Document(indexName = "company")
-@Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class CompanyAdmin extends User {
 

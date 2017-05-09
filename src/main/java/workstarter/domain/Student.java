@@ -14,10 +14,9 @@ import java.util.Objects;
 /**
  * A Student.
  */
-@Entity
+@Entity(name="Student")
 @DiscriminatorValue("Student")
 @Document(indexName = "student")
-@Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Student extends User {
 

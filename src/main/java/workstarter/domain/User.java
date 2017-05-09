@@ -22,12 +22,12 @@ import java.time.ZonedDateTime;
 /**
  * A user.
  */
+@Entity
 @Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Document(indexName = "user")
-@MappedSuperclass
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="discriminator")
+@DiscriminatorColumn(name="user")
 public abstract class User extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

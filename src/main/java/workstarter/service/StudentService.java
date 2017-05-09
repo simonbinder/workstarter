@@ -28,6 +28,10 @@ import java.util.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 /**
  * Service class for managing users.
@@ -36,6 +40,8 @@ import javax.persistence.PersistenceContext;
 @Transactional
 public class StudentService {
 
+	@PersistenceContext
+	EntityManager em;
 	private final Logger log = LoggerFactory.getLogger(StudentService.class);
 	private final StudentRepository studentRepository;
 	private final PasswordEncoder passwordEncoder;
@@ -112,6 +118,15 @@ public class StudentService {
 		studentSearchRepository.save(newStudent);
 		log.debug("Created Information for User: {}", newStudent);
 		return newStudent;
+	}
+
+	public List<Student> getAllStudents() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Student> cq = cb.createQuery(Student.class);
+		Root<Student> rootEntry = cq.from(Student.class);
+		CriteriaQuery<Student> all = cq.select(rootEntry);
+		TypedQuery<Student> allQuery = em.createQuery(all);
+		return allQuery.getResultList();
 	}
 
 	public Student createStudent(StudentDTO studentDTO) {

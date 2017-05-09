@@ -120,7 +120,7 @@ public class StudentResource {
 	@Timed
 	public List<Student> getAllStudents() {
 		log.debug("REST request to get all Students");
-		List<Student> students = studentRepository.findAll();
+		List<Student> students = studentService.getAllStudents();
 		return students;
 	}
 

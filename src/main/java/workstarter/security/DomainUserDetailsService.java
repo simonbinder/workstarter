@@ -2,6 +2,8 @@ package workstarter.security;
 
 import workstarter.domain.User;
 import workstarter.repository.StudentRepository;
+import workstarter.repository.UserRepository;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;

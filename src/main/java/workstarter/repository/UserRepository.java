@@ -17,21 +17,21 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    Optional<Student> findOneByActivationKey(String activationKey);
+    Optional<User> findOneByActivationKey(String activationKey);
 
-    List<Student> findAllByActivatedIsFalseAndCreatedDateBefore(ZonedDateTime dateTime);
+    List<User> findAllByActivatedIsFalseAndCreatedDateBefore(ZonedDateTime dateTime);
 
-    Optional<Student> findOneByResetKey(String resetKey);
+    Optional<User> findOneByResetKey(String resetKey);
 
-    Optional<Student> findOneByEmail(String email);
+    Optional<User> findOneByEmail(String email);
 
-    Optional<Student> findOneByLogin(String login);
-
-    @EntityGraph(attributePaths = "authorities")
-    Student findOneWithAuthoritiesById(Long id);
+    Optional<User> findOneByLogin(String login);
 
     @EntityGraph(attributePaths = "authorities")
-    Optional<Student> findOneWithAuthoritiesByLogin(String login);
+    User findOneWithAuthoritiesById(Long id);
 
-    Page<Student> findAllByLoginNot(Pageable pageable, String login);
+    @EntityGraph(attributePaths = "authorities")
+    Optional<User> findOneWithAuthoritiesByLogin(String login);
+
+    Page<User> findAllByLoginNot(Pageable pageable, String login);
 }

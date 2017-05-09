@@ -5,10 +5,13 @@ import com.codahale.metrics.annotation.Timed;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.StudentRepository;
+import workstarter.repository.UserRepository;
 import workstarter.security.SecurityUtils;
 import workstarter.service.MailService;
 import workstarter.service.StudentService;
+import workstarter.service.UserService;
 import workstarter.service.dto.StudentDTO;
+import workstarter.service.dto.UserDTO;
 import workstarter.web.rest.vm.KeyAndPasswordVM;
 import workstarter.web.rest.vm.ManagedCompanyAdminVM;
 import workstarter.web.rest.util.HeaderUtil;
@@ -34,14 +37,11 @@ import java.util.*;
 public class AccountResource {
 
     private final Logger log = LoggerFactory.getLogger(AccountResource.class);
-
-    private final StudentRepository userRepository;
-
-    private final StudentService userService;
-
+    private final UserRepository userRepository;
+    private final UserService userService;
     private final MailService mailService;
 
-    public AccountResource(StudentRepository userRepository, StudentService userService,
+    public AccountResource(UserRepository userRepository, UserService userService,
             MailService mailService) {
 
         this.userRepository = userRepository;
@@ -49,35 +49,6 @@ public class AccountResource {
         this.mailService = mailService;
     }
 
-    /**
-     * POST  /register : register the user.
-     *
-     * @param managedUserVM the managed user View Model
-     * @return the ResponseEntity with status 201 (Created) if the user is registered or 400 (Bad Request) if the login or e-mail is already in use
-     */
-    @PostMapping(path = "/register",
-                    produces={MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE})
-    @Timed
-    public ResponseEntity registerAccount(@Valid @RequestBody ManagedCompanyAdminVM managedUserVM) {
-
-        HttpHeaders textPlainHeaders = new HttpHeaders();
-        textPlainHeaders.setContentType(MediaType.TEXT_PLAIN);
-
-        return userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase())
-            .map(user -> new ResponseEntity<>("login already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-            .orElseGet(() -> userRepository.findOneByEmail(managedUserVM.getEmail())
-                .map(user -> new ResponseEntity<>("e-mail address already in use", textPlainHeaders, HttpStatus.BAD_REQUEST))
-                .orElseGet(() -> {
-                    Student student = userService
-                        .createStudent(managedUserVM.getLogin(), managedUserVM.getPassword(),
-                            managedUserVM.getFirstName(), managedUserVM.getLastName(),
-                            managedUserVM.getEmail().toLowerCase(), managedUserVM.getImageUrl(), managedUserVM.getLangKey());
-
-                    mailService.sendActivationEmail(student);
-                    return new ResponseEntity<>(HttpStatus.CREATED);
-                })
-        );
-    }
 
     /**
      * GET  /activate : activate the registered user.
@@ -113,34 +84,34 @@ public class AccountResource {
      */
     @GetMapping("/account")
     @Timed
-    public ResponseEntity<StudentDTO> getAccount() {
+    public ResponseEntity<UserDTO> getAccount() {
         return Optional.ofNullable(userService.getUserWithAuthorities())
-            .map(user -> new ResponseEntity<>(new StudentDTO(user), HttpStatus.OK))
+            .map(user -> new ResponseEntity<>(new UserDTO(user), HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
-    /**
-     * POST  /account : update the current user information.
-     *
-     * @param userDTO the current user information
-     * @return the ResponseEntity with status 200 (OK), or status 400 (Bad Request) or 500 (Internal Server Error) if the user couldn't be updated
-     */
-    @PostMapping("/account")
-    @Timed
-    public ResponseEntity saveAccount(@Valid @RequestBody StudentDTO userDTO) {
-        Optional<Student> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
-        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userDTO.getLogin()))) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use")).body(null);
-        }
-        return userRepository
-            .findOneByLogin(SecurityUtils.getCurrentUserLogin())
-            .map(u -> {
-                userService.updateStudent(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
-                    userDTO.getLangKey());
-                return new ResponseEntity(HttpStatus.OK);
-            })
-            .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
-    }
+//    /** probably not needed anymore as student and companyadmin create the accounts themselve
+//     * POST  /account : update the current user information.
+//     *
+//     * @param userDTO the current user information
+//     * @return the ResponseEntity with status 200 (OK), or status 400 (Bad Request) or 500 (Internal Server Error) if the user couldn't be updated
+//     */
+//    @PostMapping("/account")
+//    @Timed
+//    public ResponseEntity saveAccount(@Valid @RequestBody StudentDTO userDTO) {
+//        Optional<Student> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
+//        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userDTO.getLogin()))) {
+//            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use")).body(null);
+//        }
+//        return userRepository
+//            .findOneByLogin(SecurityUtils.getCurrentUserLogin())
+//            .map(u -> {
+//                userService.updateStudent(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(),
+//                    userDTO.getLangKey());
+//                return new ResponseEntity(HttpStatus.OK);
+//            })
+//            .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
+//    }
 
     /**
      * POST  /account/change_password : changes the current user's password

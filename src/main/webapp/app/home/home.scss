@@ -25,3 +25,28 @@ only screen and (                min-resolution: 2dppx) {
     }
 }
 */
+
+.octopussy 
+{
+    display: inline-block;
+    width: 347px;
+    height: 497px;
+    background: url("../../content/images/octopusy.svg") no-repeat center top;
+    background-size: contain;
+}
+
+.btn
+{
+    padding: 15px 45px;
+font-size: 11px;
+border-radius: 300px;
+color: #fff;
+border: 1px solid;
+font-family: Lato, Helvetica, Arial, sans-serif;
+text-transform: uppercase;
+letter-spacing: 2px;
+-webkit-transition: all .35s;
+-moz-transition: all .35s;
+transition: all .35s;
+color: #fdcc52;
+}

@@ -1,2 +1,5 @@
 Simon:
-Session von eager umstellen
+- Session von eager umstellen
+
+Maxi:
+- Bootstrap JQuery

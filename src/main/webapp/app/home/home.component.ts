@@ -3,7 +3,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
 import { Account, User, LoginModalService, Principal, UserService } from '../shared';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'jhi-home',
@@ -11,12 +11,10 @@ import { Router } from "@angular/router";
     styleUrls: [
         'home.scss'
     ]
-
 })
 export class HomeComponent implements OnInit {
     account: Account;
     modalRef: NgbModalRef;
-    userService: UserService;
     user: User;
 
     constructor(
@@ -24,7 +22,8 @@ export class HomeComponent implements OnInit {
         private principal: Principal,
         private loginModalService: LoginModalService,
         private eventManager: EventManager,
-        private router: Router
+        private router: Router,
+        private userService: UserService
     ) {
         this.jhiLanguageService.setLocations(['home']);
     }
@@ -32,15 +31,16 @@ export class HomeComponent implements OnInit {
     ngOnInit() {
         this.principal.identity().then((account) => {
             this.account = account;
+            if(this.isAuthenticated()){
+                console.log("Your user id is: " + this.account.id);
+                // TODO: Check if Student or CompanyAdmin
+                this.gotoStudent(this.account.id);
+            }
         });
         this.registerAuthenticationSuccess();
 
-        this.user = this.userService.find(this.account.login);
-        
 
-        // TODO: Check if Student or CompanyAdmin
-        this.gotoStudent(3);
-        
+
     }
 
     registerAuthenticationSuccess() {

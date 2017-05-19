@@ -1,43 +1,66 @@
 <div class="container" *ngIf="student">
 
-    <div class="contact">
 
-        <div *ngIf="contactTel != null">
-            <a class="contact-tel" href="#">
-                {{contactTel}}
-            </a>
-        </div>
-
-        <div *ngIf="contactMes != null" >
-            <a class="contact-mes" href="#">
-                mail
-            </a>
-        </div>
-
-    </div>
-
-    <div class="centered-box profilheader">
-        <div class="profile-img">
-            <img src="{{student.imageUrl}}">
-        </div>
-        <h1>{{student.firstName}} {{student.lastName}}</h1>
-        <p>{{status}}</p>
-    </div>
-
-
-    <div class="spruch"></div>
-
-    <div class="row">
-        <div class="col-6 gives">
-            <div class="small-card" *ngFor="let give of gives">
-                <span>{{give}}</span>
+    <div class="profilheader row justify-content-center">
+        <div class="col-3">
+            <div class="profile-img">
+                <img src="{{student.imageUrl}}">
             </div>
         </div>
-        <div class="col-6 searches">
-            <div class="small-card" *ngFor="let search of searches">
-                <span>{{search}}</span>
+        <div class="profil-content col-7">
+            <h1>{{student.firstName}} {{student.lastName}}</h1>
+            <h2>Software Spezialist</h2>
+            <div class="cvSlogan">
+                <p>Hallo! Ich bin Experte in vielerlei Hinsicht. So manches Projekt habe ich 
+erfolgreich gemeistert und bin bekannt im ganzen Land.
+Ich bin ein Zukunftsvisionär und immer dem Erfolg auf der Spur!</p>
             </div>
+
+            <div class="cvTags">
+                <div class="small-card" *ngFor="let tag of tags">
+                    <span>{{tag}}</span>
+                </div>
+            </div>
+
         </div>
+
+        <div class="carrier row justify-content-center">
+
+            <div class="cvJobs col-5">
+                <div class="jobTitle">
+                    <h2>Education</h2>
+                </div>
+                <div class="jobList" *ngFor="let edu of education">
+                    <div class="eduTime small-card-reverse">
+                        <p>{{edu.year}}</p>
+                    </div>
+                    <div clas="jobDescription">
+                        <h2>{{edu.job}}</h2>
+                        <p>{{edu.location}}</p>
+                        <p class="tasks">{{edu.tasks}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cvJobs col-5">
+                <div class="jobTitle">
+                    <h2>Jobs</h2>
+                </div>
+                <div class="jobList" *ngFor="let edu of education">
+                    <div class="eduTime small-card-reverse">
+                        <p>{{edu.year}}</p>
+                    </div>
+                    <div clas="jobDescription">
+                        <h2>{{edu.job}}</h2>
+                        <p>{{edu.location}}</p>
+                        <p class="tasks">{{edu.tasks}}</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
     </div>
 
 

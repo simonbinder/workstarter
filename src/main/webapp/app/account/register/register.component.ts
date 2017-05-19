@@ -7,7 +7,10 @@ import { LoginModalService } from '../../shared';
 
 @Component({
     selector: 'jhi-register',
-    templateUrl: './register.component.html'
+    templateUrl: './register.component.html',
+    styleUrls: [
+        'register.scss'
+    ]
 })
 export class RegisterComponent implements OnInit, AfterViewInit {
 
@@ -19,6 +22,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     registerAccount: any;
     success: boolean;
     modalRef: NgbModalRef;
+    role: any;
 
     constructor(
         private languageService: JhiLanguageService,
@@ -28,6 +32,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private renderer: Renderer
     ) {
         this.languageService.setLocations(['register']);
+        this.role = "student";
     }
 
     ngOnInit() {
@@ -49,7 +54,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             this.errorEmailExists = null;
             this.languageService.getCurrent().then(key => {
                 this.registerAccount.langKey = key;
-                this.registerService.save(this.registerAccount).subscribe(() => {
+                this.registerService.save(this.registerAccount, this.role).subscribe(() => {
                     this.success = true;
                 }, (response) => this.processError(response));
             });

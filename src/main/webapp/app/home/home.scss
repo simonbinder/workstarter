@@ -37,16 +37,23 @@ only screen and (                min-resolution: 2dppx) {
 
 .btn
 {
+    margin-top: 20px;
     padding: 15px 45px;
-font-size: 11px;
-border-radius: 300px;
-color: #fff;
-border: 1px solid;
-font-family: Lato, Helvetica, Arial, sans-serif;
-text-transform: uppercase;
-letter-spacing: 2px;
--webkit-transition: all .35s;
--moz-transition: all .35s;
-transition: all .35s;
-color: #fdcc52;
+    font-size: 11px;
+    border-radius: 300px;
+    color: #fff;
+    border: 1px solid;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    -webkit-transition: all .35s;
+    -moz-transition: all .35s;
+    transition: all .35s;
+    color: #fdcc52;
+}
+
+.home
+{
+    padding-top: 1.5%;
+    background: red;
 }

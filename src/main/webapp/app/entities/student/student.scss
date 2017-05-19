@@ -1,26 +1,118 @@
-.centered-box
+$main1-color: #f15f79;
+$main2-color: #b24592;
+$main-color: #bf4b6e;
+$font-color: #000;
+$font1-color: #464a4c;
+
+
+h1
 {
-    position: relative;
-    text-align: center;
+    font-weight: 600;
+    font-size: 2.2rem;
+    color: $main-color;
+    margin: 0;
 }
 
-.profilheader /* TODO: Must be changed in responsiv */
+h2
+{
+    font-weight: 600;
+    font-size: 1rem;
+    color: $font-color;
+    margin: 0;
+}
+
+.container
+{
+    width: 96% !important;
+    font-size: normal;
+}
+
+.profilheader
+{
+    /* TODO: Must be changed in responsiv */
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .profile-img {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        border: solid 1px $main-color;
+        float: right;
+    
+        img
+        {   
+            height: 100%;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .profil-content
+    {
+        padding-top: 20px;
+
+        .cvSlogan
+        {
+            min-height: 110px;
+        }
+
+        h2{
+
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.carrier
 {
     padding-top: 50px;
-    padding-bottom: 50px;
+
+    .cvJobs
+    {
+        .jobTitle
+        {
+            border-bottom: solid 1px $main-color;
+        }
+
+        .jobList
+        {
+            font-size: 0.8rem;
+            padding-top: 15px;
+            
+
+            .jobDescription
+            {
+            }
+
+            .tasks
+            {
+                color: $font1-color;
+            }
+            
+            h2
+            {
+                font-size: 0.8rem;
+            }
+        }
+
+        p
+        {
+            margin: 0;
+        }
+
+    }
 }
 
-.contacticon
-{
-    height: 15px;
-}
 
 .small-card
 {
     font-size: 0.8rem;
     float: left;
     padding: 2px 4px;
-    border: solid #f15f79 1px;
+    border: solid 1px $main-color;
     border-radius: 5px;
     margin: 3px;
 }
@@ -30,23 +122,18 @@
     background: #f2f2f2;
 }
 
-.gives .small-card
+.small-card-reverse
 {
-    float: right;
+    font-size: 0.8rem;
+    float: left;
+    padding: 2px 6px;
+    background: $main-color;
+    border-radius: 5px;
+    margin: 3px;
+    color: white;
 }
 
-.profile-img {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 50%;
-    margin: 20px auto;
-}
 
-.profile-img img
-{   
-    height: 100%;
-    margin-left: 50%;
-    transform: translateX(-50%);
-}
+
+
+

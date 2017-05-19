@@ -33,9 +33,14 @@ Generic styles
 
 /* other generic styles */
 
+.container-fluid /*Workaround to remove padding*/
+{
+    padding: 0 !important;
+}
+
 .jh-card {
-    padding: 1.5%;
-    margin-top: 20px;
+    /*padding: 1.5%;
+    margin-top: 20px;*/
     border: none;
 }
 

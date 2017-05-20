@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Injectable, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { ProfileService } from '../profiles/profile.service'; // FIXME barrel doesn't work here
-import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
+import { JhiLanguageHelper, Principal, LoginModalService, LoginService, SharedStudentService } from '../../shared';
 
 import { VERSION, DEBUG_INFO_ENABLED } from '../../app.constants';
 
@@ -23,6 +23,7 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    currentSearch: string;
 
     constructor(
         private loginService: LoginService,
@@ -31,6 +32,7 @@ export class NavbarComponent implements OnInit {
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
+        private sharedStudentService: SharedStudentService,
         private router: Router
     ) {
         this.version = DEBUG_INFO_ENABLED ? 'v' + VERSION : '';
@@ -47,6 +49,11 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+    }
+
+    redirect(){
+         this.router.navigate(['./student']);
+        this.sharedStudentService.sendMessage(this.currentSearch);
     }
 
     changeLanguage(languageKey: string) {

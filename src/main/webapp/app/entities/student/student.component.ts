@@ -6,7 +6,7 @@ import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertServ
 
 import { Student } from './student.model';
 import { StudentService } from './student.service';
-import { ITEMS_PER_PAGE, Principal } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, SharedStudentService } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
@@ -14,13 +14,15 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
     templateUrl: './student.component.html',
     styleUrls: [
         'student.scss'
-    ]
+    ],
 })
 export class StudentComponent implements OnInit, OnDestroy {
 students: Student[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
+    message: any;
+    messageSubscriber: Subscription;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
@@ -28,7 +30,8 @@ students: Student[];
         private alertService: AlertService,
         private eventManager: EventManager,
         private activatedRoute: ActivatedRoute,
-        private principal: Principal
+        private principal: Principal,
+        private sharedStudentService : SharedStudentService,
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
         this.jhiLanguageService.setLocations(['student']);
@@ -53,6 +56,14 @@ students: Student[];
         );
     }
 
+    fetchMessage(): void{
+        this.messageSubscriber = this.sharedStudentService.getMessage().subscribe(message => { 
+            this.message = message;
+            this.search(this.message.text);
+     });
+    }
+
+
     search (query) {
         if (!query) {
             return this.clear();
@@ -66,11 +77,11 @@ students: Student[];
         this.loadAll();
     }
     ngOnInit() {
-        this.loadAll();
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInStudents();
+        this.fetchMessage();
     }
 
     ngOnDestroy() {
@@ -80,8 +91,6 @@ students: Student[];
     trackId (index: number, item: Student) {
         return item.id;
     }
-
-
 
     registerChangeInStudents() {
         this.eventSubscriber = this.eventManager.subscribe('studentListModification', (response) => this.loadAll());

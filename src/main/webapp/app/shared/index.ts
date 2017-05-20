@@ -18,6 +18,7 @@ export * from './constants/pagination.constants';
 export * from './user/account.model';
 export * from './user/user.model';
 export * from './user/user.service';
+export * from './student/student.service';
 export * from './social/social.service';
 export * from './social/social.component';
 export * from './shared-libs.module';

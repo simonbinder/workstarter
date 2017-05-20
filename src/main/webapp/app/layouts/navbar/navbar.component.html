@@ -8,14 +8,11 @@
   <div  id="navbarNavDropdown" class="navbar-collapse collapse">
     <form class="form-inline">
         <div class="input-group">
-            <input type="text" class="form-control" placeholder="Search for...">
+        <input class="form-control mr-sm-2" type="text" [(ngModel)]="currentSearch" name="currentSearch" id="currentSearch" placeholder="{{ 'home.search' | translate }}">
             <span class="input-group-btn">
-                <button class="btn btn-secondary gobtn" type="button">Go!</button>
+        <button class="btn btn-outline-secondary my-2 my-sm-0" (click)="redirect()" type="submit">Search</button>
             </span>
-        </div>
     </form>
-
-
     
     <ul class="navbar-nav ml-auto" [ngSwitch]="isAuthenticated()">
         <li class="nav-item" *ngSwitchCase="false">

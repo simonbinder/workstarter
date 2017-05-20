@@ -19,7 +19,7 @@ export const studentRoute: Routes = [
     data: {
         authorities: ['ROLE_USER'],
         pageTitle: 'workstarterApp.student.home.title'
-    }
+    },
   }, {
     path: 'student/:id',
     component: StudentDetailComponent,

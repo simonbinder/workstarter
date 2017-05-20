@@ -1,5 +1,8 @@
 {
     "register": {
+        "role": "Welche Rolle hast du?",
+        "student": "Ich bin Student!",
+        "companyAdmin": "Ich vertrete eine Firma!",
         "title": "Registrierung",
         "form": {
             "button": "Registrieren"

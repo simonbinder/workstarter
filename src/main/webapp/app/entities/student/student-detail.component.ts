@@ -16,12 +16,26 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     student: Student;
     private subscription: any;
 
+    //testdata
+    tags: string[];
+    education: any[];
+
     constructor(
         private jhiLanguageService: JhiLanguageService,
         private studentService: StudentService,
         private route: ActivatedRoute
     ) {
         this.jhiLanguageService.setLocations(['student']);
+        
+
+        //testdata
+        this.tags = ['Windstorm','Bombasto','Magneta','Tornado'];
+         this.education = [
+            {year: '2017', job: 'Turmtaucher', location: 'Stuttgart-Vaihinger Kleranlagen', tasks: 'Chefreiniger des gesamten Chlorbeckens der Anlage'},
+            {year: '2016', job: 'Perlentaucher', location: 'Karibische Inseln', tasks: 'Professioneller Perlentaucher in bis zu 200 Metern Tiefe.'},
+            {year: '2015', job: 'Würstchenverkäufer', location: 'Mercedes Benz Arena Stuttgart', tasks: 'Spezialisierung auf Käseknacker und Bratwürste.'}
+        ];
+
     }
 
     ngOnInit() {

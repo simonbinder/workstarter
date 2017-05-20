@@ -7,7 +7,8 @@ export class Register {
 
     constructor (private http: Http) {}
 
-    save(account: any): Observable<any> {
-        return this.http.post('api/register', account);
+    save(account: any, role: any): Observable<any> {
+        var registerPath = 'api/' + role + '/register';
+        return this.http.post(registerPath, account);
     }
 }

@@ -54,9 +54,16 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             this.errorEmailExists = null;
             this.languageService.getCurrent().then(key => {
                 this.registerAccount.langKey = key;
-                this.registerService.save(this.registerAccount, this.role).subscribe(() => {
+                if(this.role == "student"){
+                    this.registerService.saveStudent(this.registerAccount).subscribe(() => {
                     this.success = true;
                 }, (response) => this.processError(response));
+                }
+                else if(this.role == "company-admin"){
+                     this.registerService.saveCompanyAdmin(this.registerAccount).subscribe(() => {
+                    this.success = true;
+                }, (response) => this.processError(response));
+                }
             });
         }
     }

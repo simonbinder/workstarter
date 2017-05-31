@@ -59,13 +59,13 @@ describe('Component Tests', () => {
         it('should update success to OK after creating an account',
             inject([Register, JhiLanguageService],
                 fakeAsync((service: Register, mockTranslate: MockLanguageService) => {
-                    spyOn(service, 'save').and.returnValue(Observable.of({}));
+                    spyOn(service, 'saveStudent').and.returnValue(Observable.of({}));
                     comp.registerAccount.password = comp.confirmPassword = 'password';
 
                     comp.register();
                     tick();
 
-                    expect(service.save).toHaveBeenCalledWith({
+                    expect(service.saveStudent).toHaveBeenCalledWith({
                         password: 'password',
                         langKey: 'de'
                     });
@@ -82,7 +82,7 @@ describe('Component Tests', () => {
         it('should notify of user existence upon 400/login already in use',
             inject([Register],
                 fakeAsync((service: Register) => {
-                    spyOn(service, 'save').and.returnValue(Observable.throw({
+                    spyOn(service, 'saveStudent').and.returnValue(Observable.throw({
                         status: 400,
                         _body: 'login already in use'
                     }));
@@ -101,7 +101,7 @@ describe('Component Tests', () => {
         it('should notify of email existence upon 400/e-mail address already in use',
             inject([Register],
                 fakeAsync((service: Register) => {
-                    spyOn(service, 'save').and.returnValue(Observable.throw({
+                    spyOn(service, 'saveStudent').and.returnValue(Observable.throw({
                         status: 400,
                         _body: 'e-mail address already in use'
                     }));
@@ -120,7 +120,7 @@ describe('Component Tests', () => {
         it('should notify of generic error',
             inject([Register],
                 fakeAsync((service: Register) => {
-                    spyOn(service, 'save').and.returnValue(Observable.throw({
+                    spyOn(service, 'saveStudent').and.returnValue(Observable.throw({
                         status: 503
                     }));
                     comp.registerAccount.password = comp.confirmPassword = 'password';

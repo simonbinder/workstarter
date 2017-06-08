@@ -63,6 +63,12 @@ export class JhiLoginModalComponent implements OnInit, AfterViewInit {
                 this.router.navigate(['']);
             }
 
+            // In case of router.url = ' ' site must be reloaded
+            if (this.router.url === '/')
+            {
+                location.reload();
+            }
+
             this.eventManager.broadcast({
                 name: 'authenticationSuccess',
                 content: 'Sending Authentication Success'

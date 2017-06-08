@@ -3,3 +3,7 @@ Simon:
 
 Maxi:
 - Bootstrap JQuery
+- Überprüfung von Geschäfts oder Studenten Mail Adresse
+- Design der JHipster standard seiten
+- Erstellen und Bearbeiten von CVS
+

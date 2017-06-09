@@ -1,8 +1,9 @@
 $main1-color: #f15f79;
 $main2-color: #b24592;
-$main-color: #bf4b6e;
+$main-color: #CF4E87; /*#bf4b6e;*/
 $font-color: #000;
 $font1-color: #464a4c;
+$light-grey: #f2f2f2;
 
 
 h1
@@ -53,6 +54,7 @@ h2
     .profil-content
     {
         padding-top: 20px;
+        padding-bottom: 20px;
 
         .cvSlogan
         {
@@ -69,14 +71,14 @@ h2
 
 .carrier
 {
-    padding-top: 50px;
+    padding-top: 30px;
 
 
     .cvJobs
     {
         .jobTitle
         {
-            border-bottom: solid 1px $main-color;
+            margin-bottom: 10px;
         }
 
         .jobList
@@ -115,6 +117,26 @@ h2
 }
 
 
+.window
+{
+    border: solid 1px $light-grey;
+    border-radius: 5px;
+
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.isMyAccount
+{
+    .window:hover
+    {
+        transition-timing-function: ease-in-out;
+        transition: 0.5s;
+        border-color: $main-color;
+    }
+}
+
 .small-card
 {
     font-size: 0.8rem;
@@ -127,7 +149,7 @@ h2
 
 .small-card:hover
 {
-    background: #f2f2f2;
+    background: $light-grey;
 }
 
 .small-card-reverse

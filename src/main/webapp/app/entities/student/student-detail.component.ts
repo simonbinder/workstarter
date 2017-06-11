@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
 import { Student } from './student.model';
 import { StudentService } from './student.service';
+import { AccountService, EditViewModalService } from '../../shared';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'jhi-student-detail',
@@ -14,13 +16,18 @@ import { StudentService } from './student.service';
 export class StudentDetailComponent implements OnInit, OnDestroy {
 
     student: Student;
+    currentID: number;
     private subscription: any;
+    isMyAccount: boolean = false;
+    modalRef: NgbModalRef;
 
     //testdata
     tags: string[];
     education: any[];
 
     constructor(
+        private account: AccountService,
+        private editViewModalService: EditViewModalService,
         private jhiLanguageService: JhiLanguageService,
         private studentService: StudentService,
         private route: ActivatedRoute
@@ -41,8 +48,30 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
+            this.setPrivateAccountSettings(params['id']);
         });
     }
+
+    setPrivateAccountSettings(id)
+    {
+        // Get own account id
+        this.account.get().toPromise().then(userAccount => {
+            if (userAccount) 
+            {
+                // Check if current page belongs to my account
+                if(userAccount.id == id) 
+                {
+                    // Make class="isMyAccount" visible
+                    this.isMyAccount = true;
+                }
+            } 
+        });
+    }
+
+    edit() {
+        this.modalRef = this.editViewModalService.open();
+    }
+
 
     load (id) {
         this.studentService.find(id).subscribe(student => {

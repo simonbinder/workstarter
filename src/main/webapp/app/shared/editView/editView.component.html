@@ -1,12 +1,24 @@
+<div class="editView">
 <div class="modal-header">
-    <h4 class="modal-title" jhiTranslate="login.title">Sign in</h4>
+    <h2 class="modal-title" jhiTranslate="editView.title">Edit Jobs</h4>
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
 </div>
 <div class="modal-body">
     <div class="row">
+        <form>
+            <div class="form-group">
+                <label for="formGroupExampleInput">Position</label>
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+            </div>
+            <div class="form-group">
+                <label for="formGroupExampleInput2">Beschäftigungsart</label>
+                <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Another input">
+            </div>
+        </form>
+
+
         <div class="col-md-4 offset-md-4">
-            <h1 jhiTranslate="login.title">Sign in</h1>
         </div>
         <div class="col-md-8 offset-md-2">
             <div class="alert alert-danger" *ngIf="authenticationError" jhiTranslate="login.messages.error.authentication">
@@ -31,23 +43,12 @@
                         <span jhiTranslate="login.form.rememberme">Remember me</span>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button">Sign in</button>
+                <button type="submit" class="btn btn-primary" jhiTranslate="editView.buttons.save">Save</button>
             </form>
             <p></p>
-            <div class="alert alert-warning">
-                <a class="alert-link" (click)="requestResetPassword()" jhiTranslate="login.password.forgot">Did you forget your password?</a>
-            </div>
-            <div class="alert alert-warning">
-            	<span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
-                <a class="alert-link" (click)="register()" jhiTranslate="global.messages.info.register.link">Register a new account</a>
-            </div>
+            
         </div>
-        <div class="col-md-6">
-            <br/>
-            <!-- <jhi-social provider="google"></jhi-social> -->
-            <!-- <jhi-social provider="facebook"></jhi-social> -->
-            <!-- <jhi-social provider="twitter"></jhi-social> -->
-            <!-- jhipster-needle-add-social-button -->
-        </div>
+        
     </div>
 </div>
+</div> <!-- editView -->

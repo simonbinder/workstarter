@@ -12,13 +12,16 @@ import {
     UserService,
     StateStorageService,
     LoginService,
+    EditViewService,
     LoginModalService,
+    EditViewModalService,
     Principal,
     JhiTrackerService,
     HasAnyAuthorityDirective,
     JhiSocialComponent,
     SocialService,
     JhiLoginModalComponent,
+    JhiEditViewModalComponent,
     SharedStudentService
 } from './';
 
@@ -30,12 +33,15 @@ import {
     declarations: [
         JhiSocialComponent,
         JhiLoginModalComponent,
+        JhiEditViewModalComponent,
         HasAnyAuthorityDirective
     ],
     providers: [
         CookieService,
         LoginService,
+        EditViewService,
         LoginModalService,
+        EditViewModalService,
         AccountService,
         StateStorageService,
         Principal,
@@ -48,11 +54,14 @@ import {
         DatePipe,
         SharedStudentService
     ],
-    entryComponents: [JhiLoginModalComponent],
+    entryComponents: [
+        JhiLoginModalComponent, 
+        JhiEditViewModalComponent],
     exports: [
         WorkstarterSharedCommonModule,
         JhiSocialComponent,
         JhiLoginModalComponent,
+        JhiEditViewModalComponent,
         HasAnyAuthorityDirective,
         DatePipe
     ],

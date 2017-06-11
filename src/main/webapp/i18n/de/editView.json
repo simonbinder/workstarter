@@ -1,0 +1,14 @@
+{
+    "editView": {
+        "title": "Bearbeite Berufserfahrung",
+        "form": {
+            "password": "Passwort",
+            "password.placeholder": "Ihr Passwort",
+            "rememberme": "Automatische Anmeldung",
+            "button": "Anmelden"
+        },
+        "buttons" : {
+            "save": "Speichern"
+        }
+    }
+}

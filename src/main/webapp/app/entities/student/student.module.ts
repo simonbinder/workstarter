@@ -13,7 +13,7 @@ import {
     StudentDeletePopupComponent,
     StudentDeleteDialogComponent,
     studentRoute,
-    studentPopupRoute,
+    studentPopupRoute
 } from './';
 
 let ENTITY_STATES = [
@@ -32,7 +32,7 @@ let ENTITY_STATES = [
         StudentDialogComponent,
         StudentDeleteDialogComponent,
         StudentPopupComponent,
-        StudentDeletePopupComponent,
+        StudentDeletePopupComponent
     ],
     entryComponents: [
         StudentComponent,

@@ -1,5 +1,6 @@
 $main-color: #CF4E87;
 $light-grey: #f2f2f2;
+$middle-grey: #464a4c;
 $font-color: #000;
 
 h1
@@ -18,7 +19,64 @@ h2
     margin: 0;
 }
 
-.modal-title
+label
 {
-    
+    margin: 0;
+}
+
+input, select
+{
+    margin-top: .5rem;
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    color: $main-color !important;
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: calc(2rem + 2px) !important;
+}
+
+
+option[value=""] {
+    color: $middle-grey !important;
+}
+
+input:focus, select:focus
+{
+    border-color: $main-color;
+}
+
+button
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    float: right;
+
+}
+
+.savebtn
+{
+    background-color: #fff !important;
+    border-color: $main-color !important;
+    color: $main-color !important;
+}
+
+.savebtn:hover
+{
+    background-color: $light-grey !important;
+}
+
+.deletebtn
+{
+    margin-right: .5rem;
+    background-color: #fff !important;
+    border-color: $middle-grey !important;
+    color: $middle-grey !important;
+}
+
+.deletebtn:hover
+{
+    background-color: $main-color !important;
+    border-color: $main-color !important;
+    color: #fff !important;
 }

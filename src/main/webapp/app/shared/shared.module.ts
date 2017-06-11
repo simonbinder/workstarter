@@ -21,6 +21,7 @@ import {
     JhiSocialComponent,
     SocialService,
     JhiLoginModalComponent,
+    StudentEditJobs,
     JhiEditViewModalComponent,
     SharedStudentService
 } from './';
@@ -33,6 +34,7 @@ import {
     declarations: [
         JhiSocialComponent,
         JhiLoginModalComponent,
+        StudentEditJobs,
         JhiEditViewModalComponent,
         HasAnyAuthorityDirective
     ],
@@ -60,6 +62,7 @@ import {
     exports: [
         WorkstarterSharedCommonModule,
         JhiSocialComponent,
+        StudentEditJobs,
         JhiLoginModalComponent,
         JhiEditViewModalComponent,
         HasAnyAuthorityDirective,

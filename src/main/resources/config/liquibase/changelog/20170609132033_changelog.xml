@@ -1,0 +1,111 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="Simon (generated)" id="1497014446342-8">
+        <createTable tableName="jhi_user_offering_values">
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="offering_values_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-9">
+        <createTable tableName="jhi_user_resumes">
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resumes_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-10">
+        <createTable tableName="jhi_user_searching_values">
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="searching_values_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-16">
+        <createTable tableName="resume_schools">
+            <column name="resume_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="schools_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-17">
+        <addColumn tableName="school">
+            <column name="core_subject" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end" type="TIMESTAMP">
+             <constraints nullable="false"/>
+            </column>
+            <column name="start" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="target_degree" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-21">
+        <addPrimaryKey columnNames="student_id, offering_values_id" tableName="jhi_user_offering_values"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-22">
+        <addPrimaryKey columnNames="student_id, resumes_id" tableName="jhi_user_resumes"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-23">
+        <addPrimaryKey columnNames="student_id, searching_values_id" tableName="jhi_user_searching_values"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-24">
+        <addPrimaryKey columnNames="resume_id, schools_id" tableName="resume_schools"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-29">
+        <addUniqueConstraint columnNames="schools_id" constraintName="UK_9lqrwnmv6y34ixwcx0v54e41h" tableName="resume_schools"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-30">
+        <addUniqueConstraint columnNames="offering_values_id" constraintName="UK_ev5qetl4o0m2548ju9me8grkp" tableName="jhi_user_offering_values"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-31">
+        <addUniqueConstraint columnNames="searching_values_id" constraintName="UK_s4mcefmmug93ql3n2c7wqqmd6" tableName="jhi_user_searching_values"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-32">
+        <addUniqueConstraint columnNames="resumes_id" constraintName="UK_sj354f22ervyjyk9dts3vvum6" tableName="jhi_user_resumes"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-33">
+        <addForeignKeyConstraint baseColumnNames="resume_id" baseTableName="resume_schools" constraintName="FK25fapigu79gnuclcaffy6sask" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-36">
+        <addForeignKeyConstraint baseColumnNames="resumes_id" baseTableName="jhi_user_resumes" constraintName="FK2siiv9ni6k8dggvc3h06o9anj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-39">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="jhi_user_resumes" constraintName="FK603or8k61nmwyx6iibhkgbal7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-40">
+        <addForeignKeyConstraint baseColumnNames="searching_values_id" baseTableName="jhi_user_searching_values" constraintName="FKbe9uvwg99altdrq2foph74usu" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="searching"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-42">
+        <addForeignKeyConstraint baseColumnNames="offering_values_id" baseTableName="jhi_user_offering_values" constraintName="FKext3n4lmdk4u9qxl7d8fhjmk6" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="offering"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-43">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="jhi_user_searching_values" constraintName="FKg6hhj54e6kp03612j2eo2dujd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-44">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="jhi_user_offering_values" constraintName="FKgpn4dhute7kvc90ybvfi6261" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-47">
+        <addForeignKeyConstraint baseColumnNames="resume_id" baseTableName="company" constraintName="FKoeb7q1vjwntwcbttuhuyu2utb" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-48">
+        <addForeignKeyConstraint baseColumnNames="schools_id" baseTableName="resume_schools" constraintName="FKp71wwb7184fte75esmeijumd5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="school"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497014446342-49">
+        <addForeignKeyConstraint baseColumnNames="resume_id" baseTableName="qualification" constraintName="FKrlm8hj2rf6onsq57udkq8q8bd" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+</databaseChangeLog>

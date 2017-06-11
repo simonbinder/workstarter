@@ -31,9 +31,6 @@ public class Qualification implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    private Resume resume;
-
     public Long getId() {
         return id;
     }
@@ -66,19 +63,6 @@ public class Qualification implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public Qualification resume(Resume resume) {
-        this.resume = resume;
-        return this;
-    }
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
     }
 
     @Override

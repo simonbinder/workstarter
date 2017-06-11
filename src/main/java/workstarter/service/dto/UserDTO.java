@@ -3,18 +3,12 @@ package workstarter.service.dto;
 import workstarter.config.Constants;
 
 import workstarter.domain.Authority;
-import workstarter.domain.Offering;
-import workstarter.domain.Portfolio;
-import workstarter.domain.School;
-import workstarter.domain.Searching;
-import workstarter.domain.Student;
 import workstarter.domain.User;
 
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

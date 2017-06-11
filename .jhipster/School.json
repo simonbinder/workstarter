@@ -17,8 +17,16 @@
             ]
         },
         {
-            "fieldName": "address",
+            "fieldName": "targetDegree",
             "fieldType": "String"
+        },
+		 {
+            "fieldName": "start",
+            "fieldType": "Date"
+        },
+		 {
+            "fieldName": "end",
+            "fieldType": "Date"
         },
         {
             "fieldName": "coreSubjects",

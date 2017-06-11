@@ -88,7 +88,6 @@ public class SchoolResourceIntTest {
     public static School createEntity(EntityManager em) {
         School school = new School()
             .name(DEFAULT_NAME)
-            .address(DEFAULT_ADDRESS)
             .coreSubjects(DEFAULT_CORE_SUBJECTS);
         return school;
     }
@@ -115,7 +114,6 @@ public class SchoolResourceIntTest {
         assertThat(schoolList).hasSize(databaseSizeBeforeCreate + 1);
         School testSchool = schoolList.get(schoolList.size() - 1);
         assertThat(testSchool.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testSchool.getAddress()).isEqualTo(DEFAULT_ADDRESS);
         assertThat(testSchool.getCoreSubjects()).isEqualTo(DEFAULT_CORE_SUBJECTS);
 
         // Validate the School in Elasticsearch
@@ -212,7 +210,6 @@ public class SchoolResourceIntTest {
         School updatedSchool = schoolRepository.findOne(school.getId());
         updatedSchool
             .name(UPDATED_NAME)
-            .address(UPDATED_ADDRESS)
             .coreSubjects(UPDATED_CORE_SUBJECTS);
 
         restSchoolMockMvc.perform(put("/api/schools")
@@ -225,7 +222,6 @@ public class SchoolResourceIntTest {
         assertThat(schoolList).hasSize(databaseSizeBeforeUpdate);
         School testSchool = schoolList.get(schoolList.size() - 1);
         assertThat(testSchool.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testSchool.getAddress()).isEqualTo(UPDATED_ADDRESS);
         assertThat(testSchool.getCoreSubjects()).isEqualTo(UPDATED_CORE_SUBJECTS);
 
         // Validate the School in Elasticsearch

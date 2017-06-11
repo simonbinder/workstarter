@@ -1,20 +1,22 @@
 package workstarter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import workstarter.domain.Student;
 
+import workstarter.domain.CompanyAdmin;
+import workstarter.domain.Student;
+import workstarter.domain.User;
 import workstarter.repository.StudentRepository;
+import workstarter.repository.search.CompanyAdminSearchRepository;
 import workstarter.repository.search.StudentSearchRepository;
+import workstarter.repository.search.UserSearchRepository;
 import workstarter.security.SecurityUtils;
 import workstarter.service.MailService;
 import workstarter.service.StudentService;
 import workstarter.service.dto.StudentDTO;
 import workstarter.web.rest.util.HeaderUtil;
-import workstarter.web.rest.vm.KeyAndPasswordVM;
 import workstarter.web.rest.vm.ManagedStudentVM;
 import io.github.jhipster.web.util.ResponseUtil;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +32,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -48,13 +49,15 @@ public class StudentResource {
 
 	private final StudentRepository studentRepository;
 	private final StudentSearchRepository studentSearchRepository;
+	private final CompanyAdminSearchRepository companyAdminSearchRepository;
 	private final StudentService studentService;
 	private final MailService mailService;
 
 	public StudentResource(StudentRepository studentRepository, StudentSearchRepository studentSearchRepository,
-			StudentService studentService, MailService mailService) {
+			CompanyAdminSearchRepository companyAdminSearchRepository, StudentService studentService, MailService mailService) {
 		this.studentRepository = studentRepository;
 		this.studentSearchRepository = studentSearchRepository;
+		this.companyAdminSearchRepository = companyAdminSearchRepository;
 		this.studentService = studentService;
 		this.mailService = mailService;
 	}
@@ -172,6 +175,18 @@ public class StudentResource {
 				.collect(Collectors.toList());
 	}
 
+	@GetMapping("/_search/allaccounts")
+	@Timed
+	public List<User> searchAllAccounts(@RequestParam String query) {
+		log.debug("REST request to search Students for query {}", query);
+		List<Student> students = StreamSupport.stream(studentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+				.collect(Collectors.toList());
+		List<User> allAccounts = StreamSupport.stream(companyAdminSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+				.collect(Collectors.toList());
+		allAccounts.addAll(students);
+		return allAccounts;
+	}
+
 	/**
 	 * POST /register : register the user.
 	 *
@@ -181,7 +196,8 @@ public class StudentResource {
 	 *         registered or 400 (Bad Request) if the login or e-mail is already
 	 *         in use
 	 */
-	@PostMapping(path = "/students/register", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.TEXT_PLAIN_VALUE })
+	@PostMapping(path = "/students/register", produces = { MediaType.APPLICATION_JSON_VALUE,
+			MediaType.TEXT_PLAIN_VALUE })
 	@Timed
 	public ResponseEntity registerAccount(@Valid @RequestBody ManagedStudentVM managedStudentVM) {
 

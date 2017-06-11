@@ -42,7 +42,6 @@ public class CacheConfiguration {
             cm.createCache(workstarter.domain.User.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(workstarter.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(workstarter.domain.CompanyAdmin.class.getName(), jcacheConfiguration);
-            cm.createCache(workstarter.domain.Offering.class.getName(), jcacheConfiguration);
             cm.createCache(workstarter.domain.Student.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(workstarter.domain.CompanyAdmin.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(workstarter.domain.Student.class.getName() + ".offeringValues", jcacheConfiguration);
@@ -62,7 +61,6 @@ public class CacheConfiguration {
             cm.createCache(workstarter.domain.Resume.class.getName() + ".internships", jcacheConfiguration);
             cm.createCache(workstarter.domain.Resume.class.getName() + ".qualifications", jcacheConfiguration);
             cm.createCache(workstarter.domain.School.class.getName(), jcacheConfiguration);
-            cm.createCache(workstarter.domain.Searching.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

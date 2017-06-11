@@ -1,0 +1,150 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="Simon (generated)" id="1497023124080-2">
+        <createTable tableName="company_admins">
+            <column name="company_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="admins_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-3">
+        <createTable tableName="company_jobadvertisments">
+            <column name="company_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="jobadvertisments_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-15">
+        <createTable tableName="resume_companies">
+            <column name="resume_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="companies_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-16">
+        <createTable tableName="resume_internships">
+            <column name="resume_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="internships_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-17">
+        <createTable tableName="resume_qualifications">
+            <column name="resume_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="qualifications_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-18">
+        <createTable tableName="resume_schools">
+            <column name="resume_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="schools_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-20">
+        <addPrimaryKey columnNames="company_id, admins_id" tableName="company_admins"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-21">
+        <addPrimaryKey columnNames="company_id, jobadvertisments_id" tableName="company_jobadvertisments"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-24">
+        <addPrimaryKey columnNames="student_id, resumes_id" tableName="jhi_user_resumes"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-25">
+        <addPrimaryKey columnNames="resume_id, companies_id" tableName="resume_companies"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-26">
+        <addPrimaryKey columnNames="resume_id, internships_id" tableName="resume_internships"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-27">
+        <addPrimaryKey columnNames="resume_id, qualifications_id" tableName="resume_qualifications"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-28">
+        <addPrimaryKey columnNames="resume_id, schools_id" tableName="resume_schools"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-34">
+        <addUniqueConstraint columnNames="admins_id" constraintName="UK_3ovmhpfx56uajuevl3mb9665d" tableName="company_admins"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-35">
+        <addUniqueConstraint columnNames="qualifications_id" constraintName="UK_4ihgx6yglp3tdfwe984cxrty6" tableName="resume_qualifications"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-36">
+        <addUniqueConstraint columnNames="companies_id" constraintName="UK_7dx3y8ujrgylxkhqm7nw5bswj" tableName="resume_companies"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-37">
+        <addUniqueConstraint columnNames="schools_id" constraintName="UK_9lqrwnmv6y34ixwcx0v54e41h" tableName="resume_schools"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-38">
+        <addUniqueConstraint columnNames="jobadvertisments_id" constraintName="UK_aqij1gk6plagqqo7lprc5vahc" tableName="company_jobadvertisments"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-39">
+        <addUniqueConstraint columnNames="internships_id" constraintName="UK_bql2njqmtd0m09vw36yja0hkx" tableName="resume_internships"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-40">
+        <addUniqueConstraint columnNames="resumes_id" constraintName="UK_sj354f22ervyjyk9dts3vvum6" tableName="jhi_user_resumes"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-41">
+        <addForeignKeyConstraint baseColumnNames="companies_id" baseTableName="resume_companies" constraintName="FK10x4smchxka2telqaplbrija0" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-42">
+        <addForeignKeyConstraint baseColumnNames="resume_id" baseTableName="resume_qualifications" constraintName="FK15e5dkc7fpfgnsjtqufhnt01i" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-43">
+        <addForeignKeyConstraint baseColumnNames="resume_id" baseTableName="resume_companies" constraintName="FK1q259micypglmg1jv94el1xea" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-44">
+        <addForeignKeyConstraint baseColumnNames="resume_id" baseTableName="resume_schools" constraintName="FK25fapigu79gnuclcaffy6sask" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-47">
+        <addForeignKeyConstraint baseColumnNames="resumes_id" baseTableName="jhi_user_resumes" constraintName="FK2siiv9ni6k8dggvc3h06o9anj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-48">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="jhi_user" constraintName="FK3ltrtkr6yv25sivkurwf9q8v9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-50">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="jhi_user_resumes" constraintName="FK603or8k61nmwyx6iibhkgbal7" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-51">
+        <addForeignKeyConstraint baseColumnNames="jobadvertisments_id" baseTableName="company_jobadvertisments" constraintName="FK8gxx2dy6dnpnfc8mwuhbnuadr" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jobadvertisment"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-52">
+        <addForeignKeyConstraint baseColumnNames="qualifications_id" baseTableName="resume_qualifications" constraintName="FKcmcowd1ewp6ppuga9avurk1uh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="qualification"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-53">
+        <addForeignKeyConstraint baseColumnNames="internships_id" baseTableName="resume_internships" constraintName="FKdqx74g2051l720jsvy5v2rva9" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-54">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="company_admins" constraintName="FKdvimb9h994mvicrcvo35pmy1k" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-56">
+        <addForeignKeyConstraint baseColumnNames="resume_id" baseTableName="resume_internships" constraintName="FKl3t5fwjqn1fsrlqubq513ukwu" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="resume"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-57">
+        <addForeignKeyConstraint baseColumnNames="admins_id" baseTableName="company_admins" constraintName="FKm7dqm6yhla1wskho7ymvyjpoh" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-58">
+        <addForeignKeyConstraint baseColumnNames="schools_id" baseTableName="resume_schools" constraintName="FKp71wwb7184fte75esmeijumd5" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="school"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497023124080-59">
+        <addForeignKeyConstraint baseColumnNames="company_id" baseTableName="company_jobadvertisments" constraintName="FKs4eh1v2jjtb87y1l09mk3p5n3" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="company"/>
+    </changeSet>
+</databaseChangeLog>

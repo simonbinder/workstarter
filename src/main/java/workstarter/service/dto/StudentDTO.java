@@ -3,17 +3,14 @@ package workstarter.service.dto;
 import workstarter.config.Constants;
 
 import workstarter.domain.Authority;
-import workstarter.domain.Offering;
 import workstarter.domain.Portfolio;
 import workstarter.domain.School;
-import workstarter.domain.Searching;
 import workstarter.domain.Student;
 
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
 import java.time.ZonedDateTime;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -53,8 +50,6 @@ public class StudentDTO {
 	private School university;
 	private Portfolio portfolio;
 	private Set<String> authorities;
-	private Set<String> offeringValues;
-	private Set<String> searchingValues;
 	private Set<String> resumes;
 
 	public StudentDTO() {
@@ -65,16 +60,13 @@ public class StudentDTO {
 		this(student.getId(), student.getLogin(), student.getFirstName(), student.getLastName(), student.getEmail(),
 				student.getActivated(), student.getImageUrl(), student.getLangKey(), student.getCreatedBy(),
 				student.getCreatedDate(), student.getLastModifiedBy(), student.getLastModifiedDate(),
-				student.getUniversity(), student.getPortfolio(),
-				student.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()),
-				student.getOfferingValues().stream().map(Offering::getOfferingvalues).collect(Collectors.toSet()),
-				student.getSearchingValues().stream().map(Searching::getSearchingvalues).collect(Collectors.toSet()));
-	}
+			  student.getPortfolio(),
+				student.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+		}
 
 	public StudentDTO(Long id, String login, String firstName, String lastName, String email, boolean activated,
 			String imageUrl, String langKey, String createdBy, ZonedDateTime createdDate, String lastModifiedBy,
-			ZonedDateTime lastModifiedDate, School university, Portfolio portfolio, Set<String> authorities,
-			Set<String> offeringValues, Set<String> searchingValues) {
+			ZonedDateTime lastModifiedDate, Portfolio portfolio, Set<String> authorities) {
 
 		this.id = id;
 		this.login = login;
@@ -88,11 +80,8 @@ public class StudentDTO {
 		this.createdDate = createdDate;
 		this.lastModifiedBy = lastModifiedBy;
 		this.lastModifiedDate = lastModifiedDate;
-		this.university = university;
 		this.portfolio = portfolio;
 		this.authorities = authorities;
-		this.offeringValues = offeringValues;
-		this.searchingValues = searchingValues;
 	}
 
 	public Long getId() {
@@ -163,20 +152,12 @@ public class StudentDTO {
 		return authorities;
 	}
 
-	public Set<String> getOfferingValues() {
-		return offeringValues;
-	}
-	
 	public School getUniversity() {
 		return university;
 	}
 
 	public Portfolio getPortfolio() {
 		return portfolio;
-	}
-
-	public Set<String> getSearchingValues() {
-		return searchingValues;
 	}
 
 	public Set<String> getResumes() {

@@ -46,9 +46,6 @@ public class Jobadvertisment implements Serializable {
     @Column(name = "tasks")
     private String tasks;
 
-    @ManyToOne
-    private Company company;
-
     public Long getId() {
         return id;
     }
@@ -146,19 +143,6 @@ public class Jobadvertisment implements Serializable {
 
     public void setTasks(String tasks) {
         this.tasks = tasks;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public Jobadvertisment company(Company company) {
-        this.company = company;
-        return this;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
     }
 
     @Override

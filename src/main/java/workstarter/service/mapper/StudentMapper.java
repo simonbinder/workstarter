@@ -1,11 +1,8 @@
 package workstarter.service.mapper;
 
 import workstarter.domain.Authority;
-import workstarter.domain.Offering;
 import workstarter.domain.Resume;
-import workstarter.domain.Searching;
 import workstarter.domain.Student;
-import workstarter.domain.User;
 import workstarter.service.dto.StudentDTO;
 import org.mapstruct.*;
 
@@ -32,7 +29,6 @@ public interface StudentMapper {
     @Mapping(target = "resetDate", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "portfolio", ignore = true)
-    @Mapping(target = "university", ignore = true)
     Student studentDTOToStudent(StudentDTO studentDTO);
 
     List<Student> studentDTOsToStudents(List<StudentDTO> studentDTOs);
@@ -56,32 +52,6 @@ public interface StudentMapper {
             Authority auth = new Authority();
             auth.setName(string);
             return auth;
-        }).collect(Collectors.toSet());
-    }
-    
-    default Set<String> stringsFromOfferings (Set<Offering> offerings) {
-        return offerings.stream().map(Offering::getOfferingvalues)
-            .collect(Collectors.toSet());
-    }
-    
-    default Set<Offering> offeringsFromStrings(Set<String> strings) {
-        return strings.stream().map(string -> {
-            Offering off = new Offering();
-            off.setOfferingvalues(string);
-            return off;
-        }).collect(Collectors.toSet());
-    }
-    
-    default Set<String> stringsFromSearchings (Set<Searching> searchings) {
-        return searchings.stream().map(Searching::getSearchingvalues)
-            .collect(Collectors.toSet());
-    }
-    
-    default Set<Searching> searchingsFromStrings(Set<String> strings) {
-        return strings.stream().map(string -> {
-            Searching search = new Searching();
-            search.setSearchingvalues(string);
-            return search;
         }).collect(Collectors.toSet());
     }
     

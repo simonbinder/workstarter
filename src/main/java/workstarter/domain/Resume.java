@@ -34,25 +34,22 @@ public class Resume implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToOne
-    private Student student;
-
-    @OneToMany(mappedBy = "resume")
+    @OneToMany
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<School> schools = new HashSet<>();
 
-    @OneToMany(mappedBy = "resume")
+    @OneToMany
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Company> companies = new HashSet<>();
 
-    @OneToMany(mappedBy = "resume")
+    @OneToMany
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Company> internships = new HashSet<>();
 
-    @OneToMany(mappedBy = "resume")
+    @OneToMany
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Qualification> qualifications = new HashSet<>();
@@ -91,19 +88,6 @@ public class Resume implements Serializable {
         this.description = description;
     }
 
-    public Student getStudent() {
-        return student;
-    }
-
-    public Resume student(Student student) {
-        this.student = student;
-        return this;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
-    }
-
     public Set<School> getSchools() {
         return schools;
     }
@@ -115,13 +99,11 @@ public class Resume implements Serializable {
 
     public Resume addSchools(School school) {
         this.schools.add(school);
-        school.setResume(this);
         return this;
     }
 
     public Resume removeSchools(School school) {
         this.schools.remove(school);
-        school.setResume(null);
         return this;
     }
 
@@ -140,13 +122,11 @@ public class Resume implements Serializable {
 
     public Resume addCompanies(Company company) {
         this.companies.add(company);
-        company.setResume(this);
         return this;
     }
 
     public Resume removeCompanies(Company company) {
         this.companies.remove(company);
-        company.setResume(null);
         return this;
     }
 
@@ -165,13 +145,11 @@ public class Resume implements Serializable {
 
     public Resume addInternships(Company company) {
         this.internships.add(company);
-        company.setResume(this);
         return this;
     }
 
     public Resume removeInternships(Company company) {
         this.internships.remove(company);
-        company.setResume(null);
         return this;
     }
 
@@ -190,13 +168,11 @@ public class Resume implements Serializable {
 
     public Resume addQualifications(Qualification qualification) {
         this.qualifications.add(qualification);
-        qualification.setResume(this);
         return this;
     }
 
     public Resume removeQualifications(Qualification qualification) {
         this.qualifications.remove(qualification);
-        qualification.setResume(null);
         return this;
     }
 

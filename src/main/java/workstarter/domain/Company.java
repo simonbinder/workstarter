@@ -31,18 +31,12 @@ public class Company implements Serializable {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
-    @ManyToOne
-    private CompanyAdmin companyAdmin;
-
-    @ManyToOne
-    private Resume resume;
-
-    @OneToMany(mappedBy = "company")
+    @OneToMany
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Jobadvertisment> jobadvertisments = new HashSet<>();
 
-    @OneToMany(mappedBy = "company")
+    @OneToMany
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CompanyAdmin> admins = new HashSet<>();
@@ -68,33 +62,6 @@ public class Company implements Serializable {
         this.companyName = companyName;
     }
 
-    public CompanyAdmin getCompanyAdmin() {
-        return companyAdmin;
-    }
-
-    public Company companyAdmin(CompanyAdmin companyAdmin) {
-        this.companyAdmin = companyAdmin;
-        return this;
-    }
-
-    public void setCompanyAdmin(CompanyAdmin companyAdmin) {
-        this.companyAdmin = companyAdmin;
-    }
-
-    public Resume getResume() {
-        return resume;
-    }
-
-    public Company resume(Resume resume) {
-        this.resume = resume;
-        return this;
-    }
-
-
-    public void setResume(Resume resume) {
-        this.resume = resume;
-    }
-
     public Set<Jobadvertisment> getJobadvertisments() {
         return jobadvertisments;
     }
@@ -106,13 +73,11 @@ public class Company implements Serializable {
 
     public Company addJobadvertisment(Jobadvertisment jobadvertisment) {
         this.jobadvertisments.add(jobadvertisment);
-        jobadvertisment.setCompany(this);
         return this;
     }
 
     public Company removeJobadvertisment(Jobadvertisment jobadvertisment) {
         this.jobadvertisments.remove(jobadvertisment);
-        jobadvertisment.setCompany(null);
         return this;
     }
 
@@ -131,13 +96,11 @@ public class Company implements Serializable {
 
     public Company addAdmins(CompanyAdmin companyAdmin) {
         this.admins.add(companyAdmin);
-        companyAdmin.setCompany(this);
         return this;
     }
 
     public Company removeAdmins(CompanyAdmin companyAdmin) {
         this.admins.remove(companyAdmin);
-        companyAdmin.setCompany(null);
         return this;
     }
 

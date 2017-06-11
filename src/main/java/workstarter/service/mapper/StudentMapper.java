@@ -2,6 +2,7 @@ package workstarter.service.mapper;
 
 import workstarter.domain.Authority;
 import workstarter.domain.Resume;
+import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.service.dto.StudentDTO;
 import org.mapstruct.*;
@@ -65,5 +66,17 @@ public interface StudentMapper {
     		resume.setTitle(string);
     		return resume;
     	}).collect(Collectors.toSet());
+    }
+    
+    default List<String> stringsFromSchools (List<School> schools){
+    	return schools.stream().map(School::getName).collect(Collectors.toList());
+    }
+    
+    default List<School> schoolsFromStrings(List<String> strings) {
+    	return strings.stream().map(string -> {
+    		School school = new School();
+    		school.setName(string);
+    		return school;
+    	}).collect(Collectors.toList());
     }
 }

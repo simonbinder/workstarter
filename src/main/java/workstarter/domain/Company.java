@@ -31,13 +31,11 @@ public class Company implements Serializable {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Jobadvertisment> jobadvertisments = new HashSet<>();
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CompanyAdmin> admins = new HashSet<>();
 

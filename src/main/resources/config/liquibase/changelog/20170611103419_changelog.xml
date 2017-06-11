@@ -1,0 +1,25 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="Simon (generated)" id="1497177268641-11">
+        <createTable tableName="jhi_user_schools">
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="schools_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497177268641-26">
+        <addPrimaryKey columnNames="student_id, schools_id" tableName="jhi_user_schools"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497177268641-36">
+        <addUniqueConstraint columnNames="schools_id" constraintName="UK_2hr3f4enav71y6804vhrpco5q" tableName="jhi_user_schools"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497177268641-61">
+        <addForeignKeyConstraint baseColumnNames="schools_id" baseTableName="jhi_user_schools" constraintName="FKn693asbhe8d9ambg1lq1vx9kj" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="school"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497177268641-62">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="jhi_user_schools" constraintName="FKojkh1bjsr4vcnuw3971y4lmvf" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>

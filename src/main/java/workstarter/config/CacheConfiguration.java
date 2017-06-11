@@ -44,10 +44,9 @@ public class CacheConfiguration {
             cm.createCache(workstarter.domain.CompanyAdmin.class.getName(), jcacheConfiguration);
             cm.createCache(workstarter.domain.Student.class.getName() + ".authorities", jcacheConfiguration);
             cm.createCache(workstarter.domain.CompanyAdmin.class.getName() + ".authorities", jcacheConfiguration);
-            cm.createCache(workstarter.domain.Student.class.getName() + ".offeringValues", jcacheConfiguration);
             cm.createCache(workstarter.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
-            cm.createCache(workstarter.domain.Student.class.getName() + ".searchingValues", jcacheConfiguration);
             cm.createCache(workstarter.domain.Student.class.getName() + ".resumes", jcacheConfiguration);
+            cm.createCache(workstarter.domain.Student.class.getName() + ".schools", jcacheConfiguration);
             cm.createCache(workstarter.domain.Company.class.getName(), jcacheConfiguration);
             cm.createCache(workstarter.domain.Company.class.getName() + ".jobadvertisments", jcacheConfiguration);
             cm.createCache(workstarter.domain.Company.class.getName() + ".admins", jcacheConfiguration);

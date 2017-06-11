@@ -1,12 +1,14 @@
 package workstarter.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,12 +29,14 @@ public class Student extends User {
     @JoinColumn(unique = true)
     private Portfolio portfolio;
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Resume> resumes = new HashSet<>();
-
-
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<School> schools = new ArrayList<>();
+    
     public String getMatrikelNummer() {
         return matrikelNummer;
     }
@@ -81,11 +85,35 @@ public class Student extends User {
     public void setResumes(Set<Resume> resumes) {
         this.resumes = resumes;
     }
+    
+	public List<School> getSchools() {
+		return schools;
+	}
+	
+	public Student addSchools(School school){
+		this.schools.add(school);
+		return this;
+	}
+	
+	public Student updateSchool(School oldSchool, School school){
+		int index = this.schools.indexOf(oldSchool);
+		this.schools.set(index, school);
+		return this;
+	}
+
+	public Student removeSchools(School schools){
+		this.schools.remove(schools);
+		return this;
+	}
+	
+	public void setSchools(List<School> schools) {
+		this.schools = schools;
+	}
 
 	@Override
 	public String toString() {
-		return "Student [matrikelNummer=" + matrikelNummer + ", portfolio=" + portfolio + ", resumes=" + resumes + "]";
+		return "Student [matrikelNummer=" + matrikelNummer + ", portfolio=" + portfolio + ", resumes=" + resumes
+				+ ", schools=" + schools + "]";
 	}
 
-    
 }

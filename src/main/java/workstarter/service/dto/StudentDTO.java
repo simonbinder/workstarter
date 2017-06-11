@@ -4,6 +4,7 @@ import workstarter.config.Constants;
 
 import workstarter.domain.Authority;
 import workstarter.domain.Portfolio;
+import workstarter.domain.Resume;
 import workstarter.domain.School;
 import workstarter.domain.Student;
 
@@ -11,6 +12,7 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,10 +49,10 @@ public class StudentDTO {
 	private ZonedDateTime createdDate;
 	private String lastModifiedBy;
 	private ZonedDateTime lastModifiedDate;
-	private School university;
 	private Portfolio portfolio;
 	private Set<String> authorities;
 	private Set<String> resumes;
+	private List<String> schools;
 
 	public StudentDTO() {
 		// Empty constructor needed for MapStruct.
@@ -61,12 +63,14 @@ public class StudentDTO {
 				student.getActivated(), student.getImageUrl(), student.getLangKey(), student.getCreatedBy(),
 				student.getCreatedDate(), student.getLastModifiedBy(), student.getLastModifiedDate(),
 			  student.getPortfolio(),
-				student.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()));
+				student.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()),
+		student.getResumes().stream().map(Resume::getTitle).collect(Collectors.toSet()),
+		student.getSchools().stream().map(School::getName).collect(Collectors.toList()));
 		}
 
 	public StudentDTO(Long id, String login, String firstName, String lastName, String email, boolean activated,
 			String imageUrl, String langKey, String createdBy, ZonedDateTime createdDate, String lastModifiedBy,
-			ZonedDateTime lastModifiedDate, Portfolio portfolio, Set<String> authorities) {
+			ZonedDateTime lastModifiedDate, Portfolio portfolio, Set<String> authorities, Set<String> resumes, List<String> schools) {
 
 		this.id = id;
 		this.login = login;
@@ -82,6 +86,8 @@ public class StudentDTO {
 		this.lastModifiedDate = lastModifiedDate;
 		this.portfolio = portfolio;
 		this.authorities = authorities;
+		this.resumes = resumes;
+		this.schools = schools;
 	}
 
 	public Long getId() {
@@ -152,10 +158,6 @@ public class StudentDTO {
 		return authorities;
 	}
 
-	public School getUniversity() {
-		return university;
-	}
-
 	public Portfolio getPortfolio() {
 		return portfolio;
 	}
@@ -163,13 +165,22 @@ public class StudentDTO {
 	public Set<String> getResumes() {
 		return resumes;
 	}
+	
+	public List<String> getSchools() {
+		return schools;
+	}
+
+	public void setSchools(List<String> schools) {
+		this.schools = schools;
+	}
 
 	@Override
 	public String toString() {
-		return "UserDTO{" + "login='" + login + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName
-				+ '\'' + ", email='" + email + '\'' + ", imageUrl='" + imageUrl + '\'' + ", activated=" + activated
-				+ ", langKey='" + langKey + '\'' + ", createdBy=" + createdBy + ", createdDate=" + createdDate
-				+ ", lastModifiedBy='" + lastModifiedBy + '\'' + ", lastModifiedDate=" + lastModifiedDate
-				+ ", authorities=" + authorities + "}";
+		return "StudentDTO [id=" + id + ", login=" + login + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", email=" + email + ", imageUrl=" + imageUrl + ", activated=" + activated + ", langKey=" + langKey
+				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", lastModifiedBy=" + lastModifiedBy
+				+ ", lastModifiedDate=" + lastModifiedDate + ", portfolio=" + portfolio + ", authorities=" + authorities
+				+ ", resumes=" + resumes + ", schools=" + schools + "]";
 	}
+
 }

@@ -3,6 +3,7 @@ package workstarter.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import workstarter.domain.CompanyAdmin;
+import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.StudentRepository;
@@ -29,6 +30,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -112,7 +114,66 @@ public class StudentResource {
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, student.getId().toString()))
 				.body(result);
 	}
-
+	
+	/**
+	 * GET /students/schools : get all the students.
+	 *
+	 * @return the ResponseEntity with status 200 (OK) and the list of students
+	 *         in body
+	 */
+	@GetMapping("/students/{id}/schools")
+	@Timed
+	public List<School> getAllSchools(@PathVariable Long id) {
+		log.debug("REST request to get all Schools for one Student");
+		List<School> schools = studentService.getSchools(id);
+		return schools;
+	}
+	
+	/**
+	 * PUT /students/{id}/schools : Updates an existing student.
+	 *
+	 * @param school
+	 *            the school to add
+	 * @return the ResponseEntity with status 200 (OK) and with body the updated
+	 *         student, or with status 400 (Bad Request) if the student is not
+	 *         valid, or with status 500 (Internal Server Error) if the student
+	 *         couldnt be updated
+	 * @throws URISyntaxException
+	 *             if the Location URI syntax is incorrect
+	 */
+	@PutMapping("/students/{id}/schools")
+	@Timed
+	public ResponseEntity<Student> addSchool(@PathVariable Long id,@Valid @RequestBody School school) throws URISyntaxException {
+		log.debug("REST request to update Student : {}", school);
+		Student result = studentService.addSchool(id, school);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+	
+	/**
+	 * PUT /students/{id}/schools({id} : Updates an existing school for an existing student.
+	 *
+	 * @param school
+	 *            the school to add
+	 * @return the ResponseEntity with status 200 (OK) and with body the updated
+	 *         student, or with status 400 (Bad Request) if the student is not
+	 *         valid, or with status 500 (Internal Server Error) if the student
+	 *         couldnt be updated
+	 * @throws URISyntaxException
+	 *             if the Location URI syntax is incorrect
+	 */
+	@PutMapping("/students/{id}/schools/{schoolid}")
+	@Timed
+	public ResponseEntity<Student> updateSchool(@PathVariable Long id, @PathVariable Long schoolid, @Valid @RequestBody School school) throws URISyntaxException {
+		log.debug("REST request to update School : {}", school);
+		Student result = studentService.updateSchool(id, schoolid, school);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+	
+	
 	/**
 	 * GET /students : get all the students.
 	 *

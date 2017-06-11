@@ -1,6 +1,5 @@
 package workstarter.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -34,23 +33,19 @@ public class Resume implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<School> schools = new HashSet<>();
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Company> companies = new HashSet<>();
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Company> internships = new HashSet<>();
 
-    @OneToMany
-    @JsonIgnore
+    @OneToMany(fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Qualification> qualifications = new HashSet<>();
 

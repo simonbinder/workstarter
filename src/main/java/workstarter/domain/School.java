@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 /**
  * A School.
@@ -99,26 +98,6 @@ public class School implements Serializable {
 		this.end = end;
 	}
 	
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) {
-			return true;
-		}
-		if (o == null || getClass() != o.getClass()) {
-			return false;
-		}
-		School school = (School) o;
-		if (school.id == null || id == null) {
-			return false;
-		}
-		return Objects.equals(id, school.id);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hashCode(id);
-	}
 
 	@Override
 	public String toString() {

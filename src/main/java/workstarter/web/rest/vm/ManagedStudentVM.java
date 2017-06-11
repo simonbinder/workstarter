@@ -1,7 +1,6 @@
 package workstarter.web.rest.vm;
 
 import workstarter.domain.Portfolio;
-import workstarter.domain.School;
 import workstarter.service.dto.StudentDTO;
 import javax.validation.constraints.Size;
 
@@ -28,11 +27,11 @@ public class ManagedStudentVM extends StudentDTO {
 
 	public ManagedStudentVM(Long id, String login, String password, String firstName, String lastName, String email,
 			boolean activated, String imageUrl, String langKey, String createdBy, ZonedDateTime createdDate,
-			String lastModifiedBy, ZonedDateTime lastModifiedDate, School university, Portfolio portfolio,
-			Set<String> authorities) {
+			String lastModifiedBy, ZonedDateTime lastModifiedDate, Portfolio portfolio,
+			Set<String> authorities, Set<String> resumes, List<String> schools) {
 
 		super(id, login, firstName, lastName, email, activated, imageUrl, langKey, createdBy, createdDate,
-				lastModifiedBy, lastModifiedDate, portfolio, authorities);
+				lastModifiedBy, lastModifiedDate, portfolio, authorities, resumes, schools);
 
 		this.password = password;
 	}

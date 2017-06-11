@@ -1,19 +1,19 @@
 package workstarter.service;
 
 import workstarter.domain.Authority;
+import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
+import workstarter.repository.SchoolRepository;
 import workstarter.config.Constants;
 import workstarter.repository.StudentRepository;
 import workstarter.repository.search.StudentSearchRepository;
-import workstarter.repository.search.UserSearchRepository;
 import workstarter.security.AuthoritiesConstants;
 import workstarter.security.SecurityUtils;
 import workstarter.service.util.RandomUtil;
 import workstarter.service.dto.StudentDTO;
 
-import org.hibernate.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -48,15 +48,17 @@ public class StudentService {
 	private final SocialService socialService;
 	private final StudentSearchRepository studentSearchRepository;
 	private final AuthorityRepository authorityRepository;
+    private final SchoolRepository schoolRepository;
 
 	public StudentService(StudentRepository userRepository, PasswordEncoder passwordEncoder,
 			SocialService socialService, StudentSearchRepository studentSearchRepository,
-			AuthorityRepository authorityRepository) {
+			AuthorityRepository authorityRepository, SchoolRepository schoolRepository) {
 		this.studentRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
 		this.studentSearchRepository = studentSearchRepository;
 		this.authorityRepository = authorityRepository;
+		this.schoolRepository = schoolRepository;
 	}
 
 	public Optional<Student> activateRegistration(String key) {
@@ -240,6 +242,31 @@ public class StudentService {
 	@Transactional(readOnly = true)
 	public Student getUserWithAuthorities() {
 		return studentRepository.findOneWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin()).orElse(null);
+	}
+	
+	public List<School> getSchools(Long id){
+		Student student = studentRepository.getOne(id);
+		return student.getSchools();
+	}
+	
+	public Student updateSchool(Long studentID, Long schoolID, School school){
+		Student student = studentRepository.getOne(studentID);
+		School oldSchool = schoolRepository.getOne(schoolID);
+		schoolRepository.save(school);
+		student.updateSchool(oldSchool, school);
+		schoolRepository.delete(oldSchool);
+		studentRepository.save(student);
+		log.debug("Updated school for Student: {}", student);
+		return student;
+	}
+	
+	public Student addSchool(Long id, School school){
+		Student student = studentRepository.getOne(id);
+		schoolRepository.save(school);
+		student.addSchools(school);
+		studentRepository.save(student);
+		log.debug("Added school for Student: {}", student);
+		return student;
 	}
 
 	/**

@@ -2,6 +2,8 @@ package workstarter.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
@@ -34,8 +36,14 @@ public class Student extends User {
     private Set<Resume> resumes = new HashSet<>();
     
     @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<School> schools = new ArrayList<>();
+    
+    @OneToMany(fetch = FetchType.EAGER)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<Profession> professions = new ArrayList<>();
     
     public String getMatrikelNummer() {
         return matrikelNummer;
@@ -108,6 +116,30 @@ public class Student extends User {
 	
 	public void setSchools(List<School> schools) {
 		this.schools = schools;
+	}
+	
+	public Student addProfessions(Profession profession){
+		this.professions.add(profession);
+		return this;
+	}
+	
+	public Student updateProfession(Profession oldProfession, Profession profession){
+		int index = this.professions.indexOf(oldProfession);
+		this.professions.set(index, profession);
+		return this;
+	}
+	
+	public Student removeProfession(Profession profession){
+		this.professions.remove(profession);
+		return this;
+	}
+	
+	public List<Profession> getProfessions() {
+		return professions;
+	}
+
+	public void setProfessions(List<Profession> professions) {
+		this.professions = professions;
 	}
 
 	@Override

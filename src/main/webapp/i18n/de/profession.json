@@ -1,0 +1,31 @@
+{
+    "workstarterApp": {
+        "profession" : {
+            "home": {
+                "title": "Professions",
+                "createLabel": "Profession erstellen",
+                "createOrEditLabel": "Profession erstellen oder bearbeiten",
+                "search": "Suche nach Profession"
+            },
+            "created": "Profession erstellt mit ID {{ param }}",
+            "updated": "Profession aktualisiert mit ID {{ param }}",
+            "deleted": "Profession gelöscht mit ID {{ param }}",
+            "delete": {
+                "question": "Soll Profession {{ id }} wirklich dauerhaft gelöscht werden?"
+            },
+            "detail": {
+                "title": "Profession"
+            },
+            "position": "Position",
+            "formOfEmployment": "Form Of Employment",
+            "tasks": "Tasks",
+            "companyName": "Company Name",
+            "domain": "Domain",
+            "sector": "Sector",
+            "location": "Location",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "ManyToOne": "Many To One"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "workstarterApp": {
+        "profession" : {
+            "home": {
+                "title": "Professions",
+                "createLabel": "Create a new Profession",
+                "createOrEditLabel": "Create or edit a Profession",
+                "search": "Search for Profession"
+            },
+            "created": "A new Profession is created with identifier {{ param }}",
+            "updated": "A Profession is updated with identifier {{ param }}",
+            "deleted": "A Profession is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Profession {{ id }}?"
+            },
+            "detail": {
+                "title": "Profession"
+            },
+            "position": "Position",
+            "formOfEmployment": "Form Of Employment",
+            "tasks": "Tasks",
+            "companyName": "Company Name",
+            "domain": "Domain",
+            "sector": "Sector",
+            "location": "Location",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "ManyToOne": "Many To One"
+        }
+    }
+}

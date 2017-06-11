@@ -1,0 +1,91 @@
+<div>
+    <h2>
+        <span jhiTranslate="workstarterApp.profession.home.title">Professions</span>
+        <button class="btn btn-primary float-right create-profession" [routerLink]="['/', { outlets: { popup: ['profession-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="workstarterApp.profession.home.createLabel">
+            Create new Profession
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12 no-padding-right">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'workstarterApp.profession.home.search' | translate }}">
+                    <button class="input-group-addon btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-addon btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="professions">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.position">Position</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.formOfEmployment">Form Of Employment</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.tasks">Tasks</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.companyName">Company Name</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.domain">Domain</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.sector">Sector</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.location">Location</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.startDate">Start Date</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.endDate">End Date</span></th>
+            <th><span jhiTranslate="workstarterApp.profession.ManyToOne">Many To One</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let profession of professions ;trackBy: trackId">
+                <td><a [routerLink]="['../profession', profession.id ]">{{profession.id}}</a></td>
+                <td>{{profession.position}}</td>
+                <td>{{profession.formOfEmployment}}</td>
+                <td>{{profession.tasks}}</td>
+                <td>{{profession.companyName}}</td>
+                <td>{{profession.domain}}</td>
+                <td>{{profession.sector}}</td>
+                <td>{{profession.location}}</td>
+                <td>{{profession.startDate | date:'mediumDate'}}</td>
+                <td>{{profession.endDate | date:'mediumDate'}}</td>
+                <td>
+                    <div *ngIf="profession.manyToOne">
+                        <a [routerLink]="['../student', profession.manyToOne?.id ]" >{{profession.manyToOne?.profession}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../profession', profession.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'profession/'+ profession.id + '/edit'} }]"
+                                replaceUrl="true"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'profession/'+ profession.id + '/delete'} }]"
+                                replaceUrl="true"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="hidden-md-down" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

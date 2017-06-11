@@ -3,6 +3,7 @@ package workstarter.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import workstarter.domain.CompanyAdmin;
+import workstarter.domain.Profession;
 import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
@@ -173,6 +174,39 @@ public class StudentResource {
 				.body(result);
 	}
 	
+	/**
+	 * GET /students/schools : get all the students.
+	 *
+	 * @return the ResponseEntity with status 200 (OK) and the list of students
+	 *         in body
+	 */
+	@GetMapping("/students/{id}/professions")
+	@Timed
+	public List<Profession> getAllProfessions(@PathVariable Long id) {
+		log.debug("REST request to get all professions for one Student");
+		List<Profession> profession = studentService.getProfessions(id);
+		return profession;
+	}
+	
+	@PutMapping("/students/{id}/profession")
+	@Timed
+	public ResponseEntity<Student> addProfession(@PathVariable Long id,@Valid @RequestBody Profession profession) throws URISyntaxException {
+		log.debug("REST request to update Student : {}", profession);
+		Student result = studentService.addProfession(id, profession);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+	
+	@PutMapping("/students/{id}/profession/{professionid}")
+	@Timed
+	public ResponseEntity<Student> updateProfession(@PathVariable Long id, @PathVariable Long professionid, @Valid @RequestBody Profession profession) throws URISyntaxException {
+		log.debug("REST request to update School : {}", profession);
+		Student result = studentService.updateProfession(id, professionid, profession);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
 	
 	/**
 	 * GET /students : get all the students.

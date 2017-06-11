@@ -1,0 +1,63 @@
+
+<div *ngIf="profession">
+    <h2><span jhiTranslate="workstarterApp.profession.detail.title">Profession</span> {{profession.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="workstarterApp.profession.position">Position</span></dt>
+        <dd>
+            <span>{{profession.position}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.formOfEmployment">Form Of Employment</span></dt>
+        <dd>
+            <span>{{profession.formOfEmployment}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.tasks">Tasks</span></dt>
+        <dd>
+            <span>{{profession.tasks}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.companyName">Company Name</span></dt>
+        <dd>
+            <span>{{profession.companyName}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.domain">Domain</span></dt>
+        <dd>
+            <span>{{profession.domain}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.sector">Sector</span></dt>
+        <dd>
+            <span>{{profession.sector}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.location">Location</span></dt>
+        <dd>
+            <span>{{profession.location}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{profession.startDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.endDate">End Date</span></dt>
+        <dd>
+            <span>{{profession.endDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.profession.ManyToOne">Many To One</span></dt>
+        <dd>
+            <div *ngIf="profession.manyToOne">
+                <a [routerLink]="['/student', profession.manyToOne?.id]">{{profession.manyToOne?.profession}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'profession/'+ profession.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,10 +1,12 @@
 package workstarter.service;
 
 import workstarter.domain.Authority;
+import workstarter.domain.Profession;
 import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
+import workstarter.repository.ProfessionRepository;
 import workstarter.repository.SchoolRepository;
 import workstarter.config.Constants;
 import workstarter.repository.StudentRepository;
@@ -49,16 +51,18 @@ public class StudentService {
 	private final StudentSearchRepository studentSearchRepository;
 	private final AuthorityRepository authorityRepository;
     private final SchoolRepository schoolRepository;
+    private final ProfessionRepository professionRepository;
 
 	public StudentService(StudentRepository userRepository, PasswordEncoder passwordEncoder,
 			SocialService socialService, StudentSearchRepository studentSearchRepository,
-			AuthorityRepository authorityRepository, SchoolRepository schoolRepository) {
+			AuthorityRepository authorityRepository, SchoolRepository schoolRepository, ProfessionRepository professionRepository) {
 		this.studentRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
 		this.studentSearchRepository = studentSearchRepository;
 		this.authorityRepository = authorityRepository;
 		this.schoolRepository = schoolRepository;
+		this.professionRepository = professionRepository;
 	}
 
 	public Optional<Student> activateRegistration(String key) {
@@ -249,6 +253,11 @@ public class StudentService {
 		return student.getSchools();
 	}
 	
+	public List<Profession> getProfessions(Long id){
+		Student student = studentRepository.getOne(id);
+		return student.getProfessions();
+	}
+	
 	public Student updateSchool(Long studentID, Long schoolID, School school){
 		Student student = studentRepository.getOne(studentID);
 		School oldSchool = schoolRepository.getOne(schoolID);
@@ -266,6 +275,26 @@ public class StudentService {
 		student.addSchools(school);
 		studentRepository.save(student);
 		log.debug("Added school for Student: {}", student);
+		return student;
+	}
+	
+	public Student addProfession(Long id, Profession profession){
+		Student student = studentRepository.getOne(id);
+		professionRepository.save(profession);
+		student.addProfessions(profession);
+		studentRepository.save(student);
+		log.debug("Added profession for Student: {}", student);
+		return student;
+	}
+	
+	public Student updateProfession(Long studentID, Long professionID, Profession profession){
+		Student student = studentRepository.getOne(studentID);
+		Profession oldProfession = professionRepository.getOne(professionID);
+		professionRepository.save(profession);
+		student.updateProfession(oldProfession, profession);
+		professionRepository.delete(oldProfession);
+		studentRepository.save(student);
+		log.debug("Updated profession for Student: {}", student);
 		return student;
 	}
 

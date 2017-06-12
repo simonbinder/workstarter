@@ -2,13 +2,21 @@
     "editView": {
         "title": "Bearbeite Berufserfahrung",
         "form": {
-            "password": "Passwort",
-            "password.placeholder": "Ihr Passwort",
-            "rememberme": "Automatische Anmeldung",
-            "button": "Anmelden"
+            "jobs": {
+                "position": "Position",
+                "describtion": "Beschreibe deine Tätigkeit",
+                "careerlevel": "Beschäftigungsart",
+                "company": "Firma",
+                "companyname": "Name deiner Firma",
+                "companydomain": "www.beispieldomain.de",
+                "companylocation": "An welchem Standort deiner Firma bist du?",
+                "companyindustry": "in welcher Branche ist deine Firma tätig?"
+
+            }
         },
-        "buttons" : {
-            "save": "Speichern"
+        "button" : {
+            "save": "Speichern",
+            "delete": "Löschen"
         }
     }
 }

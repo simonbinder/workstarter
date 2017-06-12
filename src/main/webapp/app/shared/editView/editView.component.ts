@@ -6,6 +6,7 @@ import { JhiLanguageService, EventManager } from 'ng-jhipster';
 import { EditViewService } from '../editView/editView.service';
 import { StateStorageService } from '../auth/state-storage.service';
 import { SocialService } from '../social/social.service';
+import { StudentEditJobs } from '../student/editForms/student-editJobs.component';
 
 @Component({
     selector: 'jhi-editView-modal',
@@ -40,8 +41,8 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []);
-    }
+/*        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []);
+*/    }
 
     cancel () {
         this.credentials = {
@@ -53,7 +54,7 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
         this.activeModal.dismiss('cancel');
     }
 
-    login () {
+    save () {
         this.editViewService.login({
             username: this.username,
             password: this.password,

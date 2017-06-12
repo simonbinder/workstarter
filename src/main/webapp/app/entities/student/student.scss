@@ -78,7 +78,34 @@ h2
     {
         .jobTitle
         {
+            height: 25px;
             margin-bottom: 10px;
+
+            h2
+            {
+                line-height: 25px; 
+                float: left;
+            }
+
+            button
+            {
+                float: right;
+                text-align: middle;
+                height: 25px;
+                width: 25px;
+                line-height: 25px;
+                border-radius: 50%;
+                border: solid 1px $light-grey;
+                background: transparent;
+                color: $light-grey;
+            }
+
+            button:hover
+            {
+                color: #fff;
+                border: solid 1px $main-color;
+                background: $main-color;
+            }
         }
 
         .jobList

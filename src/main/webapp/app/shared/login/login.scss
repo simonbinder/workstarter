@@ -1,0 +1,102 @@
+$main-color: #CF4E87;
+$light-grey: #f2f2f2;
+$middle-grey: #464a4c;
+$font-color: #000;
+
+h1
+{
+    font-weight: 600;
+    font-size: 2.2rem;
+    color: $main-color;
+    margin: 0;
+}
+
+h2
+{
+    font-weight: 600;
+    font-size: 1rem;
+    color: $font-color;
+    margin: 0;
+}
+
+label
+{
+    margin: 0;
+}
+
+input, select
+{
+    margin-top: .5rem;
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    color: $main-color !important;
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: calc(2rem + 2px) !important;
+}
+
+
+option[value=""] {
+    color: $middle-grey !important;
+}
+
+input:focus, select:focus
+{
+    border-color: $main-color;
+}
+
+button
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    float: right;
+
+}
+
+.buttonbox
+{
+    height: 35px;
+}
+
+.loginbtn
+{
+    background-color: #fff !important;
+    border-color: $main-color !important;
+    color: $main-color !important;
+}
+
+.loginbtn:hover
+{
+    background-color: $light-grey !important;
+}
+
+.smallfont
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+}
+
+
+.alert-warning
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    background: transparent !important;
+    color: $main-color;
+    border: none;
+
+    padding: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.alert-danger
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+
+
+    background: $light-grey !important;
+    color: $main-color !important;
+    border: solid 1px $main-color !important;
+}

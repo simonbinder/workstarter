@@ -53,6 +53,7 @@ public class StudentDTO {
 	private Set<String> authorities;
 	private Set<String> resumes;
 	private List<String> schools;
+	private String slogan;
 
 	public StudentDTO() {
 		// Empty constructor needed for MapStruct.
@@ -62,15 +63,16 @@ public class StudentDTO {
 		this(student.getId(), student.getLogin(), student.getFirstName(), student.getLastName(), student.getEmail(),
 				student.getActivated(), student.getImageUrl(), student.getLangKey(), student.getCreatedBy(),
 				student.getCreatedDate(), student.getLastModifiedBy(), student.getLastModifiedDate(),
-			  student.getPortfolio(),
+				student.getPortfolio(),
 				student.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()),
-		student.getResumes().stream().map(Resume::getTitle).collect(Collectors.toSet()),
-		student.getSchools().stream().map(School::getName).collect(Collectors.toList()));
-		}
+				student.getResumes().stream().map(Resume::getTitle).collect(Collectors.toSet()),
+				student.getSchools().stream().map(School::getName).collect(Collectors.toList()), student.getSlogan());
+	}
 
 	public StudentDTO(Long id, String login, String firstName, String lastName, String email, boolean activated,
 			String imageUrl, String langKey, String createdBy, ZonedDateTime createdDate, String lastModifiedBy,
-			ZonedDateTime lastModifiedDate, Portfolio portfolio, Set<String> authorities, Set<String> resumes, List<String> schools) {
+			ZonedDateTime lastModifiedDate, Portfolio portfolio, Set<String> authorities, Set<String> resumes,
+			List<String> schools, String slogan) {
 
 		this.id = id;
 		this.login = login;
@@ -88,6 +90,7 @@ public class StudentDTO {
 		this.authorities = authorities;
 		this.resumes = resumes;
 		this.schools = schools;
+		this.slogan = slogan;
 	}
 
 	public Long getId() {
@@ -165,7 +168,7 @@ public class StudentDTO {
 	public Set<String> getResumes() {
 		return resumes;
 	}
-	
+
 	public List<String> getSchools() {
 		return schools;
 	}

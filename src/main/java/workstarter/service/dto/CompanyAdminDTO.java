@@ -44,6 +44,7 @@ public class CompanyAdminDTO {
 	    private String lastModifiedBy;
 	    private ZonedDateTime lastModifiedDate;
 	    private Set<String> authorities;
+	    private String location;
 
 	    public CompanyAdminDTO() {
 	        // Empty constructor needed for MapStruct.
@@ -54,13 +55,13 @@ public class CompanyAdminDTO {
 	            companyAdmin.getEmail(), companyAdmin.getActivated(), companyAdmin.getImageUrl(), companyAdmin.getFirstName(), companyAdmin.getLastName(),  companyAdmin.getLangKey(),
 	            companyAdmin.getCreatedBy(), companyAdmin.getCreatedDate(), companyAdmin.getLastModifiedBy(), companyAdmin.getLastModifiedDate(), 
 	            companyAdmin.getAuthorities().stream().map(Authority::getName)
-	                .collect(Collectors.toSet()));
+	                .collect(Collectors.toSet()), companyAdmin.getLocation());
 	    }
 
 	    public CompanyAdminDTO(Long id, String login,
 	        String email, boolean activated, String imageUrl, String langKey, String firstName, String lastName,
 	        String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, 
-	        Set<String> authorities) {
+	        Set<String> authorities, String location) {
 
 	        this.id = id;
 	        this.login = login;
@@ -75,6 +76,7 @@ public class CompanyAdminDTO {
 	        this.lastModifiedBy = lastModifiedBy;
 	        this.lastModifiedDate = lastModifiedDate;
 	        this.authorities = authorities;
+	        this.location = location;
 	    }
 
 	    public Long getId() {
@@ -149,6 +151,8 @@ public class CompanyAdminDTO {
 		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
+		
+		
 
 		@Override
 	    public String toString() {

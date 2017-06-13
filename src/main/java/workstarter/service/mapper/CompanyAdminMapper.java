@@ -9,9 +9,7 @@ import org.mapstruct.Mapping;
 
 import workstarter.domain.Authority;
 import workstarter.domain.CompanyAdmin;
-import workstarter.domain.Student;
 import workstarter.service.dto.CompanyAdminDTO;
-import workstarter.service.dto.StudentDTO;
 
 @Mapper(componentModel = "spring", uses = {})
 public interface CompanyAdminMapper {
@@ -28,6 +26,7 @@ public interface CompanyAdminMapper {
     @Mapping(target = "resetKey", ignore = true)
     @Mapping(target = "resetDate", ignore = true)
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "location", ignore = true)
     CompanyAdmin companyDTOToCompany(CompanyAdminDTO companyDTO);
 
     List<CompanyAdmin> companyDTOsToCompanies(List<CompanyAdminDTO> companyDTOs);

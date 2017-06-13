@@ -7,6 +7,7 @@ import org.hibernate.annotations.FetchMode;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +27,10 @@ public class Student extends User {
 
     @Column(name = "matrikel_nummer")
     private String matrikelNummer;
+    
+    @NotNull
+    @Column(name = "slogan", nullable = false)
+    private String slogan;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -163,6 +168,14 @@ public class Student extends User {
 
 	public void setKeywords(List<Keywords> keywords) {
 		this.keywords = keywords;
+	}
+
+	public String getSlogan() {
+		return slogan;
+	}
+
+	public void setSlogan(String slogan) {
+		this.slogan = slogan;
 	}
 
 	@Override

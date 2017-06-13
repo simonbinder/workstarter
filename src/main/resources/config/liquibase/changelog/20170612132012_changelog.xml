@@ -1,0 +1,22 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="Simon (generated)" id="1497273624999-10">
+        <createTable tableName="jhi_user_keywords">
+            <column name="student_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="keywords_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497273624999-47">
+        <addUniqueConstraint columnNames="keywords_id" constraintName="UK_pu4vknxo5iid9b600gx8wyc63" tableName="jhi_user_keywords"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497273624999-57">
+        <addForeignKeyConstraint baseColumnNames="keywords_id" baseTableName="jhi_user_keywords" constraintName="FK45hncf8mh7msw7prg4fc5pvdn" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="keywords"/>
+    </changeSet>
+    <changeSet author="Simon (generated)" id="1497273624999-67">
+        <addForeignKeyConstraint baseColumnNames="student_id" baseTableName="jhi_user_keywords" constraintName="FKkbktvfodcadegiamgu34geqdq" deferrable="false" initiallyDeferred="false" referencedColumnNames="id" referencedTableName="jhi_user"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,22 @@
+{
+    "workstarterApp": {
+        "keywords" : {
+            "home": {
+                "title": "Keywords",
+                "createLabel": "Create a new Keywords",
+                "createOrEditLabel": "Create or edit a Keywords",
+                "search": "Search for Keywords"
+            },
+            "created": "A new Keywords is created with identifier {{ param }}",
+            "updated": "A Keywords is updated with identifier {{ param }}",
+            "deleted": "A Keywords is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Keywords {{ id }}?"
+            },
+            "detail": {
+                "title": "Keywords"
+            },
+            "name": "Name"
+        }
+    }
+}

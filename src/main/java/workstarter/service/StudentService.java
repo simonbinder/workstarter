@@ -1,11 +1,13 @@
 package workstarter.service;
 
 import workstarter.domain.Authority;
+import workstarter.domain.Keywords;
 import workstarter.domain.Profession;
 import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
+import workstarter.repository.KeywordsRepository;
 import workstarter.repository.ProfessionRepository;
 import workstarter.repository.SchoolRepository;
 import workstarter.config.Constants;
@@ -50,12 +52,14 @@ public class StudentService {
 	private final SocialService socialService;
 	private final StudentSearchRepository studentSearchRepository;
 	private final AuthorityRepository authorityRepository;
-    private final SchoolRepository schoolRepository;
-    private final ProfessionRepository professionRepository;
+	private final SchoolRepository schoolRepository;
+	private final ProfessionRepository professionRepository;
+	private final KeywordsRepository keywordsRepository;
 
 	public StudentService(StudentRepository userRepository, PasswordEncoder passwordEncoder,
 			SocialService socialService, StudentSearchRepository studentSearchRepository,
-			AuthorityRepository authorityRepository, SchoolRepository schoolRepository, ProfessionRepository professionRepository) {
+			AuthorityRepository authorityRepository, SchoolRepository schoolRepository,
+			ProfessionRepository professionRepository, KeywordsRepository keywordsRepository) {
 		this.studentRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
@@ -63,6 +67,7 @@ public class StudentService {
 		this.authorityRepository = authorityRepository;
 		this.schoolRepository = schoolRepository;
 		this.professionRepository = professionRepository;
+		this.keywordsRepository = keywordsRepository;
 	}
 
 	public Optional<Student> activateRegistration(String key) {
@@ -247,18 +252,23 @@ public class StudentService {
 	public Student getUserWithAuthorities() {
 		return studentRepository.findOneWithAuthoritiesByLogin(SecurityUtils.getCurrentUserLogin()).orElse(null);
 	}
-	
-	public List<School> getSchools(Long id){
+
+	public List<School> getSchools(Long id) {
 		Student student = studentRepository.getOne(id);
 		return student.getSchools();
 	}
-	
-	public List<Profession> getProfessions(Long id){
+
+	public List<Profession> getProfessions(Long id) {
 		Student student = studentRepository.getOne(id);
 		return student.getProfessions();
 	}
-	
-	public Student updateSchool(Long studentID, Long schoolID, School school){
+
+	public List<Keywords> getKeywords(Long id) {
+		Student student = studentRepository.getOne(id);
+		return student.getKeywords();
+	}
+
+	public Student updateSchool(Long studentID, Long schoolID, School school) {
 		Student student = studentRepository.getOne(studentID);
 		School oldSchool = schoolRepository.getOne(schoolID);
 		schoolRepository.save(school);
@@ -268,8 +278,8 @@ public class StudentService {
 		log.debug("Updated school for Student: {}", student);
 		return student;
 	}
-	
-	public Student addSchool(Long id, School school){
+
+	public Student addSchool(Long id, School school) {
 		Student student = studentRepository.getOne(id);
 		schoolRepository.save(school);
 		student.addSchools(school);
@@ -277,8 +287,8 @@ public class StudentService {
 		log.debug("Added school for Student: {}", student);
 		return student;
 	}
-	
-	public Student addProfession(Long id, Profession profession){
+
+	public Student addProfession(Long id, Profession profession) {
 		Student student = studentRepository.getOne(id);
 		professionRepository.save(profession);
 		student.addProfessions(profession);
@@ -286,8 +296,41 @@ public class StudentService {
 		log.debug("Added profession for Student: {}", student);
 		return student;
 	}
+
+	public Student addKeyword(Long id, Keywords keyword) {
+		Student student = studentRepository.getOne(id);
+		keywordsRepository.save(keyword);
+		student.addKeywords(keyword);
+		studentRepository.save(student);
+		log.debug("Added keyword for Student: {}", student);
+		return student;
+	}
 	
-	public Student updateProfession(Long studentID, Long professionID, Profession profession){
+	public Student deleteKeyword(Long id, Long keywordid){
+		Keywords keyword = keywordsRepository.getOne(keywordid);
+		Student student = studentRepository.getOne(id);
+		student.removeKeywords(keyword);
+		studentRepository.save(student);
+		return student;
+	}
+	
+	public Student deleteProfession(Long id, Long professionid){
+		Profession profession = professionRepository.getOne(professionid);
+		Student student = studentRepository.getOne(id);
+		student.removeProfession(profession);
+		studentRepository.save(student);
+		return student;
+	}
+
+	public Student deleteSchool(Long id, Long schoolid){
+		School school = schoolRepository.getOne(schoolid);
+		Student student = studentRepository.getOne(id);
+		student.removeSchools(school);
+		studentRepository.save(student);
+		return student;
+	}
+	
+	public Student updateProfession(Long studentID, Long professionID, Profession profession) {
 		Student student = studentRepository.getOne(studentID);
 		Profession oldProfession = professionRepository.getOne(professionID);
 		professionRepository.save(profession);

@@ -13,6 +13,9 @@ export class Student {
     public lastModifiedBy?: string;
     public lastModifiedDate?: Date;
     public password?: string;
+    public keywords?: any[];
+    public schools?: any[];
+    public professions?: any[];
     constructor(
         id?: any,
         login?: string,
@@ -27,7 +30,10 @@ export class Student {
         createdDate?: Date,
         lastModifiedBy?: string,
         lastModifiedDate?: Date,
-        password?: string
+        password?: string,
+        keywords?: any[],
+        schools?: any[],
+        professions?: any[]
     ) {
         this.id = id ? id : null;
         this.login = login ? login : null;
@@ -43,5 +49,8 @@ export class Student {
         this.lastModifiedBy = lastModifiedBy ? lastModifiedBy : null;
         this.lastModifiedDate = lastModifiedDate ? lastModifiedDate : null;
         this.password = password ? password : null;
+        this.keywords = keywords ? keywords : null;
+        this.schools = schools ? schools : null;
+        this.professions = professions ? professions : null;
     }
 }

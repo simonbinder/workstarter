@@ -2,7 +2,7 @@ $main1-color: #f15f79;
 $main2-color: #b24592;
 $main-color: #CF4E87; /*#bf4b6e;*/
 $font-color: #000;
-$font1-color: #464a4c;
+$middle-grey: #a09d9e;
 $light-grey: #f2f2f2;
 
 
@@ -20,6 +20,17 @@ h2
     font-size: 1rem;
     color: $font-color;
     margin: 0;
+}
+
+.subline1
+{
+    color: $main-color;
+    font-weight: 400;
+}
+
+.subline2
+{
+    color: $middle-grey;
 }
 
 .container
@@ -126,7 +137,7 @@ h2
 
             .tasks
             {
-                color: $font1-color;
+                color: $font-color;
             }
             
             h2

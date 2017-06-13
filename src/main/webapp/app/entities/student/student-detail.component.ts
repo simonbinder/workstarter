@@ -34,7 +34,6 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     ) {
         this.jhiLanguageService.setLocations(['student']);
         
-
         //testdata
         this.tags = ['Windstorm','Bombasto','Magneta','Tornado'];
          this.education = [
@@ -84,6 +83,30 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.subscription.unsubscribe();
+    }
+
+    formatDate(date: string)
+    {
+        if(date!=null)
+        {
+            return date.substring(0,4);
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    notNull(value: string)
+    {
+        if(value!=null && value!="string" && value!=" ")
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

@@ -12,14 +12,12 @@
                 <h1>{{student.firstName}} {{student.lastName}}</h1>
                 <h2>Software Spezialist</h2>
                 <div class="cvSlogan">
-                    <p>Hallo! Ich bin Experte in vielerlei Hinsicht. So manches Projekt habe ich 
-    erfolgreich gemeistert und bin bekannt im ganzen Land.
-    Ich bin ein Zukunftsvisionär und immer dem Erfolg auf der Spur!</p>
+                    <p>{{student.slogan}}</p>
                 </div>
 
                 <div class="cvTags">
-                    <div class="small-card" *ngFor="let tag of tags">
-                        <span>{{tag}}</span>
+                    <div class="small-card" *ngFor="let keyword of student.keywords">
+                        <span>{{keyword.name}}</span>
                     </div>
                 </div>
 
@@ -37,14 +35,14 @@
                         <button (click)='edit()'>+</button>
                     </div>
                     <div class="window">
-                        <div class="jobList" *ngFor="let edu of education">
+                        <div class="jobList" *ngFor="let school of student.schools">
                             <div class="eduTime small-card-reverse">
-                                <p>{{edu.year}}</p>
+                                <p>{{formatDate(school.start)}}</p>
                             </div>
                             <div class="jobDescription">
-                                <h2>{{edu.job}}</h2>
-                                <p>{{edu.location}}</p>
-                                <p class="tasks">{{edu.tasks}}</p>
+                                <h2>{{school.name}}</h2>
+                                <p class="subline1" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
+                                <p class="tasks">{{school.coreSubjects}}</p>
                             </div>
                         </div>
                     </div> <!-- window -->
@@ -55,14 +53,15 @@
                         <h2>Jobs</h2>
                     </div>
                     <div class="window">
-                        <div class="jobList" *ngFor="let edu of education">
+                        <div class="jobList" *ngFor="let profession of student.professions">
                             <div class="eduTime small-card-reverse">
-                                <p>{{edu.year}}</p>
+                                <p>{{formatDate(profession.startDate)}}</p>
                             </div>
                             <div class="jobDescription">
-                                <h2>{{edu.job}}</h2>
-                                <p>{{edu.location}}</p>
-                                <p class="tasks">{{edu.tasks}}</p>
+                                <h2>{{profession.position}}</h2>
+                                <p class="subline1">{{profession.companyName}} in {{profession.location}}</p>
+                                <a class="subline2" href="{{profession.domain}}">{{profession.domain}}</a>
+                                <p class="tasks">{{profession.tasks}}</p>
                             </div>
                         </div>
 

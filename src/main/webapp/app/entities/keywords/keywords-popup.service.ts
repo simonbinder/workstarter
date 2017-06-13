@@ -1,15 +1,15 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Searching } from './searching.model';
-import { SearchingService } from './searching.service';
+import { Keywords } from './keywords.model';
+import { KeywordsService } from './keywords.service';
 @Injectable()
-export class SearchingPopupService {
+export class KeywordsPopupService {
     private isOpen = false;
     constructor (
         private modalService: NgbModal,
         private router: Router,
-        private searchingService: SearchingService
+        private keywordsService: KeywordsService
 
     ) {}
 
@@ -20,17 +20,17 @@ export class SearchingPopupService {
         this.isOpen = true;
 
         if (id) {
-            this.searchingService.find(id).subscribe(searching => {
-                this.searchingModalRef(component, searching);
+            this.keywordsService.find(id).subscribe(keywords => {
+                this.keywordsModalRef(component, keywords);
             });
         } else {
-            return this.searchingModalRef(component, new Searching());
+            return this.keywordsModalRef(component, new Keywords());
         }
     }
 
-    searchingModalRef(component: Component, searching: Searching): NgbModalRef {
+    keywordsModalRef(component: Component, keywords: Keywords): NgbModalRef {
         let modalRef = this.modalService.open(component, { size: 'lg', backdrop: 'static'});
-        modalRef.componentInstance.searching = searching;
+        modalRef.componentInstance.keywords = keywords;
         modalRef.result.then(result => {
             this.router.navigate([{ outlets: { popup: null }}], { replaceUrl: true });
             this.isOpen = false;

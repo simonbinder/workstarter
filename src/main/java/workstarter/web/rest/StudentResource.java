@@ -3,6 +3,7 @@ package workstarter.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import workstarter.domain.CompanyAdmin;
+import workstarter.domain.Keywords;
 import workstarter.domain.Profession;
 import workstarter.domain.School;
 import workstarter.domain.Student;
@@ -152,6 +153,15 @@ public class StudentResource {
 				.body(result);
 	}
 	
+	@DeleteMapping("/students/{id}/schools/{schoolid}")
+	@Timed
+	public ResponseEntity<Void> deleteSchool(@PathVariable Long id, @PathVariable Long schoolid) {
+		log.debug("REST request to delete School : {}", id);
+		Student result = studentService.deleteSchool(id, schoolid);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
+	}
+	
 	/**
 	 * PUT /students/{id}/schools({id} : Updates an existing school for an existing student.
 	 *
@@ -188,6 +198,33 @@ public class StudentResource {
 		return profession;
 	}
 	
+	@GetMapping("/students/{id}/keywords")
+	@Timed
+	public List<Keywords> getAllKeywords(@PathVariable Long id) {
+		log.debug("REST request to get all keywords for one Student");
+		List<Keywords> keywords = studentService.getKeywords(id);
+		return keywords;
+	}
+	
+	@PutMapping("/students/{id}/keywords")
+	@Timed
+	public ResponseEntity<Student> addKeyword(@PathVariable Long id, @Valid @RequestBody Keywords keywords) throws URISyntaxException {
+		log.debug("REST request to update Student : {}", keywords);
+		Student result = studentService.addKeyword(id, keywords);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+	
+	@DeleteMapping("/students/{id}/keywords/{keywordid}")
+	@Timed
+	public ResponseEntity<Void> deleteKeyword(@PathVariable Long id, @PathVariable Long keywordid) {
+		log.debug("REST request to delete keyword : {}", id);
+		Student result = studentService.deleteKeyword(id, keywordid);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
+	}
+	
 	@PutMapping("/students/{id}/profession")
 	@Timed
 	public ResponseEntity<Student> addProfession(@PathVariable Long id,@Valid @RequestBody Profession profession) throws URISyntaxException {
@@ -206,6 +243,15 @@ public class StudentResource {
 		studentSearchRepository.save(result);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
+	}
+	
+	@DeleteMapping("/students/{id}/profession/{professionid}")
+	@Timed
+	public ResponseEntity<Void> deleteProfession(@PathVariable Long id, @PathVariable Long professionid) {
+		log.debug("REST request to delete profession : {}", id);
+		Student result = studentService.deleteProfession(id, professionid);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
 	}
 	
 	/**

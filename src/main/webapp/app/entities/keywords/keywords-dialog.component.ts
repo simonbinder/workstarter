@@ -5,38 +5,32 @@ import { Response } from '@angular/http';
 import { NgbActiveModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, AlertService, JhiLanguageService } from 'ng-jhipster';
 
-import { Searching } from './searching.model';
-import { SearchingPopupService } from './searching-popup.service';
-import { SearchingService } from './searching.service';
-import { Student, StudentService } from '../student';
+import { Keywords } from './keywords.model';
+import { KeywordsPopupService } from './keywords-popup.service';
+import { KeywordsService } from './keywords.service';
 
 @Component({
-    selector: 'jhi-searching-dialog',
-    templateUrl: './searching-dialog.component.html'
+    selector: 'jhi-keywords-dialog',
+    templateUrl: './keywords-dialog.component.html'
 })
-export class SearchingDialogComponent implements OnInit {
+export class KeywordsDialogComponent implements OnInit {
 
-    searching: Searching;
+    keywords: Keywords;
     authorities: any[];
     isSaving: boolean;
-
-    students: Student[];
     constructor(
         public activeModal: NgbActiveModal,
         private jhiLanguageService: JhiLanguageService,
         private alertService: AlertService,
-        private searchingService: SearchingService,
-        private studentService: StudentService,
+        private keywordsService: KeywordsService,
         private eventManager: EventManager
     ) {
-        this.jhiLanguageService.setLocations(['searching']);
+        this.jhiLanguageService.setLocations(['keywords']);
     }
 
     ngOnInit() {
         this.isSaving = false;
         this.authorities = ['ROLE_USER', 'ROLE_ADMIN'];
-        this.studentService.query().subscribe(
-            (res: Response) => { this.students = res.json(); }, (res: Response) => this.onError(res.json()));
     }
     clear () {
         this.activeModal.dismiss('cancel');
@@ -44,19 +38,19 @@ export class SearchingDialogComponent implements OnInit {
 
     save () {
         this.isSaving = true;
-        if (this.searching.id !== undefined) {
-            this.searchingService.update(this.searching)
-                .subscribe((res: Searching) =>
+        if (this.keywords.id !== undefined) {
+            this.keywordsService.update(this.keywords)
+                .subscribe((res: Keywords) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         } else {
-            this.searchingService.create(this.searching)
-                .subscribe((res: Searching) =>
+            this.keywordsService.create(this.keywords)
+                .subscribe((res: Keywords) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
         }
     }
 
-    private onSaveSuccess (result: Searching) {
-        this.eventManager.broadcast({ name: 'searchingListModification', content: 'OK'});
+    private onSaveSuccess (result: Keywords) {
+        this.eventManager.broadcast({ name: 'keywordsListModification', content: 'OK'});
         this.isSaving = false;
         this.activeModal.dismiss(result);
     }
@@ -69,34 +63,30 @@ export class SearchingDialogComponent implements OnInit {
     private onError (error) {
         this.alertService.error(error.message, null, null);
     }
-
-    trackStudentById(index: number, item: Student) {
-        return item.id;
-    }
 }
 
 @Component({
-    selector: 'jhi-searching-popup',
+    selector: 'jhi-keywords-popup',
     template: ''
 })
-export class SearchingPopupComponent implements OnInit, OnDestroy {
+export class KeywordsPopupComponent implements OnInit, OnDestroy {
 
     modalRef: NgbModalRef;
     routeSub: any;
 
     constructor (
         private route: ActivatedRoute,
-        private searchingPopupService: SearchingPopupService
+        private keywordsPopupService: KeywordsPopupService
     ) {}
 
     ngOnInit() {
         this.routeSub = this.route.params.subscribe(params => {
             if ( params['id'] ) {
-                this.modalRef = this.searchingPopupService
-                    .open(SearchingDialogComponent, params['id']);
+                this.modalRef = this.keywordsPopupService
+                    .open(KeywordsDialogComponent, params['id']);
             } else {
-                this.modalRef = this.searchingPopupService
-                    .open(SearchingDialogComponent);
+                this.modalRef = this.keywordsPopupService
+                    .open(KeywordsDialogComponent);
             }
 
         });

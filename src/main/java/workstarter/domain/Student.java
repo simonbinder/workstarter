@@ -31,16 +31,21 @@ public class Student extends User {
     @JoinColumn(unique = true)
     private Portfolio portfolio;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Resume> resumes = new HashSet<>();
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
     @Fetch(value = FetchMode.SUBSELECT)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<School> schools = new ArrayList<>();
     
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<Keywords> keywords = new ArrayList<>();
+    
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
     @Fetch(value = FetchMode.SUBSELECT)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Profession> professions = new ArrayList<>();
@@ -140,6 +145,24 @@ public class Student extends User {
 
 	public void setProfessions(List<Profession> professions) {
 		this.professions = professions;
+	}
+	
+	public List<Keywords> getKeywords() {
+		return keywords;
+	}
+	
+	public Student addKeywords(Keywords keywords){
+		this.keywords.add(keywords);
+		return this;
+	}
+	
+	public Student removeKeywords(Keywords keywords){
+		this.keywords.remove(keywords);
+		return this;
+	}
+
+	public void setKeywords(List<Keywords> keywords) {
+		this.keywords = keywords;
 	}
 
 	@Override

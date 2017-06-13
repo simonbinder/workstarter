@@ -4,46 +4,46 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Rx';
 import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertService } from 'ng-jhipster';
 
-import { Searching } from './searching.model';
-import { SearchingService } from './searching.service';
+import { Keywords } from './keywords.model';
+import { KeywordsService } from './keywords.service';
 import { ITEMS_PER_PAGE, Principal } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
 
 @Component({
-    selector: 'jhi-searching',
-    templateUrl: './searching.component.html'
+    selector: 'jhi-keywords',
+    templateUrl: './keywords.component.html'
 })
-export class SearchingComponent implements OnInit, OnDestroy {
-searchings: Searching[];
+export class KeywordsComponent implements OnInit, OnDestroy {
+keywords: Keywords[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private searchingService: SearchingService,
+        private keywordsService: KeywordsService,
         private alertService: AlertService,
         private eventManager: EventManager,
         private activatedRoute: ActivatedRoute,
         private principal: Principal
     ) {
         this.currentSearch = activatedRoute.snapshot.params['search'] ? activatedRoute.snapshot.params['search'] : '';
-        this.jhiLanguageService.setLocations(['searching']);
+        this.jhiLanguageService.setLocations(['keywords']);
     }
 
     loadAll() {
         if (this.currentSearch) {
-            this.searchingService.search({
+            this.keywordsService.search({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: Response) => this.searchings = res.json(),
+                    (res: Response) => this.keywords = res.json(),
                     (res: Response) => this.onError(res.json())
                 );
             return;
        }
-        this.searchingService.query().subscribe(
+        this.keywordsService.query().subscribe(
             (res: Response) => {
-                this.searchings = res.json();
+                this.keywords = res.json();
                 this.currentSearch = '';
             },
             (res: Response) => this.onError(res.json())
@@ -67,21 +67,21 @@ searchings: Searching[];
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
-        this.registerChangeInSearchings();
+        this.registerChangeInKeywords();
     }
 
     ngOnDestroy() {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: Searching) {
+    trackId (index: number, item: Keywords) {
         return item.id;
     }
 
 
 
-    registerChangeInSearchings() {
-        this.eventSubscriber = this.eventManager.subscribe('searchingListModification', (response) => this.loadAll());
+    registerChangeInKeywords() {
+        this.eventSubscriber = this.eventManager.subscribe('keywordsListModification', (response) => this.loadAll());
     }
 
 

@@ -2,30 +2,30 @@ import { Injectable } from '@angular/core';
 import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 
-import { Searching } from './searching.model';
+import { Keywords } from './keywords.model';
 @Injectable()
-export class SearchingService {
+export class KeywordsService {
 
-    private resourceUrl = 'api/searchings';
-    private resourceSearchUrl = 'api/_search/searchings';
+    private resourceUrl = 'api/keywords';
+    private resourceSearchUrl = 'api/_search/keywords';
 
     constructor(private http: Http) { }
 
-    create(searching: Searching): Observable<Searching> {
-        let copy: Searching = Object.assign({}, searching);
+    create(keywords: Keywords): Observable<Keywords> {
+        let copy: Keywords = Object.assign({}, keywords);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
-    update(searching: Searching): Observable<Searching> {
-        let copy: Searching = Object.assign({}, searching);
+    update(keywords: Keywords): Observable<Keywords> {
+        let copy: Keywords = Object.assign({}, keywords);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
     }
 
-    find(id: number): Observable<Searching> {
+    find(id: number): Observable<Keywords> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             return res.json();
         });

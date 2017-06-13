@@ -3,22 +3,28 @@
 <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
     <div class="modal-header">
-        <h4 class="modal-title" id="myOfferingLabel" jhiTranslate="workstarterApp.offering.home.createOrEditLabel">Create or edit a Offering</h4>
+        <h4 class="modal-title" id="myKeywordsLabel" jhiTranslate="workstarterApp.keywords.home.createOrEditLabel">Create or edit a Keywords</h4>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 (click)="clear()">&times;</button>
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
-        <div class="form-group" [hidden]="!offering.id">
+        <div class="form-group" [hidden]="!keywords.id">
             <label for="id" jhiTranslate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
-                   [(ngModel)]="offering.id" readonly />
+                   [(ngModel)]="keywords.id" readonly />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="workstarterApp.offering.offeringValues" for="field_offeringValues">Offering Values</label>
-            <input type="text" class="form-control" name="offeringValues" id="field_offeringValues"
-                [(ngModel)]="offering.offeringValues"
-             />
+            <label class="form-control-label" jhiTranslate="workstarterApp.keywords.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="keywords.name"
+            required />
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
         </div>
 
     </div>

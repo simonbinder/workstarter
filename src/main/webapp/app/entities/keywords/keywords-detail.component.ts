@@ -1,24 +1,24 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { JhiLanguageService } from 'ng-jhipster';
-import { Searching } from './searching.model';
-import { SearchingService } from './searching.service';
+import { Keywords } from './keywords.model';
+import { KeywordsService } from './keywords.service';
 
 @Component({
-    selector: 'jhi-searching-detail',
-    templateUrl: './searching-detail.component.html'
+    selector: 'jhi-keywords-detail',
+    templateUrl: './keywords-detail.component.html'
 })
-export class SearchingDetailComponent implements OnInit, OnDestroy {
+export class KeywordsDetailComponent implements OnInit, OnDestroy {
 
-    searching: Searching;
+    keywords: Keywords;
     private subscription: any;
 
     constructor(
         private jhiLanguageService: JhiLanguageService,
-        private searchingService: SearchingService,
+        private keywordsService: KeywordsService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['searching']);
+        this.jhiLanguageService.setLocations(['keywords']);
     }
 
     ngOnInit() {
@@ -28,8 +28,8 @@ export class SearchingDetailComponent implements OnInit, OnDestroy {
     }
 
     load (id) {
-        this.searchingService.find(id).subscribe(searching => {
-            this.searching = searching;
+        this.keywordsService.find(id).subscribe(keywords => {
+            this.keywords = keywords;
         });
     }
     previousState() {

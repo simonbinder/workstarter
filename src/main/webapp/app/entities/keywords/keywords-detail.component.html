@@ -1,12 +1,12 @@
 
-<div *ngIf="offering">
-    <h2><span jhiTranslate="workstarterApp.offering.detail.title">Offering</span> {{offering.id}}</h2>
+<div *ngIf="keywords">
+    <h2><span jhiTranslate="workstarterApp.keywords.detail.title">Keywords</span> {{keywords.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="workstarterApp.offering.offeringValues">Offering Values</span></dt>
+        <dt><span jhiTranslate="workstarterApp.keywords.name">Name</span></dt>
         <dd>
-            <span>{{offering.offeringValues}}</span>
+            <span>{{keywords.name}}</span>
         </dd>
     </dl>
 
@@ -17,7 +17,7 @@
     </button>
 
     <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'offering/'+ offering.id + '/edit'} }]"
+            [routerLink]="['/', { outlets: { popup: 'keywords/'+ keywords.id + '/edit'} }]"
             replaceUrl="true"
             class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>

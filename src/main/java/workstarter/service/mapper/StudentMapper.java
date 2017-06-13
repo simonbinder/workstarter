@@ -30,6 +30,7 @@ public interface StudentMapper {
     @Mapping(target = "resetDate", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "portfolio", ignore = true)
+    @Mapping(target = "slogan", ignore = true)
     Student studentDTOToStudent(StudentDTO studentDTO);
 
     List<Student> studentDTOsToStudents(List<StudentDTO> studentDTOs);

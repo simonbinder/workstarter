@@ -5,6 +5,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * A CompanyAdmin.
@@ -17,6 +18,10 @@ public class CompanyAdmin extends User {
 
     private static final long serialVersionUID = 1L;
 
+    @NotNull
+    @Column(name="location", nullable = false)
+    private String location;
+    
     @OneToOne
     @JoinColumn(unique = true)
    private Company company;
@@ -28,17 +33,13 @@ public class CompanyAdmin extends User {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
+	
+	public String getLocation() {
+		return location;
+	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (!super.equals(obj))
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		CompanyAdmin other = (CompanyAdmin) obj;
-		return true;
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	@Override

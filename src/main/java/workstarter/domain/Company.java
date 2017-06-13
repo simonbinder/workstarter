@@ -1,6 +1,5 @@
 package workstarter.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -8,9 +7,6 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Company.
@@ -31,13 +27,21 @@ public class Company implements Serializable {
     @Column(name = "company_name", nullable = false)
     private String companyName;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Jobadvertisment> jobadvertisments = new HashSet<>();
+    @NotNull
+    @Column(name = "domain", nullable = false)
+    private String domain;
+    
+    @NotNull
+    @Column(name = "sector", nullable = false)
+    private String sector;
+    
+    @NotNull
+    @Column(name = "description", nullable = false)
+    private String description;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<CompanyAdmin> admins = new HashSet<>();
+    @OneToOne
+    @JoinColumn(unique = true)
+    private CompanyAdmin admin;
 
     public Long getId() {
         return id;
@@ -60,73 +64,40 @@ public class Company implements Serializable {
         this.companyName = companyName;
     }
 
-    public Set<Jobadvertisment> getJobadvertisments() {
-        return jobadvertisments;
-    }
 
-    public Company jobadvertisments(Set<Jobadvertisment> jobadvertisments) {
-        this.jobadvertisments = jobadvertisments;
-        return this;
-    }
+    public String getDomain() {
+		return domain;
+	}
 
-    public Company addJobadvertisment(Jobadvertisment jobadvertisment) {
-        this.jobadvertisments.add(jobadvertisment);
-        return this;
-    }
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 
-    public Company removeJobadvertisment(Jobadvertisment jobadvertisment) {
-        this.jobadvertisments.remove(jobadvertisment);
-        return this;
-    }
+	public String getSector() {
+		return sector;
+	}
 
-    public void setJobadvertisments(Set<Jobadvertisment> jobadvertisments) {
-        this.jobadvertisments = jobadvertisments;
-    }
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
 
-    public Set<CompanyAdmin> getAdmins() {
-        return admins;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Company admins(Set<CompanyAdmin> companyAdmins) {
-        this.admins = companyAdmins;
-        return this;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Company addAdmins(CompanyAdmin companyAdmin) {
-        this.admins.add(companyAdmin);
-        return this;
-    }
+	public CompanyAdmin getAdmin() {
+		return admin;
+	}
 
-    public Company removeAdmins(CompanyAdmin companyAdmin) {
-        this.admins.remove(companyAdmin);
-        return this;
-    }
+	public void setAdmin(CompanyAdmin admin) {
+		this.admin = admin;
+	}
 
-    public void setAdmins(Set<CompanyAdmin> companyAdmins) {
-        this.admins = companyAdmins;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        Company company = (Company) o;
-        if (company.id == null || id == null) {
-            return false;
-        }
-        return Objects.equals(id, company.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
-    }
-
-    @Override
+	@Override
     public String toString() {
         return "Company{" +
             "id=" + id +

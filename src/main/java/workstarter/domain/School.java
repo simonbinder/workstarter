@@ -28,15 +28,23 @@ public class School implements Serializable {
 	@Column(name = "name", nullable = false)
 	private String name;
 
+	@NotNull
 	@Column(name = "core_subject", nullable = false)
 	private String coreSubject;
 
+	@NotNull
 	@Column(name = "target_degree")
 	private String targetDegree;
+	
+	@NotNull
+	@Column(name = "location")
+	private String location;
 
+	@NotNull
 	@Column(name = "start", nullable = false)
 	private Date start;
 
+	@NotNull
 	@Column(name = "end", nullable = false)
 	private Date end;
 

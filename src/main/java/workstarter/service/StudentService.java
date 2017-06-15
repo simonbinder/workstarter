@@ -340,6 +340,19 @@ public class StudentService {
 		log.debug("Updated profession for Student: {}", student);
 		return student;
 	}
+	
+	public String getSlogan(Long studentID){
+		Student student = studentRepository.getOne(studentID);
+		return student.getSlogan();
+	}
+	
+	public Student updateSlogan(Long studentID, String slogan){
+		Student student = studentRepository.getOne(studentID);
+		student.setSlogan(slogan);
+		studentRepository.save(student);
+		studentSearchRepository.save(student);
+		return student;
+	}
 
 	/**
 	 * Not activated users should be automatically deleted after 3 days.

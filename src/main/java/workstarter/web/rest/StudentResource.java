@@ -253,6 +253,23 @@ public class StudentResource {
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
 	}
 	
+	@GetMapping("/students/{id}/slogan")
+	@Timed
+	public String getSlogan(@PathVariable Long id) {
+		log.debug("REST request to get slogan for one Student");
+		String slogan = studentService.getSlogan(id);
+		return slogan;
+	}
+	
+	@PutMapping("/students/{id}/slogan")
+	@Timed
+	public ResponseEntity<Student> updateSlogan(@PathVariable Long id, @Valid @RequestBody String slogan) throws URISyntaxException {
+		log.debug("REST request to update School : {}", slogan);
+		Student result = studentService.updateSlogan(id, slogan);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+	
 	/**
 	 * GET /students : get all the students.
 	 *

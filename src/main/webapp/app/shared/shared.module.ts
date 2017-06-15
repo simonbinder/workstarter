@@ -22,6 +22,9 @@ import {
     SocialService,
     JhiLoginModalComponent,
     StudentEditJobs,
+    StudentEditSchools,
+    StudentEditKeywords,
+    StudentEditPresentation,
     JhiEditViewModalComponent,
     SharedStudentService
 } from './';
@@ -35,6 +38,9 @@ import {
         JhiSocialComponent,
         JhiLoginModalComponent,
         StudentEditJobs,
+        StudentEditSchools,
+        StudentEditKeywords,
+        StudentEditPresentation,
         JhiEditViewModalComponent,
         HasAnyAuthorityDirective
     ],

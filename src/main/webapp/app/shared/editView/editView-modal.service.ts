@@ -10,12 +10,17 @@ export class EditViewModalService {
         private modalService: NgbModal,
     ) {}
 
-    open (): NgbModalRef {
+    open (editComponent: string, student: any, componentId: number): NgbModalRef {
         if (this.isOpen) {
             return;
         }
         this.isOpen = true;
         let modalRef = this.modalService.open(JhiEditViewModalComponent);
+        const contentComponentInstance = modalRef.componentInstance;
+        contentComponentInstance._editComponent = editComponent;
+        contentComponentInstance._componentId = componentId;
+        contentComponentInstance._student = student;
+
         modalRef.result.then(result => {
             this.isOpen = false;
         }, (reason) => {

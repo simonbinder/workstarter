@@ -1,6 +1,6 @@
 <div class="editView">
 <div class="modal-header">
-    <h2 class="modal-title" jhiTranslate="editView.title">Edit Jobs</h2>
+    <h2 class="modal-title" >{{editComponent}}</h2>
     <button aria-label="Close" data-dismiss="modal" class="close" type="button" (click)="activeModal.dismiss('closed')"><span aria-hidden="true">x</span>
     </button>
 </div>
@@ -9,7 +9,13 @@
 
         
         <div class="col-md-12">
-            <student-editJobs></student-editJobs>
+            <div [ngSwitch]="editComponent">
+                <student-editJobs    *ngSwitchCase="'editJobs'" [_student]="student" [_componentId]="componentId"></student-editJobs>
+                <student-editSchools    *ngSwitchCase="'editSchools'"></student-editJobs>
+                <student-editPresentation    *ngSwitchCase="'editHeader'"></student-editJobs>
+                <student-editKeywords    *ngSwitchCase="'editKeywords'"></student-editJobs>
+                <unknown-edit  *ngSwitchDefault></unknown-edit>
+            </div>
             <p></p>
             
         </div>

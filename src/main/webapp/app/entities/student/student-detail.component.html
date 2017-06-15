@@ -41,6 +41,7 @@
                             </div>
                             <div class="jobDescription">
                                 <h2>{{school.name}}</h2>
+                                <button (click)='edit("editJobs", student, school.id)'>+</button>
                                 <p class="subline1" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
                                 <p class="tasks">{{school.coreSubjects}}</p>
                             </div>
@@ -59,6 +60,7 @@
                             </div>
                             <div class="jobDescription">
                                 <h2>{{profession.position}}</h2>
+                                <button (click)='edit("editJobs", student, profession.id)'>+</button>
                                 <p class="subline1">{{profession.companyName}} in {{profession.location}}</p>
                                 <a class="subline2" href="{{profession.domain}}">{{profession.domain}}</a>
                                 <p class="tasks">{{profession.tasks}}</p>

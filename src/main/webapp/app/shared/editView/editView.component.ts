@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Renderer, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Renderer, ElementRef, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { JhiLanguageService, EventManager } from 'ng-jhipster';
@@ -16,6 +16,15 @@ import { StudentEditJobs } from '../student/editForms/student-editJobs.component
     ]
 })
 export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
+    @Input() _editComponent: string;
+    @Input() _componentId: number;
+    @Input() _student: any;
+
+
+
+    editComponent: string;
+    componentId: number;
+    student: any;
     authenticationError: boolean;
     password: string;
     rememberMe: boolean;
@@ -23,6 +32,7 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
     credentials: any;
 
     constructor(
+
         private eventManager: EventManager,
         private languageService: JhiLanguageService,
         private editViewService: EditViewService,
@@ -38,6 +48,9 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
         this.languageService.addLocation('editView');
+        this.editComponent = this._editComponent;
+        this.componentId = this._componentId;
+        this.student = this._student;
     }
 
     ngAfterViewInit() {

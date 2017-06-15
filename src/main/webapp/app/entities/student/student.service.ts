@@ -3,6 +3,7 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { Student } from './student.model';
+import { Profession } from "../profession/profession.model";
 @Injectable()
 export class StudentService {
 
@@ -21,6 +22,13 @@ export class StudentService {
     update(student: Student): Observable<Student> {
         let copy: Student = Object.assign({}, student);
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    updateProfession(profession: Profession, studentId:number, professionId:number): Observable<Profession> {
+        let copy: Profession = Object.assign({}, profession);
+        return this.http.put(`${this.resourceUrl}/${studentId}/${"profession"}/${professionId}`, copy).map((res: Response) => {
             return res.json();
         });
     }

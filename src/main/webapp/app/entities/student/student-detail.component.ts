@@ -67,8 +67,8 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
         });
     }
 
-    edit() {
-        this.modalRef = this.editViewModalService.open();
+    edit(editComponent: string, student: Student, componentId: number) {
+        this.modalRef = this.editViewModalService.open(editComponent, student, componentId);
     }
 
 

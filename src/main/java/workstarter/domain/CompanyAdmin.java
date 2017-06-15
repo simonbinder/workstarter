@@ -18,8 +18,7 @@ public class CompanyAdmin extends User {
 
     private static final long serialVersionUID = 1L;
 
-    @NotNull
-    @Column(name="location", nullable = false)
+    @Column(name="location")
     private String location;
     
     @OneToOne

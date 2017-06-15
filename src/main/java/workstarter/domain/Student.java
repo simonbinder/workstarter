@@ -28,8 +28,7 @@ public class Student extends User {
     @Column(name = "matrikel_nummer")
     private String matrikelNummer;
     
-    @NotNull
-    @Column(name = "slogan", nullable = false)
+    @Column(name = "slogan")
     private String slogan;
 
     @OneToOne

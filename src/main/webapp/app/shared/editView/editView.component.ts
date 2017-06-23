@@ -7,6 +7,7 @@ import { EditViewService } from '../editView/editView.service';
 import { StateStorageService } from '../auth/state-storage.service';
 import { SocialService } from '../social/social.service';
 import { StudentEditJobs } from '../student/editForms/student-editJobs.component';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'jhi-editView-modal',
@@ -22,6 +23,7 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
 
 
 
+    eventSubscriber: Subscription;
     editComponent: string;
     componentId: number;
     student: any;
@@ -51,6 +53,7 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
         this.editComponent = this._editComponent;
         this.componentId = this._componentId;
         this.student = this._student;
+        this.registerChangeInEditForms();
     }
 
     ngAfterViewInit() {
@@ -111,5 +114,14 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
     requestResetPassword () {
         this.activeModal.dismiss('to state requestReset');
         this.router.navigate(['/reset', 'request']);
+    }
+
+    registerChangeInEditForms() {
+        this.eventSubscriber = this.eventManager.subscribe('EditFormsFinished', (response) => this.close());
+    }
+
+    private close()
+    {
+        this.activeModal.dismiss("saved");
     }
 }

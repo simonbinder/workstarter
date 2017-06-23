@@ -17,7 +17,6 @@ import { Profession } from "../../../entities/profession/profession.model";
 
 export class StudentEditJobs implements OnInit {
     activeModal: NgbActiveModal;
-    eventManager: EventManager;
     alertService: AlertService;
     profession: Profession;
     isSaving: boolean;
@@ -31,6 +30,7 @@ export class StudentEditJobs implements OnInit {
   constructor(
     private languageService: JhiLanguageService,
     private studentService: StudentService,
+    private eventManager: EventManager
     
   ) 
   {
@@ -105,9 +105,8 @@ export class StudentEditJobs implements OnInit {
     }
 
     private onSaveSuccess (result: Student) {
-        this.eventManager.broadcast({ name: 'studentListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'EditFormsFinished', content: 'OK'});
         this.isSaving = false;
-        this.activeModal.dismiss(result);
     }
 
     private onSaveError (error) {

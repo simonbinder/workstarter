@@ -35,7 +35,7 @@ export class StudentService {
 
     createProfession(profession: Profession, studentId:number): Observable<Profession> {
         let copy: Profession = Object.assign({}, profession);
-        return this.http.post(this.resourceUrl, copy).map((res: Response) => {
+        return this.http.post(`${this.resourceUrl}/${studentId}/${"profession"}`, copy).map((res: Response) => {
             return res.json();
         });
     }

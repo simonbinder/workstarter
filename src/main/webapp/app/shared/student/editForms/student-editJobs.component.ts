@@ -46,9 +46,13 @@ export class StudentEditJobs implements OnInit {
   {
     if(professionsId == null || professionsId < 0)
     {
+      this.profession = new Profession();
+      console.log("no existing profession found with given id.");
+      console.log(this.profession);
       return;
     }
     console.log(this.student);
+
     for(let prof of this.student.professions) {
       if(prof.id == professionsId)
       {
@@ -76,10 +80,18 @@ export class StudentEditJobs implements OnInit {
 
   private createNew ()
   {
-    
+    this.studentService.createProfession(this.profession, this.student.id)
+                .subscribe((res: Profession) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
   }
 
-  private update () {
+  private delete()
+  {
+
+  }
+
+  private update () 
+  {
         this.isSaving = true;
         if (this.profession.id !== undefined) {
             this.studentService.updateProfession(this.profession, this.student.id, this.profession.id)

@@ -249,7 +249,7 @@ public class CompanyAdminResource {
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
 	}
 	
-	@GetMapping("/students/{id}/slogan")
+	@GetMapping("/students/{id}/location")
 	@Timed
 	public String getLocation(@PathVariable Long id) {
 		log.debug("REST request to get location for one CompanyAdmin");

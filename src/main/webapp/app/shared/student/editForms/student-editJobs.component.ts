@@ -44,6 +44,10 @@ export class StudentEditJobs implements OnInit {
 
   fillFormFromDb(professionsId)
   {
+    if(professionsId == null || professionsId < 0)
+    {
+      return;
+    }
     console.log(this.student);
     for(let prof of this.student.professions) {
       if(prof.id == professionsId)
@@ -56,8 +60,26 @@ export class StudentEditJobs implements OnInit {
   }
 
   
+  private save ()
+  {
+    if(this._componentId == null || this._componentId < 0)
+    {
+        console.log("create new profession");
+        this.createNew();
+    }
+    else
+    {
+        console.log("update profession");
+        this.update();
+    }
+  }
 
-  save () {
+  private createNew ()
+  {
+    
+  }
+
+  private update () {
         this.isSaving = true;
         if (this.profession.id !== undefined) {
             this.studentService.updateProfession(this.profession, this.student.id, this.profession.id)

@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
+import { JhiLanguageService, EventManager } from 'ng-jhipster';
 import { Student } from './student.model';
 import { StudentService } from './student.service';
 import { AccountService, EditViewModalService } from '../../shared';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from "rxjs/Subscription";
 
 @Component({
     selector: 'jhi-student-detail',
@@ -20,12 +21,14 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     private subscription: any;
     isMyAccount: boolean = false;
     modalRef: NgbModalRef;
+    eventSubscriber: Subscription;
 
     //testdata
     tags: string[];
     education: any[];
 
     constructor(
+        private eventManager: EventManager,
         private account: AccountService,
         private editViewModalService: EditViewModalService,
         private jhiLanguageService: JhiLanguageService,
@@ -49,6 +52,7 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
             this.setPrivateAccountSettings(params['id']);
         });
+        this.registerChangeInEditForms();
     }
 
     setPrivateAccountSettings(id)
@@ -107,6 +111,20 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
         {
             return false;
         }
+    }
+
+    registerChangeInEditForms() {
+        this.eventSubscriber = this.eventManager.subscribe('EditFormsFinished', (response) => this.realoadStudent(response));
+    }
+
+    private realoadStudent(information)
+    {   
+        console.log(information);
+        if(information.content == "Created" || information.content == "Deleted")
+        {
+            this.load(this.student.id);
+        }
+        console.log(this.student);
     }
 
 }

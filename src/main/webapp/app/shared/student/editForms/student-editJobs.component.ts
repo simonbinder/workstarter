@@ -20,6 +20,8 @@ export class StudentEditJobs implements OnInit {
     alertService: AlertService;
     profession: Profession;
     isSaving: boolean;
+    information: string;
+
   @Input() _componentId;
   @Input() _student: any;
 
@@ -80,6 +82,7 @@ export class StudentEditJobs implements OnInit {
 
   private createNew ()
   {
+    this.information = "Created";
     this.studentService.createProfession(this.profession, this.student.id)
                 .subscribe((res: Profession) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
@@ -87,11 +90,15 @@ export class StudentEditJobs implements OnInit {
 
   private delete()
   {
-
-  }
+        this.information = "Deleted";
+        this.studentService.deleteProfession(this.profession, this.student.id, this.profession.id).subscribe(response => {
+            this.onSaveSuccess(null), (res: Response) => this.onSaveError(res.json())
+        });
+    }
 
   private update () 
   {
+        this.information = "Updated";
         this.isSaving = true;
         if (this.profession.id !== undefined) {
             this.studentService.updateProfession(this.profession, this.student.id, this.profession.id)
@@ -105,7 +112,7 @@ export class StudentEditJobs implements OnInit {
     }
 
     private onSaveSuccess (result: Student) {
-        this.eventManager.broadcast({ name: 'EditFormsFinished', content: 'OK'});
+        this.eventManager.broadcast({ name: 'EditFormsFinished', content: this.information});
         this.isSaving = false;
     }
 

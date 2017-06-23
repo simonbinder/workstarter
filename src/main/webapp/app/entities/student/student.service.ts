@@ -40,6 +40,10 @@ export class StudentService {
         });
     }
 
+    deleteProfession(profession: Profession, studentId:number, professionId:number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${studentId}/${"profession"}/${professionId}`);
+    }
+
     find(id: number): Observable<Student> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             return res.json();

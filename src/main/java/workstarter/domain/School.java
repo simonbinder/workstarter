@@ -69,17 +69,9 @@ public class School implements Serializable {
 		this.name = name;
 	}
 
-	public String getCoreSubjects() {
-		return coreSubject;
-	}
-
 	public School coreSubjects(String coreSubjects) {
 		this.coreSubject = coreSubjects;
 		return this;
-	}
-
-	public void setCoreSubjects(String coreSubjects) {
-		this.coreSubject = coreSubjects;
 	}
 
 	public String getTargetDegree() {
@@ -89,6 +81,11 @@ public class School implements Serializable {
 	public void setTargetDegree(String targetDegree) {
 		this.targetDegree = targetDegree;
 	}
+	
+	public School targetDegree(String targetDegree){
+		this.targetDegree = targetDegree;
+		return this;
+	}
 
 	public Date getStart() {
 		return start;
@@ -96,6 +93,16 @@ public class School implements Serializable {
 
 	public void setStart(Date start) {
 		this.start = start;
+	}
+	
+	public School start(Date start){
+		this.start = start;
+		return this;
+	}
+	
+	public School end(Date end){
+		this.end = end;
+		return this;
 	}
 
 	public Date getEnd() {
@@ -106,6 +113,26 @@ public class School implements Serializable {
 		this.end = end;
 	}
 	
+	public String getCoreSubject() {
+		return coreSubject;
+	}
+
+	public void setCoreSubject(String coreSubject) {
+		this.coreSubject = coreSubject;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+	public School location(String location){
+		this.location = location;
+		return this;
+	}
 
 	@Override
 	public String toString() {

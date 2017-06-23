@@ -142,7 +142,7 @@ public class StudentResource {
 	 * @throws URISyntaxException
 	 *             if the Location URI syntax is incorrect
 	 */
-	@PutMapping("/students/{id}/schools")
+	@PostMapping("/students/{id}/schools")
 	@Timed
 	public ResponseEntity<Student> addSchool(@PathVariable Long id,@Valid @RequestBody School school) throws URISyntaxException {
 		log.debug("REST request to update Student : {}", school);

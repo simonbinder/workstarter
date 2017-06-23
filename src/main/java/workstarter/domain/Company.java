@@ -4,6 +4,9 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -51,6 +54,7 @@ public class Company implements Serializable {
         this.id = id;
     }
 
+    @JsonBackReference
     public String getCompanyName() {
         return companyName;
     }
@@ -97,11 +101,6 @@ public class Company implements Serializable {
 		this.admin = admin;
 	}
 
-	@Override
-    public String toString() {
-        return "Company{" +
-            "id=" + id +
-            ", companyName='" + companyName + "'" +
-            '}';
-    }
+	
+	
 }

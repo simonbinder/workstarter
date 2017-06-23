@@ -2,22 +2,16 @@ package workstarter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import workstarter.domain.CompanyAdmin;
-import workstarter.domain.Student;
 import workstarter.repository.CompanyAdminRepository;
-import workstarter.repository.StudentRepository;
 import workstarter.repository.search.CompanyAdminSearchRepository;
 import workstarter.security.SecurityUtils;
 import workstarter.service.CompanyAdminService;
 import workstarter.service.MailService;
-import workstarter.service.StudentService;
 import workstarter.service.dto.CompanyAdminDTO;
-import workstarter.service.dto.StudentDTO;
 import workstarter.web.rest.util.HeaderUtil;
-import workstarter.web.rest.vm.KeyAndPasswordVM;
 import workstarter.web.rest.vm.ManagedCompanyAdminVM;
 import io.github.jhipster.web.util.ResponseUtil;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

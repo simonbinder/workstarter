@@ -5,7 +5,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 /**
  * A CompanyAdmin.

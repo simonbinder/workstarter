@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import workstarter.config.Constants;
 import workstarter.domain.Authority;
+import workstarter.domain.Company;
 import workstarter.domain.CompanyAdmin;
 import workstarter.domain.Student;
 import workstarter.domain.User;
@@ -41,15 +42,17 @@ public class CompanyAdminService {
 	private final PasswordEncoder passwordEncoder;
 	private final SocialService socialService;
 	private final CompanyAdminSearchRepository companyAdminSearchRepository;
+	private final CompanyRepository companyRepository;
 	private final AuthorityRepository authorityRepository;
 
 	public CompanyAdminService(CompanyAdminRepository companyAdminRepository, PasswordEncoder passwordEncoder,
-			SocialService socialService, CompanyAdminSearchRepository companyAdminSearchRepository,
+			SocialService socialService, CompanyAdminSearchRepository companyAdminSearchRepository, CompanyRepository companyRepository,
 			AuthorityRepository authorityRepository) {
 		this.companyAdminRepository = companyAdminRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
 		this.companyAdminSearchRepository = companyAdminSearchRepository;
+		this.companyRepository = companyRepository;
 		this.authorityRepository = authorityRepository;
 	}
 
@@ -140,6 +143,15 @@ public class CompanyAdminService {
 		companyAdminSearchRepository.save(company);
 		log.debug("Created Information for User: {}", company);
 		return company;
+	}
+	
+	public CompanyAdmin addCompany(Long id, Company company){
+		CompanyAdmin companyAdmin = companyAdminRepository.getOne(id);
+		Company searchedCompany = companyRepository.getOne(company.getId());
+		companyAdmin.setCompany(searchedCompany);
+		companyAdminRepository.save(companyAdmin);
+		log.debug("Added company for CompanyAdmin: {}", companyAdmin);
+		return companyAdmin;
 	}
 
 	/**

@@ -271,9 +271,13 @@ public class StudentService {
 	public Student updateSchool(Long studentID, Long schoolID, School school) {
 		Student student = studentRepository.getOne(studentID);
 		School oldSchool = schoolRepository.getOne(schoolID);
-		schoolRepository.save(school);
 		student.updateSchool(oldSchool, school);
-		schoolRepository.delete(oldSchool);
+		oldSchool.name(school.getName());
+		oldSchool.coreSubjects(school.getCoreSubject());
+		oldSchool.targetDegree(school.getTargetDegree());
+		oldSchool.location(school.getLocation());
+		oldSchool.start(school.getStart());
+		oldSchool.end(school.getEnd());
 		studentRepository.save(student);
 		log.debug("Updated school for Student: {}", student);
 		return student;
@@ -333,9 +337,16 @@ public class StudentService {
 	public Student updateProfession(Long studentID, Long professionID, Profession profession) {
 		Student student = studentRepository.getOne(studentID);
 		Profession oldProfession = professionRepository.getOne(professionID);
-		professionRepository.save(profession);
 		student.updateProfession(oldProfession, profession);
-		professionRepository.delete(oldProfession);
+		oldProfession.companyName(profession.getCompanyName());
+		oldProfession.domain(profession.getDomain());
+		oldProfession.sector(profession.getSector());
+		oldProfession.position(profession.getPosition());
+		oldProfession.formOfEmployment(profession.getFormOfEmployment());
+		oldProfession.tasks(profession.getTasks());
+		oldProfession.location(profession.getLocation());
+		oldProfession.startDate(profession.getStartDate());
+		oldProfession.endDate(profession.getEndDate());
 		studentRepository.save(student);
 		log.debug("Updated profession for Student: {}", student);
 		return student;

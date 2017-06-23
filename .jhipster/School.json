@@ -29,7 +29,7 @@
             "fieldType": "Date"
         },
         {
-            "fieldName": "coreSubjects",
+            "fieldName": "coreSubject",
             "fieldType": "String"
         }
     ],

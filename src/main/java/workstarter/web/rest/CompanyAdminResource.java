@@ -1,7 +1,11 @@
 package workstarter.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+
+import workstarter.domain.Company;
 import workstarter.domain.CompanyAdmin;
+import workstarter.domain.School;
+import workstarter.domain.Student;
 import workstarter.repository.CompanyAdminRepository;
 import workstarter.repository.search.CompanyAdminSearchRepository;
 import workstarter.security.SecurityUtils;
@@ -216,4 +220,14 @@ public class CompanyAdminResource {
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
     }
+    
+	@PostMapping("/company-admins/{id}/companies")
+	@Timed
+	public ResponseEntity<CompanyAdmin> addCompany(@PathVariable Long id,@Valid @RequestBody Company company) throws URISyntaxException {
+		log.debug("REST request to update Student : {}", company);
+		CompanyAdmin result = companyAdminService.addCompany(id, company);
+		companyAdminSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
 }

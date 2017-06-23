@@ -16,13 +16,10 @@
     </changeSet>
     <changeSet author="Simon (generated)" id="1497362220486-6">
         <addColumn tableName="jhi_user">
-            <column name="slogan" type="VARCHAR(255)" defaultValue="">
-                <constraints nullable="false"/>
+            <column name="slogan" type="VARCHAR(255)">
             </column>
-            <column name="location" type="VARCHAR(255)" defaultValue="">
-                <constraints nullable="false"/>
+            <column name="location" type="VARCHAR(255)">
             </column>
-            <column name="company_id" type="BIGINT"/>
         </addColumn>
     </changeSet>
     <changeSet author="Simon (generated)" id="1497362220486-32">

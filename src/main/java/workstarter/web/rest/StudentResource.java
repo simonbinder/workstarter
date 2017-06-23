@@ -224,7 +224,7 @@ public class StudentResource {
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
 	}
 	
-	@PutMapping("/students/{id}/profession")
+	@PostMapping("/students/{id}/profession")
 	@Timed
 	public ResponseEntity<Student> addProfession(@PathVariable Long id,@Valid @RequestBody Profession profession) throws URISyntaxException {
 		log.debug("REST request to update Student : {}", profession);

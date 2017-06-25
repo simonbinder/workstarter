@@ -39,6 +39,9 @@ public class School implements Serializable {
 	@NotNull
 	@Column(name = "location")
 	private String location;
+	
+	@Column(name = "fieldOfStudy")
+    private String fieldOfStudy;
 
 	@NotNull
 	@Column(name = "start", nullable = false)
@@ -133,11 +136,20 @@ public class School implements Serializable {
 		this.location = location;
 		return this;
 	}
+	
+	public String getFieldOfStudy() {
+		return fieldOfStudy;
+	}
+
+	public void setFieldOfStudy(String fieldOfStudy) {
+		this.fieldOfStudy = fieldOfStudy;
+	}
 
 	@Override
 	public String toString() {
 		return "School [id=" + id + ", name=" + name + ", coreSubject=" + coreSubject + ", targetDegree=" + targetDegree
-				+ ", start=" + start + ", end=" + end + "]";
+				+ ", location=" + location + ", fieldOfStudy=" + fieldOfStudy + ", start=" + start + ", end=" + end
+				+ "]";
 	}
 
 }

@@ -10,8 +10,10 @@
                 "companyname": "Name deiner Firma",
                 "companydomain": "www.beispieldomain.de",
                 "companylocation": "An welchem Standort deiner Firma bist du?",
-                "companyindustry": "in welcher Branche ist deine Firma tätig?"
-
+                "companyindustry": "in welcher Branche ist deine Firma tätig?",
+                "date": "Datum",
+                "startdate": "Wann hat deine Anstellung begonnen?",
+                "enddate": "Wann endete deine Anstellung?"
             }
         },
         "button" : {

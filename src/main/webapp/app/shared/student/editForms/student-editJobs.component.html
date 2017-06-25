@@ -20,8 +20,18 @@
         [(ngModel)]="profession.location">
     </div>
 
+    <div class="form-group">
+        <label for="date" jhiTranslate="editView.form.jobs.date">Date</label>
+        <input type="text" class="form-control" name="When did it start?" id="startdate" placeholder="{{'editView.form.jobs.startdate' | translate}}"
+        [(ngModel)]="profession.startDate">
+        <input type="text" class="form-control" name="When did it end?" id="enddate" placeholder="{{'editView.form.jobs.enddate' | translate}}"
+        [(ngModel)]="profession.endDate">
+    </div>
+    
+    
+
 
     <button type="submit" class="btn btn-primary savebtn" jhiTranslate="editView.button.save">Save</button>
-    <button click="delete()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.delete">Delete</button>
+    <button type="button" (click)="delete()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.delete">Delete</button>
     
 </form>

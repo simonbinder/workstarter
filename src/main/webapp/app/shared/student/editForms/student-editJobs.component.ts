@@ -17,10 +17,11 @@ import { Profession } from "../../../entities/profession/profession.model";
 
 export class StudentEditJobs implements OnInit {
     activeModal: NgbActiveModal;
-    eventManager: EventManager;
     alertService: AlertService;
     profession: Profession;
     isSaving: boolean;
+    information: string;
+
   @Input() _componentId;
   @Input() _student: any;
 
@@ -31,6 +32,7 @@ export class StudentEditJobs implements OnInit {
   constructor(
     private languageService: JhiLanguageService,
     private studentService: StudentService,
+    private eventManager: EventManager
     
   ) 
   {
@@ -44,7 +46,15 @@ export class StudentEditJobs implements OnInit {
 
   fillFormFromDb(professionsId)
   {
+    if(professionsId == null || professionsId < 0)
+    {
+      this.profession = new Profession();
+      console.log("no existing profession found with given id.");
+      console.log(this.profession);
+      return;
+    }
     console.log(this.student);
+
     for(let prof of this.student.professions) {
       if(prof.id == professionsId)
       {
@@ -56,8 +66,39 @@ export class StudentEditJobs implements OnInit {
   }
 
   
+  private save ()
+  {
+    if(this._componentId == null || this._componentId < 0)
+    {
+        console.log("create new profession");
+        this.createNew();
+    }
+    else
+    {
+        console.log("update profession");
+        this.update();
+    }
+  }
 
-  save () {
+  private createNew ()
+  {
+    this.information = "Created";
+    this.studentService.createProfession(this.profession, this.student.id)
+                .subscribe((res: Profession) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+  }
+
+  private delete()
+  {
+        this.information = "Deleted";
+        this.studentService.deleteProfession(this.profession, this.student.id, this.profession.id).subscribe(response => {
+            this.onSaveSuccess(null), (res: Response) => this.onSaveError(res.json())
+        });
+    }
+
+  private update () 
+  {
+        this.information = "Updated";
         this.isSaving = true;
         if (this.profession.id !== undefined) {
             this.studentService.updateProfession(this.profession, this.student.id, this.profession.id)
@@ -71,9 +112,8 @@ export class StudentEditJobs implements OnInit {
     }
 
     private onSaveSuccess (result: Student) {
-        this.eventManager.broadcast({ name: 'studentListModification', content: 'OK'});
+        this.eventManager.broadcast({ name: 'EditFormsFinished', content: this.information});
         this.isSaving = false;
-        this.activeModal.dismiss(result);
     }
 
     private onSaveError (error) {

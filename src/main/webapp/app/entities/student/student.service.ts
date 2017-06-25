@@ -33,6 +33,17 @@ export class StudentService {
         });
     }
 
+    createProfession(profession: Profession, studentId:number): Observable<Profession> {
+        let copy: Profession = Object.assign({}, profession);
+        return this.http.post(`${this.resourceUrl}/${studentId}/${"profession"}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    deleteProfession(profession: Profession, studentId:number, professionId:number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${studentId}/${"profession"}/${professionId}`);
+    }
+
     find(id: number): Observable<Student> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             return res.json();

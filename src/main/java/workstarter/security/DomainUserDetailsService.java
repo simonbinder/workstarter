@@ -25,9 +25,9 @@ public class DomainUserDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(DomainUserDetailsService.class);
 
-    private final StudentRepository userRepository;
+    private final UserRepository userRepository;
 
-    public DomainUserDetailsService(StudentRepository userRepository) {
+    public DomainUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -8,6 +8,7 @@ export class School {
         public targetDegree?: string,
         public start?: any,
         public end?: any,
+        public fieldOfStudy?: string,
     ) {
         this.id = id ? id : null;
         this.name = name ? name : null;
@@ -16,5 +17,6 @@ export class School {
         this.targetDegree = targetDegree ? targetDegree : null;
         this.start = start ? start : null;
         this.end = end ? end : null;
+        this.fieldOfStudy = fieldOfStudy ? fieldOfStudy : null;
     }
 }

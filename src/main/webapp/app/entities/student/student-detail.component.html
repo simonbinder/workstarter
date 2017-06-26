@@ -44,7 +44,7 @@
                             </div>
                             <div class="jobDescription">
                                 <button (click)='edit("editSchools", student, school.id)'></button>
-                                <h2>Studiengang</h2>
+                                <h2>{{school.fieldOfStudy}}</h2>
                                 <p class="subline1">{{school.name}} in {{school.location}}</p>
                                 <p class="subline2" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
                                 <p class="tasks">{{school.coreSubject}}</p>

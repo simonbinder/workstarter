@@ -1,0 +1,245 @@
+$main1-color: #f15f79;
+$main2-color: #b24592;
+$main-color: #CF4E87; /*#bf4b6e;*/
+$font-color: #000;
+$middle-grey: #a09d9e;
+$light-grey: #f2f2f2;
+
+
+h1
+{
+    font-weight: 600;
+    font-size: 2.2rem;
+    color: $main-color;
+    margin: 0;
+}
+
+h2
+{
+    font-weight: 600;
+    font-size: 1rem;
+    color: $font-color;
+    margin: 0;
+}
+
+.subline1
+{
+    color: $main-color;
+    font-weight: 400;
+}
+
+.subline2
+{
+    color: $middle-grey;
+}
+
+.container
+{
+    width: 96% !important;
+    font-size: normal;
+}
+
+.profilheader
+{
+    /* TODO: Must be changed in responsiv */
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .profile-img {
+        width: 200px;
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 50%;
+        border: solid 1px $main-color;
+        float: right;
+    
+        img
+        {   
+            height: 100%;
+            margin-left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
+    .profil-content
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        .cvSlogan
+        {
+            min-height: 110px;
+        }
+
+        h2{
+
+            margin-bottom: 20px;
+        }
+    }
+}
+
+
+.carrier
+{
+    padding-top: 30px;
+
+
+    .cvJobs
+    {
+        .jobTitle
+        {
+            height: 25px;
+            margin-bottom: 10px;
+
+            h2
+            {
+                line-height: 25px; 
+                float: left;
+            }
+
+            button
+            {
+                float: right;
+                text-align: middle;
+                height: 25px;
+                width: 25px;
+                line-height: 25px;
+                border-radius: 50%;
+                border: solid 1px $font-color;
+                background: transparent;
+                color: $light-grey;
+
+                background:url(../../../content/images/plus.svg);
+                background-repeat: no-repeat;
+                background-size: 17px 17px;
+                background-position:center;
+
+            }
+
+            button:hover
+            {
+                color: #fff;
+                border: solid 1px $main-color;
+            }
+        }
+
+        .jobList
+        {
+            font-size: 0.8rem;
+            padding-top: 15px;
+            
+            .small-card-reverse
+            {
+                margin-top: 0;
+                margin-right: 15px;
+            }
+
+            .jobDescription
+            {
+                overflow: hidden;
+
+                button
+            {
+                float: right;
+                text-align: middle;
+                height: 25px;
+                width: 25px;
+                line-height: 25px;
+                border-radius: 50%;
+                border: solid 1px $font-color;
+                background: transparent;
+                color: $light-grey;
+
+                background:url(../../../content/images/pencil.svg);
+                background-repeat: no-repeat;
+                background-size: 17px 17px;
+                background-position:center;
+
+            }
+
+            button:hover
+            {
+                color: #fff;
+                border: solid 1px $main-color;
+            }
+
+            }
+
+            .tasks
+            {
+                color: $font-color;
+            }
+            
+            h2
+            {
+                font-size: 0.8rem;
+            }
+        }
+
+        p
+        {
+            margin: 0;
+        }
+
+    }
+}
+
+
+.window
+{
+    border: solid 1px $light-grey;
+    border-radius: 5px;
+
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.isMyAccount
+{
+    .window:hover
+    {
+        transition-timing-function: ease-in-out;
+        transition: 0.5s;
+        border-color: $main-color;
+    }
+}
+
+.small-card
+{
+    font-size: 0.8rem;
+    float: left;
+    padding: 2px 4px;
+    border: solid 1px $main-color;
+    border-radius: 5px;
+    margin: 3px;
+}
+
+.greyedout
+{
+    border-color: $middle-grey !important;
+    background: $light-grey !important;
+    color: $middle-grey !important;
+}
+
+.small-card:hover
+{
+    background: $light-grey;
+}
+
+.small-card-reverse
+{
+    font-size: 0.8rem;
+    float: left;
+    padding: 2px 6px;
+    background: $main-color;
+    border-radius: 5px;
+    margin: 3px;
+    color: white;
+}
+
+
+
+
+

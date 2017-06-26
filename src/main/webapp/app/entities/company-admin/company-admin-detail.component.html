@@ -1,35 +1,72 @@
+<div [ngClass]="{'isMyAccount': isMyAccount }"> 
+    <div class="container" *ngIf="companyAdmin">
 
-<div *ngIf="companyAdmin">
-    <h2><span jhiTranslate="workstarterApp.companyAdmin.detail.title">Company Admin</span> {{companyAdmin.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="workstarterApp.companyAdmin.firstname">Firstname</span></dt>
-        <dd>
-            <span>{{companyAdmin.firstname}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.companyAdmin.lastname">Lastname</span></dt>
-        <dd>
-            <span>{{companyAdmin.lastname}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.companyAdmin.company">Company</span></dt>
-        <dd>
-            <div *ngIf="companyAdmin.company">
-                <a [routerLink]="['/company', companyAdmin.company?.id]">{{companyAdmin.company?.id}}</a>
+
+        <div class="profilheader row justify-content-center">
+            <div class="col-3">
+                <div class="profile-img">
+                    <img src="{{companyAdmin.imageUrl}}">
+                </div>
             </div>
-        </dd>
-    </dl>
+            <div class="profil-content col-7">
+                <h1>{{companyAdmin.firstName}} {{companyAdmin.lastName}}</h1>
+                <h2>Software Spezialist</h2>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
 
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'company-admin/'+ companyAdmin.id + '/edit'} }]"
-            replaceUrl="true"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
-</div>
+            </div> <!-- profil-content -->
+
+        </div> <!-- profilheader -->
+
+            <div class="carrier row justify-content-center">
+
+                <div class="cvJobs col-5">
+                    <div class="jobTitle">
+                        <h2>Education</h2>
+                        <button (click)='edit("editSchools", companyAdmin, -1)'>
+                            <!--<img src="../../../content/images/plus.svg">-->
+                        </button>
+                    </div>
+                    <div class="window">
+                        <div class="jobList" *ngFor="let school of companyAdmin.schools">
+                            <div class="eduTime small-card-reverse">
+                                <p>{{formatDate(school.start)}}</p>
+                            </div>
+                            <div class="jobDescription">
+                                <button (click)='edit("editSchools", companyAdmin, school.id)'></button>
+                                <h2>{{school.fieldOfStudy}}</h2>
+                                <p class="subline1">{{school.name}} in {{school.location}}</p>
+                                <p class="subline2" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
+                                <p class="tasks">{{school.coreSubject}}</p>
+                            </div>
+                        </div>
+                    </div> <!-- window -->
+                </div> <!-- Education -->
+
+                <div class="cvJobs col-5">
+                    <div class="jobTitle">
+                        <h2>Jobs</h2>
+                        <button (click)='edit("editJobs", companyAdmin, -1)'></button>
+                    </div>
+                    <div class="window">
+                        <div class="jobList" *ngFor="let profession of companyAdmin.professions">
+                            <div class="eduTime small-card-reverse">
+                                <p>{{formatDate(profession.startDate)}}</p>
+                            </div>
+                            <div class="jobDescription">
+                                <button (click)='edit("editJobs", companyAdmin, profession.id)'></button>
+                                <h2>{{profession.position}}</h2>
+                                <p class="subline1">{{profession.companyName}} in {{profession.location}}</p>
+                                <a class="subline2" href="{{profession.domain}}">{{profession.domain}}</a>
+                                <p class="tasks">{{profession.tasks}}</p>
+                            </div>
+                        </div>
+
+                    </div> <!-- window -->
+                </div> <!-- Jobs -->
+
+            </div> <!-- carrier -->
+
+
+    </div>
+
+</div> <!-- isMyAccount -->

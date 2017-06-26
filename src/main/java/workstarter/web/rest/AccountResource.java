@@ -151,7 +151,7 @@ public class AccountResource {
     @Timed
     public String getUser(@PathVariable Long id){
     	String userDiscriminator = userService.getUser(id);
-    	return userDiscriminator;
+    	return "{\"user\":"+userDiscriminator +"}";
     }
 
     /**

@@ -32,7 +32,7 @@ export class CompanyAdminDetailComponent implements OnInit, OnDestroy {
         private companyAdminService: CompanyAdminService,
         private route: ActivatedRoute
     ) {
-        this.jhiLanguageService.setLocations(['company-admin']);
+        this.jhiLanguageService.setLocations(['companyAdmin']);
     }
 
     ngOnInit() {

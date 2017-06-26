@@ -1,27 +1,33 @@
 <form class="form" role="form" (ngSubmit)="save()">
+    
     <div class="form-group">
-        <label for="position" jhiTranslate="editView.form.jobs.position">Position</label>
-        <input type="text" class="form-control" name="position" id="position" placeholder="{{'editView.form.jobs.position' | translate}}"
-        [(ngModel)]="position">
-        <input type="text" class="form-control" name="careerlevel" id="careerlevel" placeholder="{{'editView.form.jobs.careerlevel' | translate}}"
-        [(ngModel)]="careerlevel">
-        <input type="text" class="form-control" name="describtion" id="describtion" placeholder="{{'editView.form.jobs.describtion' | translate}}"
-        [(ngModel)]="describtion">
+        <label for="name" jhiTranslate="editView.form.schools.school">Your School</label>
+        <input type="text" class="form-control" name="School name" id="name" placeholder="{{'editView.form.schools.name' | translate}}"
+        [(ngModel)]="school.name">
+        <input type="text" class="form-control" name="Schools location" id="location" placeholder="{{'editView.form.schools.location' | translate}}"
+        [(ngModel)]="school.location">
     </div>
+    
     <div class="form-group">
-        <label for="companyname" jhiTranslate="editView.form.jobs.company">Company</label>
-        <input type="text" class="form-control" name="Company name" id="companyname" placeholder="{{'editView.form.jobs.companyname' | translate}}"
-                [(ngModel)]="companyname">
-        <input type="text" class="form-control" name="Company domain" id="companydomain" placeholder="{{'editView.form.jobs.companydomain' | translate}}"
-        [(ngModel)]="companydomain">
-        <input type="text" class="form-control" name="Company industry" id="companyindustry" placeholder="{{'editView.form.jobs.companyindustry' | translate}}"
-        [(ngModel)]="companyindustry">
-        <input type="text" class="form-control" name="Company location" id="companylocation" placeholder="{{'editView.form.jobs.companylocation' | translate}}"
-        [(ngModel)]="companylocation">
+        <label for="targetDegree" jhiTranslate="editView.form.schools.targetDegree">Target Degree</label>
+        <input type="text" class="form-control" name="Target Degree" id="targetDegree" placeholder="{{'editView.form.schools.targetDegree' | translate}}"
+        [(ngModel)]="school.targetDegree">
+        <input type="text" class="form-control" name="coreSubject" id="coreSubject" placeholder="{{'editView.form.schools.coreSubject' | translate}}"
+        [(ngModel)]="school.coreSubject">
     </div>
+
+    <div class="form-group">
+        <label for="date" jhiTranslate="editView.form.schools.date">Date</label>
+        <input type="text" class="form-control" name="When did it start?" id="start" placeholder="{{'editView.form.schools.start' | translate}}"
+        [(ngModel)]="school.start">
+        <input type="text" class="form-control" name="When did it end?" id="end" placeholder="{{'editView.form.schools.end' | translate}}"
+        [(ngModel)]="school.end">
+    </div>
+    
+    
 
 
     <button type="submit" class="btn btn-primary savebtn" jhiTranslate="editView.button.save">Save</button>
-    <button click="delete()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.delete">Delete</button>
+    <button type="button" (click)="delete()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.delete">Delete</button>
     
 </form>

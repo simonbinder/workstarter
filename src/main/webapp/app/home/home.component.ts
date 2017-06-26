@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { EventManager, JhiLanguageService } from 'ng-jhipster';
 
-import { Account, User, LoginModalService, Principal, UserService } from '../shared';
+import { Account, User, LoginModalService, Principal, UserService, AccountService } from '../shared';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,7 +23,8 @@ export class HomeComponent implements OnInit {
         private loginModalService: LoginModalService,
         private eventManager: EventManager,
         private router: Router,
-        private userService: UserService
+        private userService: UserService,
+        private accountService: AccountService,
     ) {
         this.jhiLanguageService.setLocations(['home']);
     }
@@ -33,14 +34,11 @@ export class HomeComponent implements OnInit {
             this.account = account;
             if(this.isAuthenticated()){
                 console.log("Your user id is: " + this.account.id);
-                // TODO: Check if Student or CompanyAdmin
-                this.gotoStudent(this.account.id);
+                // Check if Student or CompanyAdmin
+                this.gotoAccount(this.account.id);
             }
         });
         this.registerAuthenticationSuccess();
-
-
-
     }
 
     registerAuthenticationSuccess() {
@@ -61,5 +59,25 @@ export class HomeComponent implements OnInit {
 
     gotoStudent(id: Number): void {
         this.router.navigate(['/student', id]);
+    }
+
+    gotoCompanyAdmin(id: Number): void {
+        this.router.navigate(['/company-admin', id]);
+    }
+
+    gotoAccount(AccountId)
+    {
+        this.accountService.getUser(AccountId).toPromise().then(user => {
+
+            console.log("I am a: " + user);
+            if (user== "CompanyAdmin")
+            {
+                this.gotoCompanyAdmin(AccountId);
+            }
+            else
+            {
+                this.gotoStudent(AccountId);
+            }
+        });
     }
 }

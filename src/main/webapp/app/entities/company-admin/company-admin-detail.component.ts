@@ -9,7 +9,10 @@ import { AccountService, EditViewModalService } from "../../shared/index";
 
 @Component({
     selector: 'jhi-company-admin-detail',
-    templateUrl: './company-admin-detail.component.html'
+    templateUrl: './company-admin-detail.component.html',
+    styleUrls: [
+        'company-admin.scss'
+    ]
 })
 export class CompanyAdminDetailComponent implements OnInit, OnDestroy {
 
@@ -21,10 +24,6 @@ export class CompanyAdminDetailComponent implements OnInit, OnDestroy {
     modalRef: NgbModalRef;
     eventSubscriber: Subscription;
 
-    //testdata
-    tags: string[];
-    education: any[];
-
     constructor(
         private eventManager: EventManager,
         private account: AccountService,
@@ -34,8 +33,6 @@ export class CompanyAdminDetailComponent implements OnInit, OnDestroy {
         private route: ActivatedRoute
     ) {
         this.jhiLanguageService.setLocations(['company-admin']);
-        
-
     }
 
     ngOnInit() {

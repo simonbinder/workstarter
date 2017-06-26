@@ -10,6 +10,10 @@ export class AccountService  {
         return this.http.get('api/account').map((res: Response) => res.json());
     }
 
+    getUser(userId): Observable<any> {
+        return this.http.get(`${"api/account/get_user"}/${userId}`).map((res: Response) => res.json());
+    }
+
     save(account: any): Observable<Response> {
         return this.http.post('api/account', account);
     }

@@ -10,8 +10,8 @@
     </div>
     <div class="form-group">
         <label for="slogan" jhiTranslate="editView.form.presentation.slogan">Slogan</label>
-        <input type="text" class="form-control" name="slogan" id="slogan" placeholder="{{'editView.form.presentation.slogan' | translate}}"
-        [(ngModel)]="student.slogan">
+        <textarea type="text" class="form-control" name="slogan" id="slogan" placeholder="{{'editView.form.presentation.slogan' | translate}}"
+        [(ngModel)]="student.slogan" rows="5"></textarea>
     </div>
 
     <div class="form-group">
@@ -24,8 +24,11 @@
                 <span>{{keyword.name}}</span> <span (click)="deleteKeyword()">x</span>
             </div>
         </div>
+
         <input type="text" class="form-control" name="Which skills do you have?" id="newKeyword" placeholder="{{'editView.form.presentation.newKeyword' | translate}}"
-        [(ngModel)]="newKeyword"> <span (click)="addKeyword()" jhiTranslate="editView.form.presentation.addKeyword">add</span>
+        [(ngModel)]="newKeyword"> 
+        <span (click)="addKeyword()" class="simpleButton" jhiTranslate="editView.form.presentation.addKeyword">add</span>
+        
     </div>
     
 </form>

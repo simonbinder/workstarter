@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
             if(this.isAuthenticated()){
                 console.log("Your user id is: " + this.account.id);
                 // Check if Student or CompanyAdmin
-                this.gotoStudent(this.account.id);
+                this.gotoAccount(this.account.id);
             }
         });
         this.registerAuthenticationSuccess();
@@ -72,10 +72,12 @@ export class HomeComponent implements OnInit {
             console.log("I am a " + user.user);
             if (user.user== "CompanyAdmin")
             {
+                console.log("ich möchte in Company gehen");
                 this.gotoCompanyAdmin(AccountId);
             }
             else
             {
+                console.log("ich möchte in Student gehen");
                 this.gotoStudent(AccountId);
             }
         });

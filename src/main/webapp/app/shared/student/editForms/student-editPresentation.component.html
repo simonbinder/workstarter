@@ -1,23 +1,31 @@
 <form class="form" role="form" (ngSubmit)="save()">
     <div class="form-group">
-        <label for="firstName" jhiTranslate="editView.form.presentation.position">Name</label>
-        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="{{'editView.form.jobs.firstName' | translate}}"
+        <label for="firstName" jhiTranslate="editView.form.presentation.name">Name</label>
+        <input type="text" class="form-control" name="firstName" id="firstName" placeholder="{{'editView.form.presentation.firstName' | translate}}"
         [(ngModel)]="student.firstName">
-        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="{{'editView.form.jobs.lastName' | translate}}"
+        <input type="text" class="form-control" name="lastName" id="lastName" placeholder="{{'editView.form.presentation.lastName' | translate}}"
         [(ngModel)]="student.lastName">
-        <input type="text" class="form-control" name="email" id="email" placeholder="{{'editView.form.jobs.email' | translate}}"
+        <input type="text" class="form-control" name="email" id="email" placeholder="{{'editView.form.presentation.email' | translate}}"
         [(ngModel)]="student.email">
     </div>
     <div class="form-group">
         <label for="slogan" jhiTranslate="editView.form.presentation.slogan">Slogan</label>
-        <input type="text" class="form-control" name="slogan" id="slogan" placeholder="{{'editView.form.jobs.slogan' | translate}}"
+        <input type="text" class="form-control" name="slogan" id="slogan" placeholder="{{'editView.form.presentation.slogan' | translate}}"
         [(ngModel)]="student.slogan">
     </div>
 
     <div class="form-group">
-        <label for="keywords" jhiTranslate="editView.form.presentation.keywords">Keywords</label>
+        <label  jhiTranslate="editView.form.presentation.keywords">Keywords</label>
+        <div class="cvTags">
+            <div *ngIf="isEmpty(student.keywords)" class="small-card greyedout">
+                <span> add some keywords </span>
+            </div>
+            <div class="small-card" *ngFor="let keyword of student.keywords">
+                <span>{{keyword.name}}</span> <span (click)="deleteKeyword()">x</span>
+            </div>
+        </div><!--
         <input type="text" class="form-control" name="Which skills do you have?" id="keywords" placeholder="{{'editView.form.jobs.keywords' | translate}}"
-        [(ngModel)]="students.keywords">
+        [(ngModel)]="students.keywords">-->
     </div>
     
 </form>

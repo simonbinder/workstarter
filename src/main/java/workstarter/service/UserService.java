@@ -132,7 +132,7 @@ public class UserService {
 			if(student.getId() != null){
 				return "Student";
 			}
-		} catch (EntityNotFoundException e) {
+		} catch (Exception e) {
 			return "CompanyAdmin";
 		}
 		return "CompanyAdmin";

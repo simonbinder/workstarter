@@ -24,6 +24,14 @@
                 "start": "Wann begann diese Ausbildungsphase",
                 "targetDegree": "angestrebter Abschluss",
                 "date": "Datum"
+            },
+            "presentation": {
+                "firstName": "Vorname",
+                "lastName": "Nachname",
+                "email": "E-Mail Adresse",
+                "slogan": "Sag etwas zu dir...",
+                "keywords": "Deine Schlüsselwörter",
+                "name": "Name"
             }
         },
         "button" : {

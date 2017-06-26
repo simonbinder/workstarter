@@ -11,9 +11,9 @@
         <div class="col-md-12">
             <div [ngSwitch]="editComponent">
                 <student-editJobs    *ngSwitchCase="'editJobs'" [_student]="student" [_componentId]="componentId"></student-editJobs>
-                <student-editSchools    *ngSwitchCase="'editSchools'" [_student]="student" [_componentId]="componentId"></student-editJobs>
-                <student-editPresentation    *ngSwitchCase="'editHeader'"></student-editJobs>
-                <student-editKeywords    *ngSwitchCase="'editKeywords'"></student-editJobs>
+                <student-editSchools    *ngSwitchCase="'editSchools'" [_student]="student" [_componentId]="componentId"></student-editSchools>
+                <student-editPresentation    *ngSwitchCase="'editHeader'" [_student]="student" ></student-editPresentation>
+                <student-editKeywords    *ngSwitchCase="'editKeywords'"></student-editKeywords>
                 <unknown-edit  *ngSwitchDefault></unknown-edit>
             </div>
             <p></p>

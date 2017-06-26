@@ -147,11 +147,11 @@ public class AccountResource {
             }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
     }
     
-    @GetMapping(path = "/account/get_user/{id}")
+    @GetMapping(path = "/account/get_user/{id}", produces = "application/json")
     @Timed
     public String getUser(@PathVariable Long id){
     	String userDiscriminator = userService.getUser(id);
-    	return "{\"user\":"+userDiscriminator +"}";
+    	return "{\"user\": \""+userDiscriminator +"\"}";
     }
 
     /**

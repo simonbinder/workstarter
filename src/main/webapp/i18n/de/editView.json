@@ -14,6 +14,16 @@
                 "date": "Datum",
                 "startdate": "Wann hat deine Anstellung begonnen?",
                 "enddate": "Wann endete deine Anstellung?"
+            },
+            "schools": {
+                "school": "Deine Schule",
+                "coreSubject": "Fachgebiete",
+                "end": "Wann endete diese Ausbildungsphase?",
+                "location": "Standort",
+                "name": "Name deiner Ausbildungsstätte",
+                "start": "Wann begann diese Ausbildungsphase",
+                "targetDegree": "angestrebter Abschluss",
+                "date": "Datum"
             }
         },
         "button" : {

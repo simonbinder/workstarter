@@ -113,6 +113,15 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
         }
     }
 
+    isEmpty(array: any[])
+    {
+        if(array.length < 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
     registerChangeInEditForms() {
         this.eventSubscriber = this.eventManager.subscribe('EditFormsFinished', (response) => this.realoadStudent(response));
     }

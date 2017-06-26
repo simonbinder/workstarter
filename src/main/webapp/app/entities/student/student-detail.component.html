@@ -16,14 +16,15 @@
                 </div>
 
                 <div class="cvTags">
+                    <div *ngIf="isEmpty(student.keywords)" class="small-card greyedout">
+                        <span> add some keywords </span>
+                    </div>
                     <div class="small-card" *ngFor="let keyword of student.keywords">
                         <span>{{keyword.name}}</span>
                     </div>
                 </div>
 
             </div> <!-- profil-content -->
-
-
 
         </div> <!-- profilheader -->
 
@@ -32,7 +33,9 @@
                 <div class="cvJobs col-5">
                     <div class="jobTitle">
                         <h2>Education</h2>
-                        <button (click)='edit()'>+</button>
+                        <button (click)='edit("editSchools", student, -1)'>
+                            <!--<img src="../../../content/images/plus.svg">-->
+                        </button>
                     </div>
                     <div class="window">
                         <div class="jobList" *ngFor="let school of student.schools">
@@ -40,10 +43,11 @@
                                 <p>{{formatDate(school.start)}}</p>
                             </div>
                             <div class="jobDescription">
-                                <h2>{{school.name}}</h2>
-                                <button (click)='edit("editJobs", student, school.id)'>+</button>
-                                <p class="subline1" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
-                                <p class="tasks">{{school.coreSubjects}}</p>
+                                <button (click)='edit("editSchools", student, school.id)'></button>
+                                <h2>Studiengang</h2>
+                                <p class="subline1">{{school.name}} in {{school.location}}</p>
+                                <p class="subline2" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
+                                <p class="tasks">{{school.coreSubject}}</p>
                             </div>
                         </div>
                     </div> <!-- window -->
@@ -52,7 +56,7 @@
                 <div class="cvJobs col-5">
                     <div class="jobTitle">
                         <h2>Jobs</h2>
-                        <button (click)='edit("editJobs", student, -1)'>+</button>
+                        <button (click)='edit("editJobs", student, -1)'></button>
                     </div>
                     <div class="window">
                         <div class="jobList" *ngFor="let profession of student.professions">
@@ -60,8 +64,8 @@
                                 <p>{{formatDate(profession.startDate)}}</p>
                             </div>
                             <div class="jobDescription">
+                                <button (click)='edit("editJobs", student, profession.id)'></button>
                                 <h2>{{profession.position}}</h2>
-                                <button (click)='edit("editJobs", student, profession.id)'>+</button>
                                 <p class="subline1">{{profession.companyName}} in {{profession.location}}</p>
                                 <a class="subline2" href="{{profession.domain}}">{{profession.domain}}</a>
                                 <p class="tasks">{{profession.tasks}}</p>

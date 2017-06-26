@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 
 import { Student } from './student.model';
 import { Profession } from "../profession/profession.model";
+import { School } from "../school/school.model";
 @Injectable()
 export class StudentService {
 
@@ -26,6 +27,8 @@ export class StudentService {
         });
     }
 
+
+    ////////// Profession ///////
     updateProfession(profession: Profession, studentId:number, professionId:number): Observable<Profession> {
         let copy: Profession = Object.assign({}, profession);
         return this.http.put(`${this.resourceUrl}/${studentId}/${"profession"}/${professionId}`, copy).map((res: Response) => {
@@ -40,8 +43,27 @@ export class StudentService {
         });
     }
 
-    deleteProfession(profession: Profession, studentId:number, professionId:number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${studentId}/${"profession"}/${professionId}`);
+    deleteProfession(profession: Profession, studentId:number, schoolId:number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${studentId}/${"profession"}/${schoolId}`);
+    }
+
+    ////////// School ///////
+    updateSchool(school: School, studentId:number, schoolId:number): Observable<Profession> {
+        let copy: School = Object.assign({}, school);
+        return this.http.put(`${this.resourceUrl}/${studentId}/${"schools"}/${schoolId}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    createSchool(school: School, studentId:number): Observable<Profession> {
+        let copy: School = Object.assign({}, school);
+        return this.http.post(`${this.resourceUrl}/${studentId}/${"schools"}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    deleteSchool(school: School, studentId:number, schoolId:number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${studentId}/${"schools"}/${schoolId}`);
     }
 
     find(id: number): Observable<Student> {

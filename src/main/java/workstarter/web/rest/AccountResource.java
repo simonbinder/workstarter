@@ -146,6 +146,13 @@ public class AccountResource {
                 return new ResponseEntity<>("e-mail was sent", HttpStatus.OK);
             }).orElse(new ResponseEntity<>("e-mail address not registered", HttpStatus.BAD_REQUEST));
     }
+    
+    @GetMapping(path = "/account/get_user/{id}")
+    @Timed
+    public String getUser(@PathVariable Long id){
+    	String userDiscriminator = userService.getUser(id);
+    	return userDiscriminator;
+    }
 
     /**
      * POST   /account/reset_password/finish : Finish to reset the password of the user

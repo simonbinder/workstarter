@@ -54,7 +54,6 @@ public class Company implements Serializable {
         this.id = id;
     }
 
-    @JsonBackReference
     public String getCompanyName() {
         return companyName;
     }
@@ -93,6 +92,7 @@ public class Company implements Serializable {
 		this.description = description;
 	}
 
+	@JsonBackReference
 	public CompanyAdmin getAdmin() {
 		return admin;
 	}

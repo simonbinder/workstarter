@@ -214,7 +214,7 @@ public class CompanyAdminResource {
         return companyAdminRepository
             .findOneByLogin(SecurityUtils.getCurrentUserLogin())
             .map(u -> {
-                companyAdminService.updateCompany(companyAdminDTO.getFirstName(), companyAdminDTO.getLastName(), companyAdminDTO.getEmail(),
+                companyAdminService.updateCompanyAdmin(companyAdminDTO.getFirstName(), companyAdminDTO.getLastName(), companyAdminDTO.getEmail(),
                     companyAdminDTO.getLangKey());
                 return new ResponseEntity(HttpStatus.OK);
             })
@@ -227,6 +227,41 @@ public class CompanyAdminResource {
 		log.debug("REST request to update Student : {}", company);
 		CompanyAdmin result = companyAdminService.addCompany(id, company);
 		companyAdminSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+	
+	@PutMapping("/company-admins/{id}/companies")
+	@Timed
+	public ResponseEntity<CompanyAdmin> updateCompanyAdmin(@PathVariable Long id, @Valid @RequestBody Company company) throws URISyntaxException {
+		log.debug("REST request to update Profession : {}", company);
+		CompanyAdmin result = companyAdminService.updateCompany(id, company);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+	
+	@DeleteMapping("/company-admins/{id}/companies/{companyid}")
+	@Timed
+	public ResponseEntity<Void> deleteCompany(@PathVariable Long id, @PathVariable Long companyid) {
+		log.debug("REST request to delete company : {}", id);
+		CompanyAdmin result = companyAdminService.deleteCompany(id, companyid);
+		companyAdminSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
+	}
+	
+	@GetMapping("/students/{id}/location")
+	@Timed
+	public String getLocation(@PathVariable Long id) {
+		log.debug("REST request to get location for one CompanyAdmin");
+		String location = companyAdminService.getLocation(id);
+		return location;
+	}
+	
+	@PutMapping("/students/{id}/location")
+	@Timed
+	public ResponseEntity<CompanyAdmin> updateLocation(@PathVariable Long id, @Valid @RequestBody String location) throws URISyntaxException {
+		log.debug("REST request to update Location : {}", location);
+		CompanyAdmin result = companyAdminService.updateLocation(id, location);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}

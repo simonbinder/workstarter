@@ -19,6 +19,7 @@ import workstarter.config.Constants;
 import workstarter.domain.Authority;
 import workstarter.domain.Company;
 import workstarter.domain.CompanyAdmin;
+import workstarter.domain.Keywords;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
@@ -153,6 +154,28 @@ public class CompanyAdminService {
 		log.debug("Added company for CompanyAdmin: {}", companyAdmin);
 		return companyAdmin;
 	}
+	
+	public CompanyAdmin deleteCompany(Long id, Long companyID){
+		CompanyAdmin companyAdmin = companyAdminRepository.getOne(id);
+		Company company = companyRepository.getOne(companyID);
+		companyAdmin.setCompany(null);
+		companyRepository.delete(company);
+		companyAdminRepository.save(companyAdmin);
+		return companyAdmin;
+	}
+	
+	public String getLocation(Long companyAdminID){
+		CompanyAdmin companyAdmin = companyAdminRepository.getOne(companyAdminID);
+		return companyAdmin.getLocation();
+	}
+	
+	public CompanyAdmin updateLocation(Long companyAdminID, String slogan){
+		CompanyAdmin companyAdmin = companyAdminRepository.getOne(companyAdminID);
+		companyAdmin.setLocation(slogan);
+		companyAdminRepository.save(companyAdmin);
+		companyAdminSearchRepository.save(companyAdmin);
+		return companyAdmin;
+	}
 
 	/**
 	 * Update basic information (first name, last name, email, language) for the
@@ -167,15 +190,23 @@ public class CompanyAdminService {
 	 * @param langKey
 	 *            language key
 	 */
-	public void updateCompany(String firstName, String lastName, String email, String langKey) {
-		companyAdminRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(company -> {
-			company.setFirstName(firstName);
-			company.setLastName(lastName);
-			company.setEmail(email);
-			company.setLangKey(langKey);
-			companyAdminSearchRepository.save(company);
-			log.debug("Changed Information for User: {}", company);
+	public void updateCompanyAdmin(String firstName, String lastName, String email, String langKey) {
+		companyAdminRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(companyAdmin -> {
+			companyAdmin.setFirstName(firstName);
+			companyAdmin.setLastName(lastName);
+			companyAdmin.setEmail(email);
+			companyAdmin.setLangKey(langKey);
+			companyAdminSearchRepository.save(companyAdmin);
+			log.debug("Changed Information for User: {}", companyAdmin);
 		});
+	}
+	
+	public CompanyAdmin updateCompany(Long companyAdminID, Company company){
+		CompanyAdmin companyAdmin = companyAdminRepository.getOne(companyAdminID);
+		companyAdmin.setCompany(company);
+		companyAdminRepository.save(companyAdmin);
+		companyAdminSearchRepository.save(companyAdmin);
+		return companyAdmin;
 	}
 
 	/**
@@ -202,7 +233,7 @@ public class CompanyAdminService {
 		}).map(CompanyAdminDTO::new);
 	}
 
-	public void deleteCompany(String login) {
+	public void deleteCompanyAdmin(String login) {
 		companyAdminRepository.findOneByLogin(login).ifPresent(company -> {
 			socialService.deleteUserSocialConnection(company.getLogin());
 			companyAdminRepository.delete(company);

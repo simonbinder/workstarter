@@ -29,6 +29,7 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -50,15 +51,17 @@ public class UserService {
 	private final SocialService socialService;
 	private final UserSearchRepository userSearchRepository;
 	private final AuthorityRepository authorityRepository;
+	private final StudentRepository studentRepository;
 
 	public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
 			SocialService socialService, UserSearchRepository userSearchRepository,
-			AuthorityRepository authorityRepository) {
+			AuthorityRepository authorityRepository, StudentRepository studentRepository) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
 		this.userSearchRepository = userSearchRepository;
 		this.authorityRepository = authorityRepository;
+		this.studentRepository = studentRepository;
 	}
 
 	public Optional<User> activateRegistration(String key) {
@@ -121,6 +124,18 @@ public class UserService {
 			user.setPassword(encryptedPassword);
 			log.debug("Changed password for User: {}", user);
 		});
+	}
+	
+	public String getUser(Long id){
+		Student student = studentRepository.getOne(id);
+		try {
+			if(student.getId() != null){
+				return "Student";
+			}
+		} catch (EntityNotFoundException e) {
+			return "CompanyAdmin";
+		}
+		return "CompanyAdmin";
 	}
 
 	@Transactional(readOnly = true)

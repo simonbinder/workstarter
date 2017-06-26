@@ -69,8 +69,8 @@ export class HomeComponent implements OnInit {
     {
         this.accountService.getUser(AccountId).toPromise().then(user => {
 
-            console.log("I am a " + user);
-            if (user== "CompanyAdmin")
+            console.log("I am a " + user.user);
+            if (user.user== "CompanyAdmin")
             {
                 this.gotoCompanyAdmin(AccountId);
             }

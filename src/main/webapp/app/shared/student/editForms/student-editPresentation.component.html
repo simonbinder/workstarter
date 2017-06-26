@@ -18,14 +18,14 @@
         <label  jhiTranslate="editView.form.presentation.keywords">Keywords</label>
         <div class="cvTags">
             <div *ngIf="isEmpty(student.keywords)" class="small-card greyedout">
-                <span> add some keywords </span>
+                <span jhiTranslate="editView.form.presentation.addSomeKeywords"> add some keywords </span>
             </div>
             <div class="small-card" *ngFor="let keyword of student.keywords">
                 <span>{{keyword.name}}</span> <span (click)="deleteKeyword()">x</span>
             </div>
-        </div><!--
-        <input type="text" class="form-control" name="Which skills do you have?" id="keywords" placeholder="{{'editView.form.jobs.keywords' | translate}}"
-        [(ngModel)]="students.keywords">-->
+        </div>
+        <input type="text" class="form-control" name="Which skills do you have?" id="newKeyword" placeholder="{{'editView.form.presentation.newKeyword' | translate}}"
+        [(ngModel)]="newKeyword"> <span (click)="addKeyword()" jhiTranslate="editView.form.presentation.addKeyword">add</span>
     </div>
     
 </form>

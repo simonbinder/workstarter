@@ -17,7 +17,7 @@
     </div>
     <br/>
     <div class="row justify-content-center">
-        <div class="table-responsive col-5" *ngIf="companyAdmins || students">
+        <div class="table-responsive col-5">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -26,7 +26,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let student of students ;trackBy: trackId">
+                <tr *ngFor="let student of students ;trackBy: trackIdStudent">
                     <td [routerLink]="['../student', student.id ]">
                         <span class="profile-img">
                             <img src="{{student.imageUrl}}">
@@ -40,7 +40,7 @@
             </table>
         </div>
 
-        <div class="table-responsive col-5" *ngIf="companyAdmins || students">
+        <div class="table-responsive col-5">
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -49,7 +49,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor="let companyAdmin of companyAdmins ;trackBy: trackId">
+                <tr *ngFor="let companyAdmin of companyAdmins ;trackBy: trackIdStudent">
                     <td [routerLink]="['../company-admin', companyAdmin.id ]">
                         <span class="profile-img">
                             <img src="{{companyAdmin.imageUrl}}">

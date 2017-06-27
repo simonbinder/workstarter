@@ -90,6 +90,7 @@ export class StudentComponent implements OnInit, OnDestroy {
             this.accountService.getUser(user.id).toPromise().then(u => {
                 if (u.user== "CompanyAdmin")
                 {
+                    if(this.isCompanyValid(user))
                     this.companyAdmins.push(user);
                 }
                 else
@@ -98,6 +99,7 @@ export class StudentComponent implements OnInit, OnDestroy {
                 }
             });
         });
+        console.log(this.currentSearch);
         console.log("Studenten:");
         console.log(this.students);
         console.log("CompanyAdmins:");
@@ -120,12 +122,28 @@ export class StudentComponent implements OnInit, OnDestroy {
         this.eventManager.destroy(this.eventSubscriber);
     }
 
-    trackId (index: number, item: Student) {
+    trackIdStudent (index: number, item: any) {
+        return item.id;
+    }
+
+    trackIdCompanyAdmin (index: number, item: CompanyAdmin) {
         return item.id;
     }
 
     registerChangeInStudents() {
         this.eventSubscriber = this.eventManager.subscribe('studentListModification', (response) => this.loadAll());
+    }
+
+    private isCompanyValid(companyAdmin)
+    {
+        if(companyAdmin.company != null)
+        {
+            if(companyAdmin.company.companyName != null)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 

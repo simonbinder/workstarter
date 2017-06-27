@@ -6,18 +6,21 @@ import { EventManager, ParseLinks, PaginationUtil, JhiLanguageService, AlertServ
 
 import { Student } from './student.model';
 import { StudentService } from './student.service';
-import { ITEMS_PER_PAGE, Principal, SharedStudentService } from '../../shared';
+import { ITEMS_PER_PAGE, Principal, SharedStudentService, AccountService } from '../../shared';
 import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
+import { CompanyAdmin } from "../company-admin/company-admin.model";
 
 @Component({
     selector: 'jhi-student',
     templateUrl: './student.component.html',
     styleUrls: [
-        'student.scss'
+        'search.scss'
     ],
 })
 export class StudentComponent implements OnInit, OnDestroy {
-students: Student[];
+    students: Student[];
+    companyAdmins: CompanyAdmin[];
+    searchResults: any[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;
@@ -25,6 +28,7 @@ students: Student[];
     messageSubscriber: Subscription;
 
     constructor(
+        private accountService: AccountService,
         private jhiLanguageService: JhiLanguageService,
         private studentService: StudentService,
         private alertService: AlertService,
@@ -39,17 +43,22 @@ students: Student[];
 
     loadAll() {
         if (this.currentSearch) {
-            this.studentService.search({
+            this.studentService.searchAll({
                 query: this.currentSearch,
                 }).subscribe(
-                    (res: Response) => this.students = res.json(),
+                    (res: Response) => {
+                        this.searchResults = res.json();
+                        console.log(this.searchResults);
+                        this.sortUsers(this.searchResults);
+                    },
                     (res: Response) => this.onError(res.json())
+
                 );
             return;
        }
         this.studentService.query().subscribe(
             (res: Response) => {
-                this.students = res.json();
+                this.searchResults = res.json();
                 this.currentSearch = '';
             },
             (res: Response) => this.onError(res.json())
@@ -65,11 +74,34 @@ students: Student[];
 
 
     search (query) {
+        this.students = new Array();
+        this.companyAdmins = new Array();
+
         if (!query) {
             return this.clear();
         }
         this.currentSearch = query;
         this.loadAll();
+    }
+
+    private sortUsers(searchResults: any[])
+    {
+        searchResults.forEach(user => {
+            this.accountService.getUser(user.id).toPromise().then(u => {
+                if (u.user== "CompanyAdmin")
+                {
+                    this.companyAdmins.push(user);
+                }
+                else
+                {
+                    this.students.push(user);
+                }
+            });
+        });
+        console.log("Studenten:");
+        console.log(this.students);
+        console.log("CompanyAdmins:");
+        console.log(this.companyAdmins);
     }
 
     clear() {

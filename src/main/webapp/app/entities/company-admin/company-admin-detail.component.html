@@ -9,8 +9,28 @@
                 </div>
             </div>
             <div class="profil-content col-7">
-                <h1>{{companyAdmin.firstName}} {{companyAdmin.lastName}}</h1>
-                <h2>Software Spezialist</h2>
+                <!--<h1>{{companyAdmin.company.companyname}}</h1>
+                <h2>{{companyAdmin.firstName}} {{companyAdmin.lastName}}</h2>
+
+                <div class="cvSlogan">
+                    <p>{{companyAdmin.company.slogan}}</p>
+                </div>
+                <a>{{companyAdmin.company.website}}</a>
+                <span>{{companyAdmin.company.size}}</span>
+                <span>{{companyAdmin.company.sector}}</span>-->
+                
+                <h1>Daimler Benz</h1>
+                <h2>Simon Binder</h2>
+
+                <div class="cvSlogan">
+                    <p>Die Daimler AG ist eines der erfolgreichsten Automobilunternehmen der Welt. Mit den Geschäftsfeldern Mercedes-Benz Cars, Daimler Trucks, Mercedes-Benz Vans, Daimler Buses und Daimler Financial Services gehört der Fahrzeughersteller zu den größten Anbietern von Premium-Pkw und ist der größte weltweit aufgestellte Nutzfahrzeug-Hersteller. Daimler Financial Services bietet Finanzierung, Leasing, Flottenmanagement, Versicherungen, Geldanlagen und Kreditkarten sowie innovative Mobilitätsdienstleistungen an.</p>
+                </div>
+                <a class="piano">www.daimler.de/karriere</a>
+                <p class="piano">Unternehmensgröße: 100.000 Mitarbeiter</p>
+                <p class="piano" >Branche: Automobilunternehmen</p>
+
+
+
 
 
             </div> <!-- profil-content -->
@@ -18,55 +38,26 @@
         </div> <!-- profilheader -->
 
             <div class="carrier row justify-content-center">
+                <div class="jobAdvertisements col-10"> <!--*ngFor="let jobAd of jobAdvertisements">-->
+                    <div class="jobAd" (click)="selectJob(jobAd.id)">
+                        <!--<h2>{{jobAd.title}}</h2>
+                        <span>{{jobAd.task}}</span>
+                        <span>{{jobAd.location}}</span>-->
 
-                <div class="cvJobs col-5">
-                    <div class="jobTitle">
-                        <h2>Education</h2>
-                        <button (click)='edit("editSchools", companyAdmin, -1)'>
-                            <!--<img src="../../../content/images/plus.svg">-->
-                        </button>
+                        <span class="loud">Frontend-Entwickler</span>
+                        <span class="piano">Programmieren und Designen</span>
+                        <span>Stuttgart</span>
                     </div>
-                    <div class="window">
-                        <div class="jobList" *ngFor="let school of companyAdmin.schools">
-                            <div class="eduTime small-card-reverse">
-                                <p>{{formatDate(school.start)}}</p>
-                            </div>
-                            <div class="jobDescription">
-                                <button (click)='edit("editSchools", companyAdmin, school.id)'></button>
-                                <h2>{{school.fieldOfStudy}}</h2>
-                                <p class="subline1">{{school.name}} in {{school.location}}</p>
-                                <p class="subline2" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
-                                <p class="tasks">{{school.coreSubject}}</p>
-                            </div>
-                        </div>
-                    </div> <!-- window -->
-                </div> <!-- Education -->
+                    <div class="jobAd" (click)="selectJob(jobAd.id)">
+                        
 
-                <div class="cvJobs col-5">
-                    <div class="jobTitle">
-                        <h2>Jobs</h2>
-                        <button (click)='edit("editJobs", companyAdmin, -1)'></button>
+                        <span class="loud">Frontend-Entwickler</span>
+                        <span class="piano">Programmieren und Designen</span>
+                        <span>Stuttgart</span>
                     </div>
-                    <div class="window">
-                        <div class="jobList" *ngFor="let profession of companyAdmin.professions">
-                            <div class="eduTime small-card-reverse">
-                                <p>{{formatDate(profession.startDate)}}</p>
-                            </div>
-                            <div class="jobDescription">
-                                <button (click)='edit("editJobs", companyAdmin, profession.id)'></button>
-                                <h2>{{profession.position}}</h2>
-                                <p class="subline1">{{profession.companyName}} in {{profession.location}}</p>
-                                <a class="subline2" href="{{profession.domain}}">{{profession.domain}}</a>
-                                <p class="tasks">{{profession.tasks}}</p>
-                            </div>
-                        </div>
 
-                    </div> <!-- window -->
-                </div> <!-- Jobs -->
+                </div>
 
             </div> <!-- carrier -->
-
-
     </div>
-
 </div> <!-- isMyAccount -->

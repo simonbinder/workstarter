@@ -31,7 +31,10 @@
                 "email": "E-Mail Adresse",
                 "slogan": "Sag etwas zu dir...",
                 "keywords": "Deine Schlüsselwörter",
-                "name": "Name"
+                "name": "Name",
+                "newKeyword": "Neues Schlüsselwort",
+                "addSomeKeywords": "Füge ein Schlüsselwort hinzu",
+                "addKeyword": "hinzufügen"
             }
         },
         "button" : {

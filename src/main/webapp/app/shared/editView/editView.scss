@@ -24,7 +24,7 @@ label
     margin: 0;
 }
 
-input, select
+input, select, textarea
 {
     margin-top: .5rem;
     font-size: 0.8rem !important;
@@ -37,11 +37,13 @@ select.form-control:not([size]):not([multiple]) {
 }
 
 
+
+
 option[value=""] {
     color: $middle-grey !important;
 }
 
-input:focus, select:focus
+input:focus, select:focus, textarea:focus
 {
     border-color: $main-color;
 }
@@ -81,6 +83,19 @@ button
     color: #fff !important;
 }
 
+.cvTags
+{
+    width: 100%;
+    overflow: auto;
+    padding: 10px 0;
+}
+
+#newKeyword
+{
+    width: 70% !important;
+    display: inline-block;
+}
+
 .small-card
 {
     font-size: 0.8rem;
@@ -89,6 +104,18 @@ button
     border: solid 1px $main-color;
     border-radius: 5px;
     margin: 3px;
+}
+
+.simpleButton
+{
+    display: inline-block;
+    font-size: 0.8rem;
+    border: solid 1px $main-color;
+    color: $main-color;
+    background: $light-grey !important;
+    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+    line-height: 1.25;
 }
 
 .greyedout

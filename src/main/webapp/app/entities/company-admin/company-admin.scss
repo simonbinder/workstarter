@@ -84,107 +84,28 @@ h2
 {
     padding-top: 30px;
 
-
-    .cvJobs
+    .jobAd
     {
-        .jobTitle
-        {
-            height: 25px;
-            margin-bottom: 10px;
+        border: solid 1px $middle-grey;
+        border-radius: 5px;
+        width: 100%;
+        padding: 0.5rem 0.75rem;
 
-            h2
-            {
-                line-height: 25px; 
-                float: left;
-            }
+        overflow: auto;
+        margin-bottom: 5px;
+    }
 
-            button
-            {
-                float: right;
-                text-align: middle;
-                height: 25px;
-                width: 25px;
-                line-height: 25px;
-                border-radius: 50%;
-                border: solid 1px $font-color;
-                background: transparent;
-                color: $light-grey;
-
-                background:url(../../../content/images/plus.svg);
-                background-repeat: no-repeat;
-                background-size: 17px 17px;
-                background-position:center;
-
-            }
-
-            button:hover
-            {
-                color: #fff;
-                border: solid 1px $main-color;
-            }
-        }
-
-        .jobList
-        {
-            font-size: 0.8rem;
-            padding-top: 15px;
-            
-            .small-card-reverse
-            {
-                margin-top: 0;
-                margin-right: 15px;
-            }
-
-            .jobDescription
-            {
-                overflow: hidden;
-
-                button
-            {
-                float: right;
-                text-align: middle;
-                height: 25px;
-                width: 25px;
-                line-height: 25px;
-                border-radius: 50%;
-                border: solid 1px $font-color;
-                background: transparent;
-                color: $light-grey;
-
-                background:url(../../../content/images/pencil.svg);
-                background-repeat: no-repeat;
-                background-size: 17px 17px;
-                background-position:center;
-
-            }
-
-            button:hover
-            {
-                color: #fff;
-                border: solid 1px $main-color;
-            }
-
-            }
-
-            .tasks
-            {
-                color: $font-color;
-            }
-            
-            h2
-            {
-                font-size: 0.8rem;
-            }
-        }
-
-        p
-        {
-            margin: 0;
-        }
-
+    .jobAd:hover
+    {
+        border-color: $main-color;
     }
 }
 
+.piano
+{
+    color: $middle-grey !important;
+    margin: 0;
+}
 
 .window
 {

@@ -9,7 +9,9 @@
                 </div>
             </div>
             <div class="profil-content col-7">
-                <button (click)='edit("editPresentation", student, -1)'></button>
+                <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editPresentation", student, -1)'>
+                    <span class="fa fa-pencil"></span>
+                </button>
                 <h1>{{student.firstName}} {{student.lastName}}</h1>
                 <h2>Software Spezialist</h2>
                 <div class="cvSlogan">
@@ -34,8 +36,8 @@
                 <div class="cvJobs col-5">
                     <div class="jobTitle">
                         <h2>Education</h2>
-                        <button (click)='edit("editSchools", student, -1)'>
-                            <!--<img src="../../../content/images/plus.svg">-->
+                        <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editSchools", student, -1)'>
+                            <span class="fa fa-plus"></span>
                         </button>
                     </div>
                     <div class="window">
@@ -44,7 +46,9 @@
                                 <p>{{formatDate(school.start)}}</p>
                             </div>
                             <div class="jobDescription">
-                                <button (click)='edit("editSchools", student, school.id)'></button>
+                                <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editSchools", student, school.id)'>
+                                    <span class="fa fa-pencil"></span>
+                                </button>
                                 <h2>{{school.fieldOfStudy}}</h2>
                                 <p class="subline1">{{school.name}} in {{school.location}}</p>
                                 <p class="subline2" *ngIf="notNull(school.targetDegree)">{{school.targetDegree}}</p>
@@ -57,7 +61,9 @@
                 <div class="cvJobs col-5">
                     <div class="jobTitle">
                         <h2>Jobs</h2>
-                        <button (click)='edit("editJobs", student, -1)'></button>
+                        <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editJobs", student, -1)'>
+                            <span class="fa fa-plus"></span>
+                        </button>
                     </div>
                     <div class="window">
                         <div class="jobList" *ngFor="let profession of student.professions">
@@ -65,7 +71,9 @@
                                 <p>{{formatDate(profession.startDate)}}</p>
                             </div>
                             <div class="jobDescription">
-                                <button (click)='edit("editJobs", student, profession.id)'></button>
+                                <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editJobs", student, profession.id)'>
+                                    <span class="fa fa-pencil"></span>
+                                </button>
                                 <h2>{{profession.position}}</h2>
                                 <p class="subline1">{{profession.companyName}} in {{profession.location}}</p>
                                 <a class="subline2" href="{{profession.domain}}">{{profession.domain}}</a>

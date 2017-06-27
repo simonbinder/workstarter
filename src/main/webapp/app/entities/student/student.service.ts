@@ -10,6 +10,7 @@ export class StudentService {
 
     private resourceUrl = 'api/students';
     private resourceSearchUrl = 'api/_search/students';
+    private resourceSearchAllUrl = 'api/_search/allaccounts';
 
     constructor(private http: Http) { }
 
@@ -85,6 +86,12 @@ export class StudentService {
     search(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceSearchUrl, options)
+        ;
+    }
+
+    searchAll(req?: any): Observable<Response> {
+        let options = this.createRequestOption(req);
+        return this.http.get(this.resourceSearchAllUrl, options)
         ;
     }
 

@@ -28,6 +28,9 @@ public class Student extends User {
     @Column(name = "matrikel_nummer")
     private String matrikelNummer;
     
+    @Column(name = "title")
+    private String title;
+    
     @Column(name = "slogan")
     private String slogan;
 
@@ -175,6 +178,14 @@ public class Student extends User {
 
 	public void setSlogan(String slogan) {
 		this.slogan = slogan;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override

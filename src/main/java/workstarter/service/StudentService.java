@@ -181,11 +181,12 @@ public class StudentService {
 	 * @param langKey
 	 *            language key
 	 */
-	public void updateStudent(String firstName, String lastName, String email, String langKey) {
+	public void updateStudent(String firstName, String lastName, String email, String title,String langKey) {
 		studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(student -> {
 			student.setFirstName(firstName);
 			student.setLastName(lastName);
 			student.setEmail(email);
+			student.setTitle(title);
 			student.setLangKey(langKey);
 			studentSearchRepository.save(student);
 			log.debug("Changed Information for User: {}", student);

@@ -27,6 +27,7 @@ public interface CompanyAdminMapper {
     @Mapping(target = "resetDate", ignore = true)
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "location", ignore = true)
+    @Mapping(target = "company", ignore = true)
     CompanyAdmin companyDTOToCompany(CompanyAdminDTO companyDTO);
 
     List<CompanyAdmin> companyDTOsToCompanies(List<CompanyAdminDTO> companyDTOs);

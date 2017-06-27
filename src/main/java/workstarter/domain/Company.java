@@ -2,6 +2,8 @@ package workstarter.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -10,6 +12,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Company.
@@ -41,7 +45,18 @@ public class Company implements Serializable {
     @NotNull
     @Column(name = "description", nullable = false)
     private String description;
+    
+    @Column(name = "address")
+    private String address;
+    
+    @Column(name = "image_url")
+    private String imageURL;
 
+    @OneToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL, orphanRemoval=true)
+    @Fetch(value = FetchMode.SUBSELECT)
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private List<Jobadvertisment> jobs = new ArrayList<>();
+    
     @OneToOne
     @JoinColumn(unique = true)
     private CompanyAdmin admin;
@@ -101,6 +116,43 @@ public class Company implements Serializable {
 		this.admin = admin;
 	}
 
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	
+	public String getImageURL() {
+		return imageURL;
+	}
+
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
+	}
+
+	public List<Jobadvertisment> getJobs() {
+		return jobs;
+	}
+
+	public void setJobs(List<Jobadvertisment> jobs) {
+		this.jobs = jobs;
+	}
 	
+	public Company addJob(Jobadvertisment jobadvertisement){
+		this.jobs.add(jobadvertisement);
+		return this;
+	}
+	
+	public Company removeJob(Jobadvertisment jobadvertisement){
+		this.jobs.remove(jobadvertisement);
+		return this;
+	}
+	
+	public Company updateJob(Jobadvertisment oldJob, Jobadvertisment jobadvertisment){
+		int index = this.jobs.indexOf(oldJob);
+		this.jobs.set(index, jobadvertisment);
+		return this;
+	}
 }

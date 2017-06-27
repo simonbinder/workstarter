@@ -28,10 +28,10 @@ public class ManagedStudentVM extends StudentDTO {
 	public ManagedStudentVM(Long id, String login, String password, String firstName, String lastName, String email,
 			boolean activated, String imageUrl, String langKey, String createdBy, ZonedDateTime createdDate,
 			String lastModifiedBy, ZonedDateTime lastModifiedDate, Portfolio portfolio,
-			Set<String> authorities, Set<String> resumes, List<String> schools, String slogan) {
+			Set<String> authorities, Set<String> resumes, List<String> schools, String slogan, String title) {
 
 		super(id, login, firstName, lastName, email, activated, imageUrl, langKey, createdBy, createdDate,
-				lastModifiedBy, lastModifiedDate, portfolio, authorities, resumes, schools, slogan);
+				lastModifiedBy, lastModifiedDate, portfolio, authorities, resumes, schools, slogan, title);
 
 		this.password = password;
 	}

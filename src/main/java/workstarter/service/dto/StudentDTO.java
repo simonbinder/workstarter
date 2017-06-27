@@ -54,6 +54,7 @@ public class StudentDTO {
 	private Set<String> resumes;
 	private List<String> schools;
 	private String slogan;
+	private String title;
 
 	public StudentDTO() {
 		// Empty constructor needed for MapStruct.
@@ -66,13 +67,13 @@ public class StudentDTO {
 				student.getPortfolio(),
 				student.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet()),
 				student.getResumes().stream().map(Resume::getTitle).collect(Collectors.toSet()),
-				student.getSchools().stream().map(School::getName).collect(Collectors.toList()), student.getSlogan());
+				student.getSchools().stream().map(School::getName).collect(Collectors.toList()), student.getSlogan(), student.getTitle());
 	}
 
 	public StudentDTO(Long id, String login, String firstName, String lastName, String email, boolean activated,
 			String imageUrl, String langKey, String createdBy, ZonedDateTime createdDate, String lastModifiedBy,
 			ZonedDateTime lastModifiedDate, Portfolio portfolio, Set<String> authorities, Set<String> resumes,
-			List<String> schools, String slogan) {
+			List<String> schools, String slogan, String title) {
 
 		this.id = id;
 		this.login = login;
@@ -91,6 +92,7 @@ public class StudentDTO {
 		this.resumes = resumes;
 		this.schools = schools;
 		this.slogan = slogan;
+		this.title = title;
 	}
 
 	public Long getId() {
@@ -175,6 +177,14 @@ public class StudentDTO {
 
 	public void setSchools(List<String> schools) {
 		this.schools = schools;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	@Override

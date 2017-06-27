@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 
 @Component({
-    moduleId: module.id,
+    moduleId: module.id +"",
     selector: 'cv',
     templateUrl: './cv.component.html',
     styleUrls: [

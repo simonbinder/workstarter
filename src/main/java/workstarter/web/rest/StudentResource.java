@@ -397,7 +397,7 @@ public class StudentResource {
 		}
 		return studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).map(u -> {
 			studentService.updateStudent(studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail(),
-					studentDTO.getLangKey());
+					studentDTO.getLangKey(), studentDTO.getTitle());
 			return new ResponseEntity(HttpStatus.OK);
 		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
 	}

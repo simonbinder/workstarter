@@ -20,7 +20,16 @@ export const studentRoute: Routes = [
         authorities: ['ROLE_USER'],
         pageTitle: 'workstarterApp.student.home.title'
     },
-  }, {
+  }, 
+  {
+    path: 'searchstudent/:searchParam',
+    component: StudentComponent,
+    data: {
+        authorities: ['ROLE_USER'],
+        pageTitle: 'workstarterApp.student.home.title'
+    },
+  }, 
+  {
     path: 'student/:id',
     component: StudentDetailComponent,
     data: {

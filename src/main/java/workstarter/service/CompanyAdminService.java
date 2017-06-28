@@ -148,8 +148,8 @@ public class CompanyAdminService {
 	
 	public CompanyAdmin addCompany(Long id, Company company){
 		CompanyAdmin companyAdmin = companyAdminRepository.getOne(id);
-		Company searchedCompany = companyRepository.getOne(company.getId());
-		companyAdmin.setCompany(searchedCompany);
+		companyRepository.save(company);
+		companyAdmin.setCompany(company);
 		companyAdminRepository.save(companyAdmin);
 		log.debug("Added company for CompanyAdmin: {}", companyAdmin);
 		return companyAdmin;

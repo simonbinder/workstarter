@@ -22,8 +22,13 @@
             "exercises": "Exercises",
             "contact": "Contact",
             "location": "Location",
-            "tasks": "Tasks",
-            "company": "Company"
+            "tasks": "Aufgaben",
+            "company": "Firma",
+            "lookingfor": "Wir suchen eine(n) ",
+            "necessaryskills": "Notwendinge Fähigkeiten:",
+            "apply": "Bewerben",
+            "yourtasks": "Deine Aufgaben:"
+
         }
     }
 }

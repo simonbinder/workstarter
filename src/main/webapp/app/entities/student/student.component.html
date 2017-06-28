@@ -55,7 +55,7 @@
                             <img src="{{companyAdmin.imageUrl}}">
                         </span>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right" [routerLink]="['../company-admin', companyAdmin.id ]">
                         <span>{{companyAdmin.company.companyName}}</span>
                     </td>
                 </tr>

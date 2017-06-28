@@ -35,11 +35,18 @@
                 "newKeyword": "Neues Schlüsselwort",
                 "addSomeKeywords": "Füge ein Schlüsselwort hinzu",
                 "addKeyword": "hinzufügen"
+            },
+            "jobapply": {
+                "applicationmail": "Dein Bewerbungsschreiben",
+                "pleasetype": "Erzähle uns warum du den Job gerne hättest. Wir schauen uns anschließend dein Profil an.",
+                "applyfor": "Bewerbung für "
             }
         },
         "button" : {
             "save": "Speichern",
-            "delete": "Löschen"
+            "delete": "Löschen",
+            "send": "Senden",
+            "cancel": "Verwerfen"
         }
     }
 }

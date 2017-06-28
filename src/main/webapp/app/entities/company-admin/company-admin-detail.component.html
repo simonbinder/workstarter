@@ -38,22 +38,12 @@
         </div> <!-- profilheader -->
 
             <div class="carrier row justify-content-center">
-                <div class="jobAdvertisements col-10"> <!--*ngFor="let jobAd of jobAdvertisements">-->
-                    <div class="jobAd" (click)="selectJob(jobAd.id)">
-                        <!--<h2>{{jobAd.title}}</h2>
-                        <span>{{jobAd.task}}</span>
-                        <span>{{jobAd.location}}</span>-->
+                <div class="jobAdvertisements col-10" *ngFor="let jobAd of companyAdmin.company.jobs">
+                    <div class="jobAd" [routerLink]="['../../jobadvertisment', jobAd.id ]">
 
-                        <span class="loud">Frontend-Entwickler</span>
-                        <span class="piano">Programmieren und Designen</span>
-                        <span>Stuttgart</span>
-                    </div>
-                    <div class="jobAd" (click)="selectJob(jobAd.id)">
-                        
-
-                        <span class="loud">Frontend-Entwickler</span>
-                        <span class="piano">Programmieren und Designen</span>
-                        <span>Stuttgart</span>
+                        <span class="loud">{{jobAd.jobname}}</span>
+                        <span class="piano">{{jobAd.title}}</span>
+                        <span>{{jobAd.location}}</span>
                     </div>
 
                 </div>

@@ -45,6 +45,7 @@ h2
     padding-top: 20px;
     padding-bottom: 20px;
 
+
     .profile-img {
         width: 200px;
         height: 200px;
@@ -53,6 +54,9 @@ h2
         border-radius: 50%;
         border: solid 1px $main-color;
         float: right;
+
+        background: url("../../../content/images/octopusProfil.png") no-repeat center center;
+        background-size: 170px;
     
         img
         {   
@@ -93,6 +97,7 @@ h2
 
         overflow: auto;
         margin-bottom: 5px;
+        cursor: pointer;
     }
 
     .jobAd:hover
@@ -110,26 +115,6 @@ h2
 .loud
 {
     font-weight: bold;
-}
-
-.window
-{
-    border: solid 1px $light-grey;
-    border-radius: 5px;
-
-    padding-left: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-}
-
-.isMyAccount
-{
-    .window:hover
-    {
-        transition-timing-function: ease-in-out;
-        transition: 0.5s;
-        border-color: $main-color;
-    }
 }
 
 .small-card
@@ -165,6 +150,15 @@ h2
     color: white;
 }
 
+.aligncenter
+{
+    text-align: center;
+}
+
+.alignright
+{
+    text-align: right;
+}
 
 
 

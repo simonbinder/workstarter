@@ -5,7 +5,7 @@
         <div class="profilheader row justify-content-center">
             <div class="col-3">
                 <div class="profile-img">
-                    <img src="{{companyAdmin.imageUrl}}">
+                    <img *ngIf="companyAdmin.imageUrl" src="{{companyAdmin.imageUrl}}">
                 </div>
             </div>
             <div class="profil-content col-7">
@@ -19,15 +19,15 @@
                 <span>{{companyAdmin.company.size}}</span>
                 <span>{{companyAdmin.company.sector}}</span>-->
                 
-                <h1>Daimler Benz</h1>
-                <h2>Simon Binder</h2>
+                <h1>{{companyAdmin.company.companyName}}</h1>
+                <h2>{{companyAdmin.firstName}} {{companyAdmin.lastName}}</h2>
 
                 <div class="cvSlogan">
-                    <p>Die Daimler AG ist eines der erfolgreichsten Automobilunternehmen der Welt. Mit den Geschäftsfeldern Mercedes-Benz Cars, Daimler Trucks, Mercedes-Benz Vans, Daimler Buses und Daimler Financial Services gehört der Fahrzeughersteller zu den größten Anbietern von Premium-Pkw und ist der größte weltweit aufgestellte Nutzfahrzeug-Hersteller. Daimler Financial Services bietet Finanzierung, Leasing, Flottenmanagement, Versicherungen, Geldanlagen und Kreditkarten sowie innovative Mobilitätsdienstleistungen an.</p>
+                    <p>{{companyAdmin.company.description}}</p>
                 </div>
-                <a class="piano">www.daimler.de/karriere</a>
-                <p class="piano">Unternehmensgröße: 100.000 Mitarbeiter</p>
-                <p class="piano" >Branche: Automobilunternehmen</p>
+                <a class="piano">{{companyAdmin.company.domain}}</a>
+                <p class="piano"><span jhiTranslate="workstarterApp.companyAdmin.companysize">Companysize: </span>100.000<span jhiTranslate="workstarterApp.companyAdmin.employees"> employees</span></p>
+                <p class="piano"><span jhiTranslate="workstarterApp.companyAdmin.sector">Sector: </span>{{companyAdmin.company.sector}}</p>
 
 
 
@@ -39,11 +39,11 @@
 
             <div class="carrier row justify-content-center">
                 <div class="jobAdvertisements col-10" *ngFor="let jobAd of companyAdmin.company.jobs">
-                    <div class="jobAd" [routerLink]="['../../jobadvertisment', jobAd.id ]">
+                    <div class="jobAd row" [routerLink]="['../../jobadvertisment', jobAd.id ]">
 
-                        <span class="loud">{{jobAd.jobname}}</span>
-                        <span class="piano">{{jobAd.title}}</span>
-                        <span>{{jobAd.location}}</span>
+                        <span class="col-4 loud">{{jobAd.jobname}}</span>
+                        <span class="col-4 piano aligncenter">{{jobAd.title}}</span>
+                        <span class="col-4 alignright" >{{jobAd.location}}</span>
                     </div>
 
                 </div>

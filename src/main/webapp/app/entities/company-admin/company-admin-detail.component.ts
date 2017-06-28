@@ -124,4 +124,5 @@ export class CompanyAdminDetailComponent implements OnInit, OnDestroy {
         console.log(this.companyAdmin);
     }
 
+
 }

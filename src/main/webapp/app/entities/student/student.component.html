@@ -27,9 +27,9 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let student of students ;trackBy: trackIdStudent">
-                    <td [routerLink]="['../student', student.id ]">
+                    <td [routerLink]="['../../student', student.id ]">
                         <span class="profile-img">
-                            <img src="{{student.imageUrl}}">
+                            <img *ngIf="student.imageUrl" src="{{student.imageUrl}}">
                         </span>
                     </td>
                     <td class="text-right">
@@ -50,12 +50,12 @@
                 </thead>
                 <tbody>
                 <tr *ngFor="let companyAdmin of companyAdmins ;trackBy: trackIdStudent">
-                    <td [routerLink]="['../company-admin', companyAdmin.id ]">
+                    <td [routerLink]="['../../company-admin', companyAdmin.id ]">
                         <span class="profile-img">
-                            <img src="{{companyAdmin.imageUrl}}">
+                            <img *ngIf="companyAdmin.imageUrl" src="{{companyAdmin.imageUrl}}">
                         </span>
                     </td>
-                    <td class="text-right">
+                    <td class="text-right" [routerLink]="['../company-admin', companyAdmin.id ]">
                         <span>{{companyAdmin.company.companyName}}</span>
                     </td>
                 </tr>

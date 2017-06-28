@@ -26,6 +26,8 @@ export class StudentComponent implements OnInit, OnDestroy {
     currentSearch: string;
     message: any;
     messageSubscriber: Subscription;
+    private subscription: any;
+    searchParam: string;
 
     constructor(
         private accountService: AccountService,
@@ -65,11 +67,10 @@ export class StudentComponent implements OnInit, OnDestroy {
         );
     }
 
-    fetchMessage(): void{
-        this.messageSubscriber = this.sharedStudentService.getMessage().subscribe(message => { 
-            this.message = message;
-            this.search(this.message.text);
-     });
+    fetchMessage(searchText:string): void
+    {
+        
+            this.search(searchText);
     }
 
 
@@ -111,11 +112,13 @@ export class StudentComponent implements OnInit, OnDestroy {
         this.loadAll();
     }
     ngOnInit() {
+        this.subscription = this.activatedRoute.params.subscribe(params => {
+            this.fetchMessage(params['searchParam']);
+        });
         this.principal.identity().then((account) => {
             this.currentAccount = account;
         });
         this.registerChangeInStudents();
-        this.fetchMessage();
     }
 
     ngOnDestroy() {

@@ -1,55 +1,35 @@
 
-<div *ngIf="jobadvertisment">
-    <h2><span jhiTranslate="workstarterApp.jobadvertisment.detail.title">Jobadvertisment</span> {{jobadvertisment.id}}</h2>
-    <hr>
-    <jhi-alert-error></jhi-alert-error>
-    <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.jobname">Jobname</span></dt>
-        <dd>
-            <span>{{jobadvertisment.jobname}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.description">Description</span></dt>
-        <dd>
-            <span>{{jobadvertisment.description}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.title">Title</span></dt>
-        <dd>
-            <span>{{jobadvertisment.title}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.exercises">Exercises</span></dt>
-        <dd>
-            <span>{{jobadvertisment.exercises}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.contact">Contact</span></dt>
-        <dd>
-            <span>{{jobadvertisment.contact}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.location">Location</span></dt>
-        <dd>
-            <span>{{jobadvertisment.location}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.tasks">Tasks</span></dt>
-        <dd>
-            <span>{{jobadvertisment.tasks}}</span>
-        </dd>
-        <dt><span jhiTranslate="workstarterApp.jobadvertisment.company">Company</span></dt>
-        <dd>
-            <div *ngIf="jobadvertisment.company">
-                <a [routerLink]="['/company', jobadvertisment.company?.id]">{{jobadvertisment.company?.id}}</a>
-            </div>
-        </dd>
-    </dl>
+<div *ngIf="jobadvertisment" class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <h2 class="workstarter">{{jobadvertisment.jobname}}</h2>
+        </div>
+        <div class="col-4 nopaddingright">
+            <button type="button"
+                    (click)="apply()"
+                    class="btn btn-primary savebtn" jhiTranslate="workstarterApp.jobadvertisment.apply">
+                <span>apply</span>
+            </button>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-8 jobdescription">
+            <span class="right">{{jobadvertisment.location}}</span>
+            <h2><span jhiTranslate="workstarterApp.jobadvertisment.lookingfor">We are looking for an </span>{{jobadvertisment.title}}</h2>
+            <p></p>
+            <p>{{jobadvertisment.description}}</p>
+            <p></p>
+            <h2 class="subline2" jhiTranslate="workstarterApp.jobadvertisment.necessaryskills">Necessary skills</h2>
+            <p class="subline2" >{{jobadvertisment.tasks}}</p>
+            <h2 class="subline2" jhiTranslate="workstarterApp.jobadvertisment.yourtasks">Your tasks:</h2>
+            <p class="subline2">{{jobadvertisment.exercises}}</p>
 
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-    </button>
-
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'jobadvertisment/'+ jobadvertisment.id + '/edit'} }]"
-            replaceUrl="true"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-    </button>
+        </div>
+    </div>
 </div>
+
+<!--<button type="submit"
+                (click)="previousState()"
+                class="btn btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>-->

@@ -5,7 +5,7 @@
         <div class="profilheader row justify-content-center">
             <div class="col-3">
                 <div class="profile-img">
-                    <img src="{{student.imageUrl}}">
+                    <img *ngIf="student.imageUrl" src="{{student.imageUrl}}">
                 </div>
             </div>
             <div class="profil-content col-7">

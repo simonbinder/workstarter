@@ -14,7 +14,7 @@ import { PaginationConfig } from '../../blocks/config/uib-pagination.config';
     templateUrl: './jobadvertisment.component.html'
 })
 export class JobadvertismentComponent implements OnInit, OnDestroy {
-jobadvertisments: Jobadvertisment[];
+    jobadvertisments: Jobadvertisment[];
     currentAccount: any;
     eventSubscriber: Subscription;
     currentSearch: string;

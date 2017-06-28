@@ -51,6 +51,7 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.languageService.addLocation('editView');
         this.editComponent = this._editComponent;
+        console.log("choose: " + this.editComponent);
         this.componentId = this._componentId;
         this.student = this._student;
         this.registerChangeInEditForms();
@@ -118,6 +119,7 @@ export class JhiEditViewModalComponent implements OnInit, AfterViewInit {
 
     registerChangeInEditForms() {
         this.eventSubscriber = this.eventManager.subscribe('EditFormsFinished', (response) => this.close());
+        this.eventSubscriber = this.eventManager.subscribe('JobApplyFinished', (response) => this.close());
     }
 
     private close()

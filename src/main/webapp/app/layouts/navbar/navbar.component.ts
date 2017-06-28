@@ -52,8 +52,7 @@ export class NavbarComponent implements OnInit {
     }
 
     redirect(){
-         this.router.navigate(['./student']);
-        this.sharedStudentService.sendMessage(this.currentSearch);
+        this.router.navigate(['./searchstudent', this.currentSearch]);
     }
 
     changeLanguage(languageKey: string) {

@@ -1,0 +1,15 @@
+<form class="form" role="form" (ngSubmit)="save()">
+    <div class="form-group">
+        <h2><span jhiTranslate="editView.form.jobapply.applyfor">Apply for </span> {{job.jobname}}</h2>
+    </div>
+    <div class="form-group">
+        <label for="applicationmail" jhiTranslate="editView.form.jobapply.applicationmail">Your application mail</label>
+        <textarea type="text" class="form-control" name="applicationmail" id="applicationmail" placeholder="{{'editView.form.jobapply.pleasetype' | translate}}"
+        [(ngModel)]="applicationmail" rows="15"></textarea>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary savebtn" jhiTranslate="editView.button.send">Send</button>
+    <button type="button" (click)="cancel()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.cancel">Cancel</button>
+    
+</form>

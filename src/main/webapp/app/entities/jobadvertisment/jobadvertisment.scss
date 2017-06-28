@@ -1,0 +1,93 @@
+$main1-color: #f15f79;
+$main2-color: #b24592;
+$main-color: #CF4E87; /*#bf4b6e;*/
+$font-color: #000;
+$middle-grey: #a09d9e;
+$light-grey: #f2f2f2;
+
+
+h1
+{
+    font-weight: 600;
+    font-size: 2.2rem;
+    color: $main-color;
+    margin: 0;
+}
+
+h2
+{
+    font-weight: 600;
+    font-size: 1rem;
+    color: $font-color;
+    margin: 0;
+}
+
+.subline1
+{
+    color: $main-color;
+    font-weight: 400;
+}
+
+.subline2
+{
+    color: $middle-grey;
+}
+
+.workstarter
+{
+    color: $main-color !important;
+    line-height: 33px !important;
+}
+
+.right
+{
+    float: right;
+}
+
+button
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    float: right;
+
+}
+
+.savebtn
+{
+    background-color: #fff !important;
+    border-color: $main-color !important;
+    color: $main-color !important;
+}
+
+.savebtn:hover
+{
+    background-color: $light-grey !important;
+}
+
+.container
+{
+    margin-top: 30px;
+
+    .nopaddingright
+    {
+        padding-right: 0 !important;
+    }
+
+    .row
+    {
+        margin-top: 5px;
+
+        .jobdescription
+        {
+            border: solid 1px $middle-grey;
+            border-radius: 5px;
+            width: 100%;
+            padding: 0.75rem;
+
+            overflow: auto;
+            margin-bottom: 5px;
+
+            min-height: 400px;
+        }
+    }
+}

@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Rx';
 import { Student } from './student.model';
 import { Profession } from "../profession/profession.model";
 import { School } from "../school/school.model";
+import { Keywords } from "../keywords/keywords.model";
+
 @Injectable()
 export class StudentService {
 
@@ -26,6 +28,24 @@ export class StudentService {
         return this.http.put(this.resourceUrl, copy).map((res: Response) => {
             return res.json();
         });
+    }
+
+    updateAccountInfo(student: Student): Observable<Response> {
+        let copy: Student = Object.assign({}, student);
+         return this.http.post(this.resourceUrl + '/account', copy)
+         ;
+    }
+
+    ///////////////// Keywords //////////
+     createKeywords(keyword: Keywords, studentId:number): Observable<Profession> {
+        let copy: Keywords = Object.assign({}, keyword);
+        return this.http.post(`${this.resourceUrl}/${studentId}/${"keywords"}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+        deleteKeywords(studentId:number, keywordID:number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${studentId}/${"keywords"}/${keywordID}`);
     }
 
 

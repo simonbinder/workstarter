@@ -1,0 +1,47 @@
+{
+    "editView": {
+        "title": "Edit Berufserfahrung",
+        "form": {
+            "jobs": {
+                "position": "Position",
+                "describtion": "Describe your Job",
+                "careerlevel": "Form of Employment",
+                "company": "Company",
+                "companyname": "Name of your company",
+                "companydomain": "www.exampledomain.de",
+                "companylocation": "At which location of your company do you work?",
+                "companyindustry": "In what sector is your company active?",
+                "date": "Date",
+                "startdate": "When did your employment start?",
+                "enddate": "When did your employment end?"
+            },
+            "schools": {
+                "school": "Your school",
+                "coreSubject": "Core Subjects",
+                "end": "When did this phase of education end?",
+                "location": "Location",
+                "name": "Name of your educational institution",
+                "start": "When did this phase of education start?",
+                "targetDegree": "Target Degree",
+                "date": "Date"
+            },
+            "presentation": {
+                "firstName": "First Name",
+                "lastName": "Last Name",
+                "email": "E-Mail Address",
+                "title": "Title",
+                "location":"Location",
+                "slogan": "Tell something about you...",
+                "keywords": "Your keywords",
+                "name": "Name",
+                "newKeyword": "New Keyword",
+                "addSomeKeywords": "Add a new keyword",
+                "addKeyword": "Add"
+            }
+        },
+        "button" : {
+            "save": "Save",
+            "delete": "Delete"
+        }
+    }
+}

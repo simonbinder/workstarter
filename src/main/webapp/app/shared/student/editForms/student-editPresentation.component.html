@@ -7,6 +7,8 @@
         [(ngModel)]="student.lastName">
         <input type="text" class="form-control" name="email" id="email" placeholder="{{'editView.form.presentation.email' | translate}}"
         [(ngModel)]="student.email">
+        <input type="text" class="form-control" name="title" id="title" placeholder="{{'editView.form.presentation.title' | translate}}"
+        [(ngModel)]="student.title">
     </div>
     <div class="form-group">
         <label for="slogan" jhiTranslate="editView.form.presentation.slogan">Slogan</label>
@@ -17,18 +19,20 @@
     <div class="form-group">
         <label  jhiTranslate="editView.form.presentation.keywords">Keywords</label>
         <div class="cvTags">
-            <div *ngIf="isEmpty(student.keywords)" class="small-card greyedout">
+            <div *ngIf="isEmpty(tempKeywords)" class="small-card greyedout">
                 <span jhiTranslate="editView.form.presentation.addSomeKeywords"> add some keywords </span>
             </div>
-            <div class="small-card" *ngFor="let keyword of student.keywords">
-                <span>{{keyword.name}}</span> <span (click)="deleteKeyword()">x</span>
+            <div class="small-card" *ngFor="let keyword of tempKeywords">
+                <span>{{keyword.name}}</span> <span class="removebtn" (click)="deleteKeyword(keyword)"><i class="fa fa-times" aria-hidden="true"></i></span>
             </div>
         </div>
-
-        <input type="text" class="form-control" name="Which skills do you have?" id="newKeyword" placeholder="{{'editView.form.presentation.newKeyword' | translate}}"
-        [(ngModel)]="newKeyword"> 
-        <span (click)="addKeyword()" class="simpleButton" jhiTranslate="editView.form.presentation.addKeyword">add</span>
-        
+        <div class="keyword">
+             <input type="text" class="form-control" name="Which skills do you have?" id="newKeyword" placeholder="{{'editView.form.presentation.newKeyword' | translate}}"
+                [(ngModel)]="newKeyword"> 
+             <span (click)="addKeyword()" class="simpleButton" jhiTranslate="editView.form.presentation.addKeyword">add</span>
+        </div>
     </div>
+
+    <button type="submit" class="btn btn-primary savebtn" jhiTranslate="editView.button.save">Save</button>
     
 </form>

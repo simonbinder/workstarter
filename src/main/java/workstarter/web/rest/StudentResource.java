@@ -205,7 +205,7 @@ public class StudentResource {
 		return keywords;
 	}
 	
-	@PutMapping("/students/{id}/keywords")
+	@PostMapping("/students/{id}/keywords")
 	@Timed
 	public ResponseEntity<Student> addKeyword(@PathVariable Long id, @Valid @RequestBody Keywords keywords) throws URISyntaxException {
 		log.debug("REST request to update Student : {}", keywords);
@@ -335,8 +335,8 @@ public class StudentResource {
 	@GetMapping("/_search/allaccounts")
 	@Timed
 	public List<User> searchAllAccounts(@RequestParam String query) {
-		log.debug("REST request to search Students for query {}", query);
-		List<Student> students = StreamSupport.stream(studentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+		log.debug("REST request to search Users for query {}", query);
+		List<User> students = StreamSupport.stream(studentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
 				.collect(Collectors.toList());
 		List<User> allAccounts = StreamSupport.stream(companyAdminSearchRepository.search(queryStringQuery(query)).spliterator(), false)
 				.collect(Collectors.toList());
@@ -380,7 +380,7 @@ public class StudentResource {
 	/**
 	 * POST /account : update the current user information.
 	 *
-	 * @param studentDTO
+	 * @param student
 	 *            the current user information
 	 * @return the ResponseEntity with status 200 (OK), or status 400 (Bad
 	 *         Request) or 500 (Internal Server Error) if the user couldn't be
@@ -388,16 +388,16 @@ public class StudentResource {
 	 */
 	@PostMapping("/students/account")
 	@Timed
-	public ResponseEntity saveAccount(@Valid @RequestBody StudentDTO studentDTO) {
-		Optional<Student> existingUser = studentRepository.findOneByEmail(studentDTO.getEmail());
-		if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(studentDTO.getLogin()))) {
+	public ResponseEntity saveAccount(@RequestBody Student student) {
+		Student existingUser = studentRepository.findOne(student.getId());
+		if ( !existingUser.getLogin().equalsIgnoreCase(student.getLogin())) {
 			return ResponseEntity.badRequest()
 					.headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use"))
 					.body(null);
 		}
 		return studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).map(u -> {
-			studentService.updateStudent(studentDTO.getFirstName(), studentDTO.getLastName(), studentDTO.getEmail(),
-					studentDTO.getLangKey(), studentDTO.getTitle());
+			studentService.updateStudent(student.getFirstName(), student.getLastName(), student.getEmail(),
+					 student.getTitle(), student.getSlogan());
 			return new ResponseEntity(HttpStatus.OK);
 		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
 	}

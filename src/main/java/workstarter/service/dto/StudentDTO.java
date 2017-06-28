@@ -187,6 +187,16 @@ public class StudentDTO {
 		this.title = title;
 	}
 
+	public String getSlogan() {
+		return slogan;
+	}
+
+	public void setSlogan(String slogan) {
+		this.slogan = slogan;
+	}
+	
+	
+
 	@Override
 	public String toString() {
 		return "StudentDTO [id=" + id + ", login=" + login + ", firstName=" + firstName + ", lastName=" + lastName

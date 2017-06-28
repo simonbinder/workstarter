@@ -104,7 +104,8 @@ export class StudentEditJobs implements OnInit {
             this.studentService.updateProfession(this.profession, this.student.id, this.profession.id)
                 .subscribe((res: Profession) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
-        } else {
+        } 
+        else {
             this.studentService.create(this.student)
                 .subscribe((res: Profession) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));

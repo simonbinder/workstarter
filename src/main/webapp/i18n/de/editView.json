@@ -29,6 +29,8 @@
                 "firstName": "Vorname",
                 "lastName": "Nachname",
                 "email": "E-Mail Adresse",
+                "title": "Titel",
+                "location": "Standort",
                 "slogan": "Sag etwas zu dir...",
                 "keywords": "Deine Schlüsselwörter",
                 "name": "Name",

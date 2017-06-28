@@ -5,6 +5,9 @@ import { EventManager, JhiLanguageService, AlertService } from 'ng-jhipster';
 import { StudentService } from "../../../entities/student/student.service";
 import { Student } from "../../../entities/student/student.model";
 import { Profession } from "../../../entities/profession/profession.model";
+import { Keywords } from "../../../entities/keywords/keywords.model";
+import { Response } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
 
 
 @Component({
@@ -21,6 +24,8 @@ export class StudentEditPresentation implements OnInit {
     profession: Profession;
     isSaving: boolean;
     information: string;
+    tempKeywords: Keywords[];
+    newKeyword: string;
 
   @Input() _componentId;
   @Input() _student: any;
@@ -43,6 +48,7 @@ export class StudentEditPresentation implements OnInit {
     this.student = this._student;
     console.log(this.student);
     this.fillFormFromDb(this._componentId);
+      this.tempKeywords = this.student.keywords;
   }
 
   fillFormFromDb(professionsId)
@@ -69,24 +75,24 @@ export class StudentEditPresentation implements OnInit {
   
   private save ()
   {
-    if(this._componentId == null || this._componentId < 0)
-    {
-        console.log("create new profession");
-        this.createNew();
-    }
-    else
-    {
-        console.log("update profession");
         this.update();
-    }
   }
 
-  private createNew ()
+  private addKeyword()
   {
-    this.information = "Created";
-    this.studentService.createProfession(this.profession, this.student.id)
-                .subscribe((res: Profession) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+      var keyword = new Keywords();
+      keyword.name = this.newKeyword;
+      this.tempKeywords.push(keyword);
+      this.newKeyword = "";
+  }
+
+  private deleteKeyword(keyword: Keywords)
+  {
+    var index = this.tempKeywords.findIndex(x => x.name == keyword.name);
+    console.log(index);
+    if (index > -1) {
+        this.tempKeywords.splice(index, 1);
+    }
   }
 
   private delete()
@@ -101,18 +107,24 @@ export class StudentEditPresentation implements OnInit {
   {
         this.information = "Updated";
         this.isSaving = true;
+        this.student.keywords.forEach(keyword => {
+            this.studentService.deleteKeywords(this.student.id, keyword.id);
+        });
+
+        this.tempKeywords.forEach(keyword => {
+            this.studentService.createKeywords(keyword, this.student.id);
+        });
+
         if (this.profession.id !== undefined) {
-            this.studentService.updateProfession(this.profession, this.student.id, this.profession.id)
-                .subscribe((res: Profession) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
-        } else {
-            this.studentService.create(this.student)
-                .subscribe((res: Profession) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
-        }
+            this.studentService.updateAccountInfo(this.student)
+                .subscribe((res: Response) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+        } 
+
     }
 
-    private onSaveSuccess (result: Student) {
+    private onSaveSuccess (result: Response) {
+        console.log("Saving successful");
         this.eventManager.broadcast({ name: 'EditFormsFinished', content: this.information});
         this.isSaving = false;
     }

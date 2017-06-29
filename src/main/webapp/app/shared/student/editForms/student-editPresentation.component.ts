@@ -46,9 +46,8 @@ export class StudentEditPresentation implements OnInit {
   ngOnInit() {
     this.languageService.addLocation('editView');
     this.student = this._student;
-    console.log(this.student);
     this.fillFormFromDb(this._componentId);
-      this.tempKeywords = this.student.keywords;
+     this.tempKeywords = this.student.keywords.slice();
   }
 
   fillFormFromDb(professionsId)
@@ -89,7 +88,6 @@ export class StudentEditPresentation implements OnInit {
   private deleteKeyword(keyword: Keywords)
   {
     var index = this.tempKeywords.findIndex(x => x.name == keyword.name);
-    console.log(index);
     if (index > -1) {
         this.tempKeywords.splice(index, 1);
     }
@@ -108,23 +106,21 @@ export class StudentEditPresentation implements OnInit {
         this.information = "Updated";
         this.isSaving = true;
         this.student.keywords.forEach(keyword => {
-            this.studentService.deleteKeywords(this.student.id, keyword.id);
+            this.studentService.deleteKeywords(this.student.id, keyword.id).subscribe((res: Response) =>
+                    console.log("deleted keyword"), (res: Response) => this.onSaveError(res));
         });
 
-        this.tempKeywords.forEach(keyword => {
-            this.studentService.createKeywords(keyword, this.student.id);
+         this.tempKeywords.forEach(keyword => {
+            this.studentService.createKeywords(keyword, this.student.id).subscribe((res: Keywords) =>
+                    console.log("created keywords"), (res: Response) => this.onSaveError(res));
         });
 
-        if (this.profession.id !== undefined) {
-            this.studentService.updateAccountInfo(this.student)
-                .subscribe((res: Response) =>
+        this.studentService.updateAccountInfo(this.student)
+            .subscribe((res: Response) =>
                     this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
-        } 
-
     }
 
     private onSaveSuccess (result: Response) {
-        console.log("Saving successful");
         this.eventManager.broadcast({ name: 'EditFormsFinished', content: this.information});
         this.isSaving = false;
     }

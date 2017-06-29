@@ -208,7 +208,7 @@ public class StudentResource {
 	@PostMapping("/students/{id}/keywords")
 	@Timed
 	public ResponseEntity<Student> addKeyword(@PathVariable Long id, @Valid @RequestBody Keywords keywords) throws URISyntaxException {
-		log.debug("REST request to update Student : {}", keywords);
+		log.debug("REST request to save Keywords : {}", keywords);
 		Student result = studentService.addKeyword(id, keywords);
 		studentSearchRepository.save(result);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))

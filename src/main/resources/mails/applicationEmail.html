@@ -5,20 +5,26 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <p th:text="#{email.application.greeting(${user.login})}">
+        <p th:text="#{email.application.greeting(${companyadmin.login})}">
             Dear
         </p>
-        <p th:text="#{email.application.text1}">
-            An workstarter user is interested in your job advertisment. 
+        <p th:text="#{email.application.text1(${job.jobname})}">
+            An workstarter user is interested in your job advertisment:  
             Please have a look on his profile: 
             www.workstarter/profile3.de
         </p>
-        <p th:text="#{email.application.text2}">
+         <p>
+            <a th:href="@{|${baseUrl}/#/students/${user.id}|}"
+               th:text="|${user.login}|">Activation Link</a>
+        </p>
+        <p th:text="|${message}|">
             Message from student
         </p>
         <p th:text="#{email.application.text3}">
             If you are interested in this candidate, you should answer him to:
-            email@adresse.de
+        </p>
+        <p th:text="|${user.email}|">
+           email
         </p>
         <p>
             <span th:text="#{email.application.text4}">Regards, </span>

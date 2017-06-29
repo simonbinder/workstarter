@@ -3,11 +3,14 @@ package workstarter.web.rest;
 import com.codahale.metrics.annotation.Timed;
 
 import workstarter.domain.CompanyAdmin;
+import workstarter.domain.Jobadvertisment;
 import workstarter.domain.Keywords;
 import workstarter.domain.Profession;
 import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
+import workstarter.repository.CompanyAdminRepository;
+import workstarter.repository.JobadvertismentRepository;
 import workstarter.repository.StudentRepository;
 import workstarter.repository.search.CompanyAdminSearchRepository;
 import workstarter.repository.search.StudentSearchRepository;
@@ -54,14 +57,19 @@ public class StudentResource {
 	private final StudentSearchRepository studentSearchRepository;
 	private final CompanyAdminSearchRepository companyAdminSearchRepository;
 	private final StudentService studentService;
+	private final CompanyAdminRepository companyAdminRepository;
+	private final JobadvertismentRepository jobadvertismentRepository;
 	private final MailService mailService;
 
 	public StudentResource(StudentRepository studentRepository, StudentSearchRepository studentSearchRepository,
-			CompanyAdminSearchRepository companyAdminSearchRepository, StudentService studentService, MailService mailService) {
+			CompanyAdminSearchRepository companyAdminSearchRepository, StudentService studentService,
+			CompanyAdminRepository companyAdminRepository, JobadvertismentRepository jobadvertismentRepository, MailService mailService) {
 		this.studentRepository = studentRepository;
 		this.studentSearchRepository = studentSearchRepository;
 		this.companyAdminSearchRepository = companyAdminSearchRepository;
 		this.studentService = studentService;
+		this.companyAdminRepository = companyAdminRepository;
+		this.jobadvertismentRepository = jobadvertismentRepository;
 		this.mailService = mailService;
 	}
 
@@ -115,7 +123,7 @@ public class StudentResource {
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, student.getId().toString()))
 				.body(result);
 	}
-	
+
 	/**
 	 * GET /students/schools : get all the students.
 	 *
@@ -129,7 +137,7 @@ public class StudentResource {
 		List<School> schools = studentService.getSchools(id);
 		return schools;
 	}
-	
+
 	/**
 	 * PUT /students/{id}/schools : Updates an existing student.
 	 *
@@ -144,25 +152,28 @@ public class StudentResource {
 	 */
 	@PostMapping("/students/{id}/schools")
 	@Timed
-	public ResponseEntity<Student> addSchool(@PathVariable Long id,@Valid @RequestBody School school) throws URISyntaxException {
+	public ResponseEntity<Student> addSchool(@PathVariable Long id, @Valid @RequestBody School school)
+			throws URISyntaxException {
 		log.debug("REST request to update Student : {}", school);
 		Student result = studentService.addSchool(id, school);
 		studentSearchRepository.save(result);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
-	
+
 	@DeleteMapping("/students/{id}/schools/{schoolid}")
 	@Timed
 	public ResponseEntity<Void> deleteSchool(@PathVariable Long id, @PathVariable Long schoolid) {
 		log.debug("REST request to delete School : {}", id);
 		Student result = studentService.deleteSchool(id, schoolid);
 		studentSearchRepository.save(result);
-		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString()))
+				.build();
 	}
-	
+
 	/**
-	 * PUT /students/{id}/schools({id} : Updates an existing school for an existing student.
+	 * PUT /students/{id}/schools({id} : Updates an existing school for an
+	 * existing student.
 	 *
 	 * @param school
 	 *            the school to add
@@ -175,14 +186,15 @@ public class StudentResource {
 	 */
 	@PutMapping("/students/{id}/schools/{schoolid}")
 	@Timed
-	public ResponseEntity<Student> updateSchool(@PathVariable Long id, @PathVariable Long schoolid, @Valid @RequestBody School school) throws URISyntaxException {
+	public ResponseEntity<Student> updateSchool(@PathVariable Long id, @PathVariable Long schoolid,
+			@Valid @RequestBody School school) throws URISyntaxException {
 		log.debug("REST request to update School : {}", school);
 		Student result = studentService.updateSchool(id, schoolid, school);
 		studentSearchRepository.save(result);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
-	
+
 	/**
 	 * GET /students/schools : get all the students.
 	 *
@@ -196,7 +208,7 @@ public class StudentResource {
 		List<Profession> profession = studentService.getProfessions(id);
 		return profession;
 	}
-	
+
 	@GetMapping("/students/{id}/keywords")
 	@Timed
 	public List<Keywords> getAllKeywords(@PathVariable Long id) {
@@ -204,55 +216,60 @@ public class StudentResource {
 		List<Keywords> keywords = studentService.getKeywords(id);
 		return keywords;
 	}
-	
+
 	@PostMapping("/students/{id}/keywords")
 	@Timed
-	public ResponseEntity<Student> addKeyword(@PathVariable Long id, @Valid @RequestBody Keywords keywords) throws URISyntaxException {
+	public ResponseEntity<Student> addKeyword(@PathVariable Long id, @Valid @RequestBody Keywords keywords)
+			throws URISyntaxException {
 		log.debug("REST request to save Keywords : {}", keywords);
 		Student result = studentService.addKeyword(id, keywords);
 		studentSearchRepository.save(result);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
-	
+
 	@DeleteMapping("/students/{id}/keywords/{keywordid}")
 	@Timed
 	public ResponseEntity<Void> deleteKeyword(@PathVariable Long id, @PathVariable Long keywordid) {
 		log.debug("REST request to delete keyword : {}", id);
 		Student result = studentService.deleteKeyword(id, keywordid);
 		studentSearchRepository.save(result);
-		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString()))
+				.build();
 	}
-	
+
 	@PostMapping("/students/{id}/profession")
 	@Timed
-	public ResponseEntity<Student> addProfession(@PathVariable Long id,@Valid @RequestBody Profession profession) throws URISyntaxException {
+	public ResponseEntity<Student> addProfession(@PathVariable Long id, @Valid @RequestBody Profession profession)
+			throws URISyntaxException {
 		log.debug("REST request to update Student : {}", profession);
 		Student result = studentService.addProfession(id, profession);
 		studentSearchRepository.save(result);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
-	
+
 	@PutMapping("/students/{id}/profession/{professionid}")
 	@Timed
-	public ResponseEntity<Student> updateProfession(@PathVariable Long id, @PathVariable Long professionid, @Valid @RequestBody Profession profession) throws URISyntaxException {
+	public ResponseEntity<Student> updateProfession(@PathVariable Long id, @PathVariable Long professionid,
+			@Valid @RequestBody Profession profession) throws URISyntaxException {
 		log.debug("REST request to update School : {}", profession);
 		Student result = studentService.updateProfession(id, professionid, profession);
 		studentSearchRepository.save(result);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
-	
+
 	@DeleteMapping("/students/{id}/profession/{professionid}")
 	@Timed
 	public ResponseEntity<Void> deleteProfession(@PathVariable Long id, @PathVariable Long professionid) {
 		log.debug("REST request to delete profession : {}", id);
 		Student result = studentService.deleteProfession(id, professionid);
 		studentSearchRepository.save(result);
-		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString())).build();
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString()))
+				.build();
 	}
-	
+
 	@GetMapping("/students/{id}/slogan")
 	@Timed
 	public String getSlogan(@PathVariable Long id) {
@@ -260,16 +277,17 @@ public class StudentResource {
 		String slogan = studentService.getSlogan(id);
 		return slogan;
 	}
-	
+
 	@PutMapping("/students/{id}/slogan")
 	@Timed
-	public ResponseEntity<Student> updateSlogan(@PathVariable Long id, @Valid @RequestBody String slogan) throws URISyntaxException {
+	public ResponseEntity<Student> updateSlogan(@PathVariable Long id, @Valid @RequestBody String slogan)
+			throws URISyntaxException {
 		log.debug("REST request to update School : {}", slogan);
 		Student result = studentService.updateSlogan(id, slogan);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
 				.body(result);
 	}
-	
+
 	/**
 	 * GET /students : get all the students.
 	 *
@@ -336,9 +354,11 @@ public class StudentResource {
 	@Timed
 	public List<User> searchAllAccounts(@RequestParam String query) {
 		log.debug("REST request to search Users for query {}", query);
-		List<User> students = StreamSupport.stream(studentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+		List<User> students = StreamSupport
+				.stream(studentSearchRepository.search(queryStringQuery(query)).spliterator(), false)
 				.collect(Collectors.toList());
-		List<User> allAccounts = StreamSupport.stream(companyAdminSearchRepository.search(queryStringQuery(query)).spliterator(), false)
+		List<User> allAccounts = StreamSupport
+				.stream(companyAdminSearchRepository.search(queryStringQuery(query)).spliterator(), false)
 				.collect(Collectors.toList());
 		allAccounts.addAll(students);
 		return allAccounts;
@@ -377,6 +397,17 @@ public class StudentResource {
 						}));
 	}
 
+	@PostMapping(path = "/students/apply/{companyadminid}/jobadvertisment/{jobid}")
+	@Timed
+	public ResponseEntity sendApplicationMail(@PathVariable Long companyadminid, @PathVariable Long jobid, @RequestBody String message){
+		CompanyAdmin companyAdmin = companyAdminRepository.findOne(companyadminid);
+		Jobadvertisment jobadvertisment = jobadvertismentRepository.getOne(jobid);
+		Optional<Student> student = studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
+		Student user = student.get();
+		mailService.sendApplicationEmail(companyAdmin, user, jobadvertisment, message);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
 	/**
 	 * POST /account : update the current user information.
 	 *
@@ -390,14 +421,14 @@ public class StudentResource {
 	@Timed
 	public ResponseEntity saveAccount(@RequestBody Student student) {
 		Student existingUser = studentRepository.findOne(student.getId());
-		if ( !existingUser.getLogin().equalsIgnoreCase(student.getLogin())) {
+		if (!existingUser.getLogin().equalsIgnoreCase(student.getLogin())) {
 			return ResponseEntity.badRequest()
 					.headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use"))
 					.body(null);
 		}
 		return studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).map(u -> {
 			studentService.updateStudent(student.getFirstName(), student.getLastName(), student.getEmail(),
-					 student.getTitle(), student.getSlogan());
+					student.getTitle(), student.getSlogan());
 			return new ResponseEntity(HttpStatus.OK);
 		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
 	}

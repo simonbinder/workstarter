@@ -396,6 +396,7 @@ public class StudentResource {
 							return new ResponseEntity<>(HttpStatus.CREATED);
 						}));
 	}
+	
 
 	@PostMapping(path = "/students/apply/{companyadminid}/jobadvertisment/{jobid}")
 	@Timed

@@ -153,6 +153,15 @@ public class AccountResource {
     	String userDiscriminator = userService.getUser(id);
     	return "{\"user\": \""+userDiscriminator +"\"}";
     }
+    
+	@GetMapping("/account/{id}/getActivationKey")
+	@Timed
+	public String getActivationKey(@PathVariable String id) {
+		Optional<User> user = userRepository.findOneByEmail(id);
+		User getUser = user.get();
+		return "{\"activationkey\": \""+getUser.getActivationKey() +"\"}";
+	}
+
 
     /**
      * POST   /account/reset_password/finish : Finish to reset the password of the user

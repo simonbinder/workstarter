@@ -16,8 +16,8 @@
             "detail": {
                 "title": "Company Admin"
             },
-            "firstname": "Firstname",
-            "lastname": "Lastname",
+            "firstname": "Vorname",
+            "lastname": "Nachname",
             "companies": "Companies",
             "company": "Company",
             "companysize": "Unternehmensgröße: ",

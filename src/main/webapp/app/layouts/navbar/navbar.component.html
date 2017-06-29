@@ -8,7 +8,7 @@
   <div  id="navbarNavDropdown" class="navbar-collapse collapse">
     <form class="form-inline">
         <div class="input-group">
-            <input class="form-control" type="text" [(ngModel)]="currentSearch" name="currentSearch" id="currentSearch" placeholder="{{ 'home.search' | translate }}">
+            <input class="form-control" type="text" [(ngModel)]="currentSearch" name="currentSearch" id="currentSearch" placeholder="{{ 'global.menu.search' | translate }}">
             <span class="input-group-btn">
                 <button class="btn btn-secondary gobtn" (click)="redirect()" type="submit">
                     <span class="fa fa-search"></span>
@@ -24,6 +24,24 @@
         <li class="nav-item" *ngSwitchCase="true">
             <a class="nav-link" (click)="logout()">Logout</a>
         </li>
+        <li>
+            <div>
+                <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages">
+                    <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown" *ngIf="languages.length > 1">
+                        <span>
+                            <i class="fa fa-flag" aria-hidden="true"></i>
+                            <b class="caret"></b>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu" ngbDropdownMenu *ngIf="languages.length > 1">
+                        <li *ngFor="let language of languages">
+                            <a class="dropdown-item" [jhiActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);collapseNavbar();">{{language | findLanguageFromKey}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+        </li>
     </ul>
+    
     </div>
 </nav>

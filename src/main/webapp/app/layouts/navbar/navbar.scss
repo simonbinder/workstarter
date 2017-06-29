@@ -102,18 +102,31 @@ input{
 }
 
 .logo {
-    height: 35px;
+    height: 42px;
     width: 70px;
     display: inline-block;
     vertical-align: middle;
     background: url("../../../content/images/octopusWhite.png") no-repeat center center;
     background-size: contain;
-    margin-top: 4px;
-    margin-bottom: 4px;
 }
 
 .gobtn
 {
     border-color: #bf4b6e !important;
     color: #464a4c !important;
+}
+
+.fa-cog
+{
+    font-size: 1.4rem;
+    color: #fff;
+}
+
+.dropdown-toggle::after {
+    display: none !important;
+}
+
+.dropdown-item
+{
+    color: #000 !important;
 }

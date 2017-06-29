@@ -37,7 +37,7 @@ export class StudentService {
     }
 
     ///////////////// Keywords //////////
-     createKeywords(keyword: Keywords, studentId:number): Observable<Profession> {
+     createKeywords(keyword: Keywords, studentId:number): Observable<Keywords> {
         let copy: Keywords = Object.assign({}, keyword);
         return this.http.post(`${this.resourceUrl}/${studentId}/${"keywords"}`, copy).map((res: Response) => {
             return res.json();

@@ -17,4 +17,9 @@ export class AccountService  {
     save(account: any): Observable<Response> {
         return this.http.post('api/account', account);
     }
+
+    getActivationKey(userId): Observable<any> {
+        return this.http.get(`${"api/account"}/${userId}/${"getActivationKey"}`).map((res: Response) => res.json());
+    }
+
 }

@@ -3,7 +3,7 @@ import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { JhiLanguageService } from 'ng-jhipster';
 
 import { Register } from './register.service';
-import { LoginModalService } from '../../shared';
+import { LoginModalService, AccountService } from '../../shared';
 
 @Component({
     selector: 'jhi-register',
@@ -29,7 +29,8 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         private loginModalService: LoginModalService,
         private registerService: Register,
         private elementRef: ElementRef,
-        private renderer: Renderer
+        private renderer: Renderer,
+        private accountService: AccountService
     ) {
         this.languageService.setLocations(['register']);
         this.role = "student";
@@ -57,16 +58,26 @@ export class RegisterComponent implements OnInit, AfterViewInit {
                 if(this.role == "student"){
                     this.registerService.saveStudent(this.registerAccount).subscribe(() => {
                     this.success = true;
+                    this.displayActivationKey();
                 }, (response) => this.processError(response));
                 }
                 else if(this.role == "company-admin"){
                      this.registerService.saveCompanyAdmin(this.registerAccount).subscribe(() => {
                     this.success = true;
+                    this.displayActivationKey();
                 }, (response) => this.processError(response));
                 }
             });
         }
     }
+
+    displayActivationKey()
+    {
+        this.accountService.getActivationKey(this.registerAccount.email).toPromise().then(key => {
+            alert(key);
+        });
+    }
+
 
     openLogin() {
         this.modalRef = this.loginModalService.open();

@@ -1,3 +1,21 @@
+
+$main1-color: #f15f79;
+$main2-color: #b24592;
+$main-color: #CF4E87; /*#bf4b6e;*/
+$font-color: #000;
+$middle-grey: #a09d9e;
+$light-grey: #f2f2f2;
+
+.container
+{
+    margin-top: 30px;
+
+    h1
+    {
+        margin-bottom: 10px;
+    }
+}
+
 .roleSelect
 {
     border: 1px solid rgba(0, 0, 0, 0.15);
@@ -9,4 +27,100 @@
     padding-top: 0.5rem;
     padding-right: 0.75rem;
     padding-left: 0.75rem;
+}
+
+h1
+{
+    font-weight: 600;
+    font-size: 2.2rem;
+    color: $main-color;
+    margin: 0;
+}
+
+h2
+{
+    font-weight: 600;
+    font-size: 1rem;
+    color: $font-color;
+    margin: 0;
+}
+
+
+input, textarea
+{
+    margin-top: .5rem;
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    color: $main-color !important;
+}
+
+input:focus, textarea:focus
+{
+    border-color: $main-color;
+}
+
+button
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+    float: right;
+     cursor: pointer;
+}
+
+.removebtn{
+    cursor: pointer;
+}
+
+.keyword{
+    width: 100%;
+}
+
+.savebtn
+{
+    background-color: #fff !important;
+    border-color: $main-color !important;
+    color: $main-color !important;
+}
+
+.savebtn:hover
+{
+    background-color: $light-grey !important;
+}
+
+
+.btn-primary {
+    color: #fff;
+    background-color: $main-color;
+    border-color: $main-color;
+}
+
+small
+{
+    color: $main-color !important;
+}
+
+.custom-control-input:checked ~ .custom-control-indicator {
+    background-color: $main-color !important;
+}
+
+.alert-success
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+
+
+    background: transparent !important;
+    color: $main-color !important;
+    border: solid 1px $main-color !important;
+}
+
+.alert-danger
+{
+    font-size: 0.8rem !important;
+    font-weight: 300 !important;
+
+
+    background: $light-grey !important;
+    color: $main-color !important;
+    border: solid 1px $main-color !important;
 }

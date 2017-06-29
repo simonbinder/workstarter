@@ -19,7 +19,10 @@
             "firstname": "Firstname",
             "lastname": "Lastname",
             "companies": "Companies",
-            "company": "Company"
+            "company": "Company",
+            "companysize:": "Companysize",
+            "sector": "Sector",
+            "employees:": "Employees"
         }
     }
 }

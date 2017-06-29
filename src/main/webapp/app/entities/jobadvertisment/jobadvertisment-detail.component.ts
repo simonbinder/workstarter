@@ -16,6 +16,7 @@ import { NgbModalRef } from "@ng-bootstrap/ng-bootstrap";
 export class JobadvertismentDetailComponent implements OnInit, OnDestroy {
 
     jobadvertisment: Jobadvertisment;
+    companyAdminId: number;
     private subscription: any;
     modalRef: NgbModalRef;
 
@@ -23,7 +24,7 @@ export class JobadvertismentDetailComponent implements OnInit, OnDestroy {
         private jhiLanguageService: JhiLanguageService,
         private jobadvertismentService: JobadvertismentService,
         private route: ActivatedRoute,
-        private editViewModalService: EditViewModalService
+        private editViewModalService: EditViewModalService,
     ) {
         this.jhiLanguageService.setLocations(['jobadvertisment']);
     }
@@ -31,10 +32,11 @@ export class JobadvertismentDetailComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.subscription = this.route.params.subscribe(params => {
             this.load(params['id']);
+            this.companyAdminId = +params['companyadmin'];
         });
     }
 
-    load (id) {
+    load(id) {
         this.jobadvertismentService.find(id).subscribe(jobadvertisment => {
             this.jobadvertisment = jobadvertisment;
         });
@@ -49,7 +51,7 @@ export class JobadvertismentDetailComponent implements OnInit, OnDestroy {
 
     apply()
     {
-        this.modalRef = this.editViewModalService.open("jobApply", this.jobadvertisment, -1);
+        this.modalRef = this.editViewModalService.open("jobApply", this.jobadvertisment, this.companyAdminId);
     }
 
 }

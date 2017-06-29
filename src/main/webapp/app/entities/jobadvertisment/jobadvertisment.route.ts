@@ -21,7 +21,7 @@ export const jobadvertismentRoute: Routes = [
         pageTitle: 'workstarterApp.jobadvertisment.home.title'
     }
   }, {
-    path: 'jobadvertisment/:id',
+    path: 'jobadvertisment/:id/ca/:companyadmin',
     component: JobadvertismentDetailComponent,
     data: {
         authorities: ['ROLE_USER'],

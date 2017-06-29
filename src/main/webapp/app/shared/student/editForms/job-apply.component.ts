@@ -25,7 +25,7 @@ export class JobApply implements OnInit {
   @Input() _student: any;
 
 
-  student: Student;
+  companyAdminId: number;
   job: Jobadvertisment;
   applicationmail: string;
 
@@ -42,14 +42,18 @@ export class JobApply implements OnInit {
   ngOnInit() {
     this.languageService.addLocation('editView');
     this.job = this._student;
+    this.companyAdminId = this._componentId;
   }
 
 
   
-  private send()
+  private sendMail()
   {
-    alert(this.applicationmail);
-    this.close();
+        if(this.applicationmail != null && this.applicationmail!="")
+        {
+            alert(this.applicationmail);
+            this.close();
+        }
   }
 
   private cancel()

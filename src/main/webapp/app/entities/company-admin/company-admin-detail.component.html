@@ -39,7 +39,7 @@
 
             <div class="carrier row justify-content-center">
                 <div class="jobAdvertisements col-10" *ngFor="let jobAd of companyAdmin.company.jobs">
-                    <div class="jobAd row" [routerLink]="['../../jobadvertisment', jobAd.id ]">
+                    <div class="jobAd row" [routerLink]="['../../jobadvertisment', jobAd.id, 'ca', companyAdmin.id]">
 
                         <span class="col-4 loud">{{jobAd.jobname}}</span>
                         <span class="col-4 piano aligncenter">{{jobAd.title}}</span>

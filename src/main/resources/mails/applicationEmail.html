@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title th:text="#{email.application.title}">Workstarter application</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <p th:text="#{email.application.greeting(${user.login})}">
+            Dear
+        </p>
+        <p th:text="#{email.application.text1}">
+            An workstarter user is interested in your job advertisment. 
+            Please have a look on his profile: 
+            www.workstarter/profile3.de
+        </p>
+        <p th:text="#{email.application.text2}">
+            Message from student
+        </p>
+        <p th:text="#{email.application.text3}">
+            If you are interested in this candidate, you should answer him to:
+            email@adresse.de
+        </p>
+        <p>
+            <span th:text="#{email.application.text4}">Regards, </span>
+            <br/>
+            <em th:text="#{email.signature}">Workstarter.</em>
+        </p>
+    </body>
+</html>

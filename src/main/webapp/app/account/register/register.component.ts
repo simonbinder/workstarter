@@ -23,6 +23,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     success: boolean;
     modalRef: NgbModalRef;
     role: any;
+    url: string;
 
     constructor(
         private languageService: JhiLanguageService,
@@ -74,7 +75,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     displayActivationKey()
     {
         this.accountService.getActivationKey(this.registerAccount.email).toPromise().then(key => {
-            alert(key);
+            this.url= "/#/activate?key=" + key.activationkey;
         });
     }
 

@@ -79,6 +79,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/content/**")
             .antMatchers("/swagger-ui/index.html")
             .antMatchers("/test/**")
+            .antMatchers("/#/student/**")
+            .antMatchers("/#/company-admin/**")
             .antMatchers("/h2-console/**");
     }
 
@@ -101,13 +103,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/account/**/getActivationKey").permitAll()
-            .antMatchers("/api/_search/students").permitAll()
+            .antMatchers("/api/_search/allaccounts").permitAll()
             .antMatchers("/api/students/register").permitAll()
             .antMatchers("/api/company-admins/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/account/reset_password/init").permitAll()
             .antMatchers("/api/account/reset_password/finish").permitAll()
+            .antMatchers("/api/account").permitAll()
+            .antMatchers("/api/account/get_user").permitAll()
+            .antMatchers("/api/students/**").permitAll()
+            .antMatchers("/api/company-admins/**").permitAll()
             .antMatchers("/api/profile-info").permitAll()
             .antMatchers("/api/**").authenticated()
             .antMatchers("/websocket/tracker").hasAuthority(AuthoritiesConstants.ADMIN)

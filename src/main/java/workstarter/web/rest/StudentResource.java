@@ -25,12 +25,16 @@ import io.github.jhipster.web.util.ResponseUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -38,6 +42,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -63,7 +68,8 @@ public class StudentResource {
 
 	public StudentResource(StudentRepository studentRepository, StudentSearchRepository studentSearchRepository,
 			CompanyAdminSearchRepository companyAdminSearchRepository, StudentService studentService,
-			CompanyAdminRepository companyAdminRepository, JobadvertismentRepository jobadvertismentRepository, MailService mailService) {
+			CompanyAdminRepository companyAdminRepository, JobadvertismentRepository jobadvertismentRepository,
+			MailService mailService) {
 		this.studentRepository = studentRepository;
 		this.studentSearchRepository = studentSearchRepository;
 		this.companyAdminSearchRepository = companyAdminSearchRepository;
@@ -396,11 +402,11 @@ public class StudentResource {
 							return new ResponseEntity<>(HttpStatus.CREATED);
 						}));
 	}
-	
 
 	@PostMapping(path = "/students/apply/{companyadminid}/jobadvertisment/{jobid}")
 	@Timed
-	public ResponseEntity sendApplicationMail(@PathVariable Long companyadminid, @PathVariable Long jobid, @RequestBody String message){
+	public ResponseEntity sendApplicationMail(@PathVariable Long companyadminid, @PathVariable Long jobid,
+			@RequestBody String message) {
 		CompanyAdmin companyAdmin = companyAdminRepository.findOne(companyadminid);
 		Jobadvertisment jobadvertisment = jobadvertismentRepository.getOne(jobid);
 		Optional<Student> student = studentRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin());
@@ -434,4 +440,34 @@ public class StudentResource {
 		}).orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
 	}
 
+	  @Autowired
+	    private HttpServletRequest request;
+	
+	@RequestMapping(value = "/students/{id}/updateprofilepic", method = RequestMethod.POST)
+    public
+    @ResponseBody
+    ResponseEntity handleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+		// TODO check if file already exists
+        if (!file.isEmpty()) {
+            try {
+                String uploadsDir = "/uploads/";
+                String realPathtoUploads =  request.getServletContext().getRealPath(uploadsDir);
+                if(! new File(realPathtoUploads).exists())
+                {
+                    new File(realPathtoUploads).mkdir();
+                }
+                log.info("realPathtoUploads = {}", realPathtoUploads);
+                String orgName = file.getOriginalFilename();
+                String filePath = realPathtoUploads + orgName;
+                File dest = new File(filePath);
+                file.transferTo(dest);
+                studentService.updateImage(id, dest.getAbsolutePath());
+            } catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+		return null;
+	}
 }

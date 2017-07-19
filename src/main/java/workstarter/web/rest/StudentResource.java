@@ -443,7 +443,7 @@ public class StudentResource {
 	  @Autowired
 	    private HttpServletRequest request;
 	
-	@RequestMapping(value = "/students/{id}/updateprofilepic", method = RequestMethod.POST)
+	@RequestMapping(value = "/students/{id}/updatefile", method = RequestMethod.POST)
     public
     @ResponseBody
     ResponseEntity handleFileUpload(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
@@ -458,7 +458,7 @@ public class StudentResource {
                 }
                 log.info("realPathtoUploads = {}", realPathtoUploads);
                 String orgName = file.getOriginalFilename();
-                String filePath = realPathtoUploads + orgName;
+                String filePath = realPathtoUploads + "\\" +  orgName;
                 File dest = new File(filePath);
                 file.transferTo(dest);
                 studentService.updateImage(id, dest.getAbsolutePath());

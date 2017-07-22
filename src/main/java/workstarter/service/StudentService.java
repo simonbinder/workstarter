@@ -365,6 +365,14 @@ public class StudentService {
 		studentSearchRepository.save(student);
 		return student;
 	}
+	
+	public Student updateImage(Long studentID, String Filepath){
+		Student student = studentRepository.findOne(studentID);
+		student.setImageUrl(Filepath);
+		studentRepository.save(student);
+		studentSearchRepository.save(student);
+		return student;
+	}
 
 	/**
 	 * Not activated users should be automatically deleted after 3 days.

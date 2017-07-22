@@ -11,6 +11,7 @@ import org.hibernate.validator.constraints.Email;
 
 import workstarter.config.Constants;
 import workstarter.domain.Authority;
+import workstarter.domain.Company;
 import workstarter.domain.CompanyAdmin;
 
 public class CompanyAdminDTO {
@@ -42,6 +43,7 @@ public class CompanyAdminDTO {
 	    private String createdBy;
 	    private ZonedDateTime createdDate;
 	    private String lastModifiedBy;
+	    private Company company;
 	    private ZonedDateTime lastModifiedDate;
 	    private Set<String> authorities;
 	    private String location;
@@ -55,13 +57,13 @@ public class CompanyAdminDTO {
 	            companyAdmin.getEmail(), companyAdmin.getActivated(), companyAdmin.getImageUrl(), companyAdmin.getFirstName(), companyAdmin.getLastName(),  companyAdmin.getLangKey(),
 	            companyAdmin.getCreatedBy(), companyAdmin.getCreatedDate(), companyAdmin.getLastModifiedBy(), companyAdmin.getLastModifiedDate(), 
 	            companyAdmin.getAuthorities().stream().map(Authority::getName)
-	                .collect(Collectors.toSet()), companyAdmin.getLocation());
+	                .collect(Collectors.toSet()), companyAdmin.getLocation(), companyAdmin.getCompany());
 	    }
 
 	    public CompanyAdminDTO(Long id, String login,
 	        String email, boolean activated, String imageUrl, String langKey, String firstName, String lastName,
 	        String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate, 
-	        Set<String> authorities, String location) {
+	        Set<String> authorities, String location, Company company) {
 
 	        this.id = id;
 	        this.login = login;
@@ -77,6 +79,7 @@ public class CompanyAdminDTO {
 	        this.lastModifiedDate = lastModifiedDate;
 	        this.authorities = authorities;
 	        this.location = location;
+	        this.company = company;
 	    }
 
 	    public Long getId() {
@@ -152,7 +155,13 @@ public class CompanyAdminDTO {
 			this.lastName = lastName;
 		}
 		
-		
+		public Company getCompany() {
+			return company;
+		}
+
+		public void setCompany(Company company) {
+			this.company = company;
+		}
 
 		@Override
 	    public String toString() {

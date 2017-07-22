@@ -26,6 +26,7 @@ import {
     StudentEditSchools,
     StudentEditKeywords,
     StudentEditPresentation,
+    CaEditCompany,
     JhiEditViewModalComponent,
     SharedStudentService
 } from './';
@@ -43,6 +44,7 @@ import {
         StudentEditSchools,
         StudentEditKeywords,
         StudentEditPresentation,
+        CaEditCompany,
         JhiEditViewModalComponent,
         HasAnyAuthorityDirective
     ],

@@ -9,15 +9,10 @@
                 </div>
             </div>
             <div class="profil-content col-7">
-                <!--<h1>{{companyAdmin.company.companyname}}</h1>
-                <h2>{{companyAdmin.firstName}} {{companyAdmin.lastName}}</h2>
 
-                <div class="cvSlogan">
-                    <p>{{companyAdmin.company.slogan}}</p>
-                </div>
-                <a>{{companyAdmin.company.website}}</a>
-                <span>{{companyAdmin.company.size}}</span>
-                <span>{{companyAdmin.company.sector}}</span>-->
+                <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editCompany", companyAdmin, -1)'>
+                    <span class="fa fa-pencil"></span>
+                </button>
                 
                 <h1>{{companyAdmin.company.companyName}}</h1>
                 <h2>{{companyAdmin.firstName}} {{companyAdmin.lastName}}</h2>

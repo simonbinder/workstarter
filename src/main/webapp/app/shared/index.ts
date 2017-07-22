@@ -27,6 +27,7 @@ export * from './student/editForms/student-editSchools.component';
 export * from './student/editForms/student-editKeywords.component';
 export * from './student/editForms/student-editPresentation.component';
 export * from './student/editForms/job-apply.component';
+export * from './student/editForms/ca-editCompany.component';
 export * from './social/social.service';
 export * from './social/social.component';
 export * from './shared-libs.module';

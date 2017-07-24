@@ -175,7 +175,7 @@ public class CompanyResource {
 
 	@PostMapping("/companies/{id}/jobadvertisments")
 	@Timed
-	public ResponseEntity<Company> addSchool(@PathVariable Long id, @Valid @RequestBody Jobadvertisment jobadvertisment)
+	public ResponseEntity<Company> addJobad(@PathVariable Long id, @Valid @RequestBody Jobadvertisment jobadvertisment)
 			throws URISyntaxException {
 		log.debug("REST request to update  : {}", jobadvertisment);
 		Company result = companyService.addJob(id, jobadvertisment);
@@ -186,7 +186,7 @@ public class CompanyResource {
 
 	@DeleteMapping("/companies/{id}/jobadvertisments/{jobid}")
 	@Timed
-	public ResponseEntity<Void> deleteSchool(@PathVariable Long id, @PathVariable Long jobid) {
+	public ResponseEntity<Void> deleteJobad(@PathVariable Long id, @PathVariable Long jobid) {
 		log.debug("REST request to delete School : {}", id);
 		Company result = companyService.deleteJob(id, jobid);
 		companySearchRepository.save(result);
@@ -209,7 +209,7 @@ public class CompanyResource {
 	 */
 	@PutMapping("/companies/{id}/jobadvertisments/{jobid}")
 	@Timed
-	public ResponseEntity<Company> updateSchool(@PathVariable Long id, @PathVariable Long jobid,
+	public ResponseEntity<Company> updateJobad(@PathVariable Long id, @PathVariable Long jobid,
 			@Valid @RequestBody Jobadvertisment jobadvertisment) throws URISyntaxException {
 		log.debug("REST request to update School : {}", jobadvertisment);
 		Company result = companyService.updateJob(id, jobid, jobadvertisment);

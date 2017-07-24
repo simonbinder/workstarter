@@ -1,5 +1,6 @@
 package workstarter.web.rest.vm;
 
+import workstarter.domain.Company;
 import workstarter.service.dto.CompanyAdminDTO;
 import javax.validation.constraints.Size;
 
@@ -25,10 +26,10 @@ public class ManagedCompanyAdminVM extends CompanyAdminDTO {
     public ManagedCompanyAdminVM(Long id, String login, String password, String firstName, String lastName,
                          String email, boolean activated, String imageUrl, String langKey,
                          String createdBy, ZonedDateTime createdDate, String lastModifiedBy, ZonedDateTime lastModifiedDate,
-                        Set<String> authorities, String location) {
+                        Set<String> authorities, String location, Company company) {
 
         super(id, login,email, activated, imageUrl, langKey, firstName, lastName, 
-            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities, location);
+            createdBy, createdDate, lastModifiedBy, lastModifiedDate,  authorities, location, company);
 
         this.password = password;
     }

@@ -1,0 +1,51 @@
+
+<div *ngIf="project">
+    <h2><span jhiTranslate="workstarterApp.project.detail.title">Project</span> {{project.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="workstarterApp.project.title">Title</span></dt>
+        <dd>
+            <span>{{project.title}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.project.year">Year</span></dt>
+        <dd>
+            <span>{{project.year | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.project.imageUrl">Image Url</span></dt>
+        <dd>
+            <span>{{project.imageUrl}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.project.description">Description</span></dt>
+        <dd>
+            <span>{{project.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.project.link">Link</span></dt>
+        <dd>
+            <span>{{project.link}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.project.context">Context</span></dt>
+        <dd>
+            <span>{{project.context}}</span>
+        </dd>
+        <dt><span jhiTranslate="workstarterApp.project.portfolio">Portfolio</span></dt>
+        <dd>
+            <div *ngIf="project.portfolio">
+                <a [routerLink]="['/portfolio', project.portfolio?.id]">{{project.portfolio?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'project/'+ project.id + '/edit'} }]"
+            replaceUrl="true"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

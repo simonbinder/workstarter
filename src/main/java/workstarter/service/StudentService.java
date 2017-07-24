@@ -3,12 +3,14 @@ package workstarter.service;
 import workstarter.domain.Authority;
 import workstarter.domain.Keywords;
 import workstarter.domain.Profession;
+import workstarter.domain.Project;
 import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
 import workstarter.repository.AuthorityRepository;
 import workstarter.repository.KeywordsRepository;
 import workstarter.repository.ProfessionRepository;
+import workstarter.repository.ProjectRepository;
 import workstarter.repository.SchoolRepository;
 import workstarter.config.Constants;
 import workstarter.repository.StudentRepository;
@@ -54,12 +56,13 @@ public class StudentService {
 	private final AuthorityRepository authorityRepository;
 	private final SchoolRepository schoolRepository;
 	private final ProfessionRepository professionRepository;
+	private final ProjectRepository projectRepository;
 	private final KeywordsRepository keywordsRepository;
 
 	public StudentService(StudentRepository userRepository, PasswordEncoder passwordEncoder,
 			SocialService socialService, StudentSearchRepository studentSearchRepository,
 			AuthorityRepository authorityRepository, SchoolRepository schoolRepository,
-			ProfessionRepository professionRepository, KeywordsRepository keywordsRepository) {
+			ProfessionRepository professionRepository, ProjectRepository projectRepository, KeywordsRepository keywordsRepository) {
 		this.studentRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 		this.socialService = socialService;
@@ -67,6 +70,7 @@ public class StudentService {
 		this.authorityRepository = authorityRepository;
 		this.schoolRepository = schoolRepository;
 		this.professionRepository = professionRepository;
+		this.projectRepository = projectRepository;
 		this.keywordsRepository = keywordsRepository;
 	}
 
@@ -263,6 +267,11 @@ public class StudentService {
 		Student student = studentRepository.getOne(id);
 		return student.getProfessions();
 	}
+	
+	public List<Project> getProject(Long id) {
+		Student student = studentRepository.getOne(id);
+		return student.getProjects();
+	}
 
 	public List<Keywords> getKeywords(Long id) {
 		Student student = studentRepository.getOne(id);
@@ -301,6 +310,15 @@ public class StudentService {
 		log.debug("Added profession for Student: {}", student);
 		return student;
 	}
+	
+	public Student addProject(Long id, Project project) {
+		Student student = studentRepository.getOne(id);
+		projectRepository.save(project);
+		student.addProject(project);
+		studentRepository.save(student);
+		log.debug("Added project for Student: {}", student);
+		return student;
+	}
 
 	public Student addKeyword(Long id, Keywords keyword) {
 		Student student = studentRepository.getOne(id);
@@ -326,6 +344,14 @@ public class StudentService {
 		studentRepository.save(student);
 		return student;
 	}
+	
+	public Student deleteProject(Long id, Long projectid){
+		Project project = projectRepository.getOne(projectid);
+		Student student = studentRepository.getOne(id);
+		student.removeProject(project);
+		studentRepository.save(student);
+		return student;
+	}
 
 	public Student deleteSchool(Long id, Long schoolid){
 		School school = schoolRepository.getOne(schoolid);
@@ -348,6 +374,21 @@ public class StudentService {
 		oldProfession.location(profession.getLocation());
 		oldProfession.startDate(profession.getStartDate());
 		oldProfession.endDate(profession.getEndDate());
+		studentRepository.save(student);
+		log.debug("Updated profession for Student: {}", student);
+		return student;
+	}
+	
+	public Student updateProject(Long studentID, Long projectID, Project project) {
+		Student student = studentRepository.getOne(studentID);
+		Project oldProject = projectRepository.getOne(projectID);
+		student.updateProjects(oldProject, project);
+		oldProject.title(project.getTitle());
+		oldProject.description(project.getDescription());
+		oldProject.context(project.getContext());
+		oldProject.imageUrl(project.getImageUrl());
+		oldProject.link(project.getLink());
+		oldProject.year(project.getYear());
 		studentRepository.save(student);
 		log.debug("Updated profession for Student: {}", student);
 		return student;

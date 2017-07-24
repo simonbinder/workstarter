@@ -93,6 +93,10 @@ export class StudentService {
         });
     }
 
+    uploadImage(id: number, file: FormData): Observable<Response>{
+        return this.http.post(`${this.resourceUrl}/${id}/${"updatefile"}`, file);
+    }
+
     query(req?: any): Observable<Response> {
         let options = this.createRequestOption(req);
         return this.http.get(this.resourceUrl, options)

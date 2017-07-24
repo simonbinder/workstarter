@@ -6,6 +6,11 @@ import { StudentService } from './student.service';
 import { AccountService, EditViewModalService } from '../../shared';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from "rxjs/Subscription";
+import { Response } from '@angular/http';
+import { RequestOptions } from '@angular/http';
+import {DomSanitizer} from '@angular/platform-browser';
+import { Observable } from 'rxjs/Rx';
+
 
 @Component({
     selector: 'jhi-student-detail',
@@ -29,6 +34,7 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
         private editViewModalService: EditViewModalService,
         private jhiLanguageService: JhiLanguageService,
         private studentService: StudentService,
+        private sanitizer:DomSanitizer,
         private route: ActivatedRoute
     ) {
         this.jhiLanguageService.setLocations(['student']);
@@ -62,6 +68,25 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
         this.modalRef = this.editViewModalService.open(editComponent, student, componentId);
     }
 
+    fileChange(event) {
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        let formData:FormData = new FormData();
+        formData.append('file', file, file.name);
+        this.studentService.uploadImage(this.student.id, formData)
+            .subscribe((res: Response) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+    }
+}
+
+   private onSaveSuccess (result: Response) {
+        console.log("Saving successful");
+    }
+
+    private onSaveError (error) {
+        console.log("Saving error");
+    }
 
     load (id) {
         this.studentService.find(id).subscribe(student => {

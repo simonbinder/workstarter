@@ -501,6 +501,6 @@ public class StudentResource {
 				e.printStackTrace();
 			}
         }
-		return null;
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

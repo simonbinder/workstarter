@@ -43,6 +43,8 @@ export class CaEditCompany implements OnInit {
     this.languageService.addLocation('editView');
     this.companyAdmin = this._student;
     this.company = this.companyAdmin.company;
+
+    let copy: CompanyAdmin = Object.assign({}, this.companyAdmin);
     console.log(this.companyAdmin);
     console.log(this.company);
   }
@@ -52,6 +54,7 @@ export class CaEditCompany implements OnInit {
   private save ()
   {
         console.log("update company");
+        this.companyAdmin
         this.update();
   }
 

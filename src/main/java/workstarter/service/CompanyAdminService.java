@@ -196,7 +196,7 @@ public class CompanyAdminService {
 			companyAdmin.setLastName(lastName);
 			companyAdmin.setEmail(email);
 			companyAdmin.setLangKey(langKey);
-			companyAdmin.setCompany(company);
+			companyAdmin.company(company);
 			companyAdminSearchRepository.save(companyAdmin);
 			log.debug("Changed Information for User: {}", companyAdmin);
 		});

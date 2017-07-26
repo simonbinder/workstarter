@@ -22,7 +22,8 @@ public class CompanyAdmin extends User {
 	@Column(name = "location")
 	private String location;
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 	@JoinColumn(unique = true)
 	private Company company;
 
@@ -41,6 +42,11 @@ public class CompanyAdmin extends User {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+	
+	public CompanyAdmin company(Company company){
+		this.company = company;
+		return this;
 	}
 
 	@Override

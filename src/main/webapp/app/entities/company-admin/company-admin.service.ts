@@ -25,6 +25,11 @@ export class CompanyAdminService {
         });
     }
 
+    updateAccountInfo(companyAdmin: CompanyAdmin): Observable<Response> {
+        let copy: CompanyAdmin = Object.assign({}, companyAdmin);
+         return this.http.post(this.resourceUrl + '/account', copy);
+    }
+
     find(id: number): Observable<CompanyAdmin> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {
             return res.json();

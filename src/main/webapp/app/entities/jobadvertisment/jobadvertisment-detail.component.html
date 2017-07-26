@@ -24,6 +24,10 @@
             <h2 class="subline2" jhiTranslate="workstarterApp.jobadvertisment.yourtasks">Your tasks:</h2>
             <p class="subline2">{{jobadvertisment.exercises}}</p>
 
+
+            <button class="iconButton" (click)='edit("editJobs", student, profession.id)'>
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
 </div>

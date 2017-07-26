@@ -5,6 +5,7 @@ import { EventManager, JhiLanguageService, AlertService } from 'ng-jhipster';
 import { CompanyAdmin } from "../../../entities/company-admin/company-admin.model";
 import { CompanyAdminService } from "../../../entities/company-admin/company-admin.service";
 import { Company } from "../../../entities/company/company.model";
+import { Response } from '@angular/http';
 
 
 @Component({
@@ -59,9 +60,9 @@ export class CaEditCompany implements OnInit {
   {
         this.information = "Updated";
         this.isSaving = true;
-        this.companyAdminService.update(this.company)
-            .subscribe((res: CompanyAdmin) =>
-                this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+        this.companyAdminService.updateAccountInfo(this.companyAdmin)
+            .subscribe((res: Response) =>
+                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
     
     }
 

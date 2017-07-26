@@ -39,10 +39,7 @@ h2
     line-height: 33px !important;
 }
 
-.right
-{
-    float: right;
-}
+
 
 button
 {
@@ -88,6 +85,73 @@ button
             margin-bottom: 5px;
 
             min-height: 400px;
+
+
+                
+            position:relative;
+
+            .iconButton
+            {
+                position:absolute;
+                bottom: 0.75rem;
+                right: 0.75rem;
+            }
+
+            .right
+            {
+                position:absolute;
+                right: 0.75rem;
+                line-height: 1rem;
+            }
         }
+
+        
+    
     }
+}
+
+.iconButton
+{
+    float: right;
+    border-radius: 50%;
+    border: solid 1px $middle-grey;
+    background: transparent;
+    width: 25px !important;
+    height: 25px !important;
+    color: $middle-grey;
+    padding: 0;
+    font-size: 1rem;
+    
+
+    span
+    {
+        height: 100%;
+        text-align: center;
+        vertical-align: middle;
+        margin: 0;
+    }
+
+    .fa-pencil
+    {
+        margin-top: 3px !important;
+        margin-left: 2px !important;
+    }
+
+    .fa-plus
+    {
+        margin-top: 3.5px !important;
+        margin-left: 1.3px !important;
+    }
+}
+
+.pulsButton
+{
+    margin-right: 11px;
+}
+
+.iconButton:hover
+{
+    background: $main-color;
+    border-color: $main-color;
+    color: white;
 }

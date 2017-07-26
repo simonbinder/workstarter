@@ -37,7 +37,19 @@
                 "newKeyword": "New Keyword",
                 "addSomeKeywords": "Add a new keyword",
                 "addKeyword": "Add"
+            },
+            "companyAdmin": {
+                "firstName": "Vorname",
+                "lastName": "Nachname",
+                "location": "An welchem Standord bist du?",
+                "companyName": "Name deiner Firma",
+                "domain": "Firmen Domäne",
+                "description": "Bitte beschreibe deine Firma",
+                "sector": "Branche deiner Firma",
+                "person": "Deine Person",
+                "company": "Deine Firma"
             }
+
         },
         "button" : {
             "save": "Save",

@@ -41,7 +41,7 @@ export class CaEditCompany implements OnInit {
   ngOnInit() {
     this.languageService.addLocation('editView');
     this.companyAdmin = this._student;
-    this.company = this.companyAdmin.companies[0];
+    this.company = this.companyAdmin.company;
     console.log(this.companyAdmin);
     console.log(this.company);
   }
@@ -50,50 +50,22 @@ export class CaEditCompany implements OnInit {
   
   private save ()
   {
-    if(this._componentId == null || this._componentId < 0)
-    {
-        console.log("create new company");
-        this.createNew();
-    }
-    else
-    {
         console.log("update company");
         this.update();
-    }
   }
 
-  private createNew ()
-  {
-    this.information = "Created";
-    this.companyAdminService.createcompany(this.company, this.companyAdmin.id)
-                .subscribe((res: company) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
-  }
-
-  private delete()
-  {
-        this.information = "Deleted";
-        this.companyAdminService.deletecompany(this.company, this.companyAdmin.id, this.company.id).subscribe(response => {
-            this.onSaveSuccess(null), (res: Response) => this.onSaveError(res.json())
-        });
-    }
 
   private update () 
   {
         this.information = "Updated";
         this.isSaving = true;
-        if (this.company.id !== undefined) {
-            this.companyAdminService.updatecompany(this.company, this.companyAdmin.id, this.company.id)
-                .subscribe((res: company) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
-        } else {
-            this.companyAdminService.create(this.companyAdmin)
-                .subscribe((res: company) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
-        }
+        this.companyAdminService.update(this.company)
+            .subscribe((res: CompanyAdmin) =>
+                this.onSaveSuccess(res), (res: Response) => this.onSaveError(res.json()));
+    
     }
 
-    private onSaveSuccess (result: Student) {
+    private onSaveSuccess (result: CompanyAdmin) {
         this.eventManager.broadcast({ name: 'EditFormsFinished', content: this.information});
         this.isSaving = false;
     }

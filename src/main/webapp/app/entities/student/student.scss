@@ -142,6 +142,78 @@ h2
         }
 
     }
+
+    .portfolio
+    {
+        margin-top: 50px;
+        margin-bottom: 100px;
+
+        .project
+        {
+
+            font-size: 0.8rem;
+            overflow: hidden;
+            padding: 0;
+            margin: 0;
+
+            h2
+            {
+                font-size: 0.8rem;
+            }
+
+            .image
+            {
+                padding:0;
+                overflow: hidden;
+                .project-img 
+                {
+                    width: 100%;
+                    height: 200px;
+                    position: relative;
+                    overflow: hidden;
+                    float: right;
+
+
+                    background: url("../../../content/images/octopusProfil.png") no-repeat center center;
+                    background-size: 170px;
+                
+                    img
+                    {   
+                        height: 100%;
+                        margin-left: 50%;
+                        transform: translateX(-50%);
+                    }
+
+                }
+            }
+
+            .description
+            {
+                padding: 0.5rem 1rem;
+
+                .aboutproject
+                {
+                    padding-top: 0.8rem;
+                }
+            }
+
+            .buttonarea
+            {
+                padding-right: 10px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                position:relative;
+
+                .downloadButton
+                {
+                    position:absolute;
+                    bottom: 10px;
+                    right: 10px;
+                }
+            }
+        }
+    }
+
 }
 
 

@@ -1,7 +1,7 @@
 <form class="form" role="form" (ngSubmit)="save()">
     
     <div class="form-group">
-        <label for="firstName" jhiTranslate="editView.form.companyAdmin.persion">Your Person</label>
+        <label for="firstName" jhiTranslate="editView.form.companyAdmin.person">Your Person</label>
         <input type="text" class="form-control" name="Whats your firstName" id="firstName" placeholder="{{'editView.form.companyAdmin.firstName' | translate}}"
         [(ngModel)]="companyAdmin.firstName">
         <input type="text" class="form-control" name="Whats your lastName" id="lastName" placeholder="{{'editView.form.companyAdmin.lastName' | translate}}"
@@ -13,17 +13,16 @@
     <div class="form-group">
         <label for="companyName" jhiTranslate="editView.form.companyAdmin.company">Your Company</label>
         <input type="text" class="form-control" name="Name of your company" id="companyName" placeholder="{{'editView.form.companyAdmin.companyName' | translate}}"
-        [(ngModel)]="company.companyName">
+        [(ngModel)]="companyAdmin.company.companyName">
         <input type="text" class="form-control" name="Company domain" id="domain" placeholder="{{'editView.form.companyAdmin.domain' | translate}}"
-        [(ngModel)]="company.domain">
+        [(ngModel)]="companyAdmin.company.domain">
         <input type="text" class="form-control" name="Please describe your company" id="description" placeholder="{{'editView.form.companyAdmin.description' | translate}}"
-        [(ngModel)]="company.description">
+        [(ngModel)]="companyAdmin.company.description">
         <input type="text" class="form-control" name="Sector of your company" id="sector" placeholder="{{'editView.form.companyAdmin.sector' | translate}}"
-        [(ngModel)]="company.sector">
+        [(ngModel)]="companyAdmin.company.sector">
     </div>
 
 
     <button type="submit" class="btn btn-primary savebtn" jhiTranslate="editView.button.save">Save</button>
-    <button type="button" (click)="delete()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.delete">Delete</button>
-    
+   
 </form>

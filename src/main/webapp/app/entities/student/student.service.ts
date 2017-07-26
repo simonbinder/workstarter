@@ -32,8 +32,7 @@ export class StudentService {
 
     updateAccountInfo(student: Student): Observable<Response> {
         let copy: Student = Object.assign({}, student);
-         return this.http.post(this.resourceUrl + '/account', copy)
-         ;
+         return this.http.post(this.resourceUrl + '/account', copy);
     }
 
     ///////////////// Keywords //////////

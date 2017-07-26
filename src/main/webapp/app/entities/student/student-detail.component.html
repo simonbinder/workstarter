@@ -84,6 +84,39 @@
                     </div> <!-- window -->
                 </div> <!-- Jobs -->
 
+
+                <div class="portfolio cvJobs col-10">
+                    <div class="jobTitle">
+                        <h2>Portfolio</h2>
+                        <button *ngIf="isMyAccount" class="iconButton pulsButton" (click)='edit("editProject", student, -1)'>
+                            <span class="fa fa-plus"></span>
+                        </button>
+                    </div>
+                    <div class="project window row" >
+                          
+                        <span class="col-3 image">
+                            <div class="project-img">
+                                <!--<img *ngIf="project.imageUrl" src="{{project.imageUrl}}">-->
+                                <img src="http://nbe.gov.ge/files/auction_images/img_33665.jpg">
+                            </div>
+                        </span>
+                        <span class="col-8 description">
+                            <h2>Autonomes Fahren</h2>
+                            <p class="subline1">In Kooperation mit Dailer 2014</p>
+                            <p class="aboutproject">Description</p>
+                            </span>
+                        <span class="col-1 buttonarea" >
+                            <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editJobs", student, profession.id)'>
+                                    <span class="fa fa-pencil"></span>
+                            </button>
+                            <button class="iconButton downloadButton" (click)='edit("editJobs", student, profession.id)'>
+                                    <i class="fa fa-download" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
+                    </div> <!-- window -->
+                </div> <!-- Portfolio -->
+
             </div> <!-- carrier -->
 
 

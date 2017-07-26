@@ -6,6 +6,7 @@ import workstarter.domain.CompanyAdmin;
 import workstarter.domain.Jobadvertisment;
 import workstarter.domain.Keywords;
 import workstarter.domain.Profession;
+import workstarter.domain.Project;
 import workstarter.domain.School;
 import workstarter.domain.Student;
 import workstarter.domain.User;
@@ -275,6 +276,38 @@ public class StudentResource {
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString()))
 				.build();
 	}
+	
+	@PostMapping("/students/{id}/project")
+	@Timed
+	public ResponseEntity<Student> addProject(@PathVariable Long id, @Valid @RequestBody Project project)
+			throws URISyntaxException {
+		log.debug("REST request to add Project : {}", project);
+		Student result = studentService.addProject(id, project);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+
+	@PutMapping("/students/{id}/project/{projectid}")
+	@Timed
+	public ResponseEntity<Student> updateProject(@PathVariable Long id, @PathVariable Long projectid,
+			@Valid @RequestBody Project project) throws URISyntaxException {
+		log.debug("REST request to update Project : {}", project);
+		Student result = studentService.updateProject(id, projectid, project);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
+				.body(result);
+	}
+
+	@DeleteMapping("/students/{id}/project/{projectid}")
+	@Timed
+	public ResponseEntity<Void> deleteProject(@PathVariable Long id, @PathVariable Long projectid) {
+		log.debug("REST request to delete project : {}", id);
+		Student result = studentService.deleteProject(id, projectid);
+		studentSearchRepository.save(result);
+		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, result.getId().toString()))
+				.build();
+	}
 
 	@GetMapping("/students/{id}/slogan")
 	@Timed
@@ -468,6 +501,6 @@ public class StudentResource {
 				e.printStackTrace();
 			}
         }
-		return null;
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 }

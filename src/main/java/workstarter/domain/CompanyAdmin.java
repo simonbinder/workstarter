@@ -22,7 +22,7 @@ public class CompanyAdmin extends User {
 	@Column(name = "location")
 	private String location;
 
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(unique = true)
 	private Company company;
 

@@ -215,7 +215,7 @@ public class CompanyAdminResource {
             .findOneByLogin(SecurityUtils.getCurrentUserLogin())
             .map(u -> {
                 companyAdminService.updateCompanyAdmin(companyAdminDTO.getFirstName(), companyAdminDTO.getLastName(), companyAdminDTO.getEmail(),
-                    companyAdminDTO.getLangKey());
+                    companyAdminDTO.getLangKey(), companyAdminDTO.getCompany());
                 return new ResponseEntity(HttpStatus.OK);
             })
             .orElseGet(() -> new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR));
@@ -233,7 +233,7 @@ public class CompanyAdminResource {
 	
 	@PutMapping("/company-admins/{id}/companies")
 	@Timed
-	public ResponseEntity<CompanyAdmin> updateCompanyAdmin(@PathVariable Long id, @Valid @RequestBody Company company) throws URISyntaxException {
+	public ResponseEntity<CompanyAdmin> updateCompany(@PathVariable Long id, @Valid @RequestBody Company company) throws URISyntaxException {
 		log.debug("REST request to update Profession : {}", company);
 		CompanyAdmin result = companyAdminService.updateCompany(id, company);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))

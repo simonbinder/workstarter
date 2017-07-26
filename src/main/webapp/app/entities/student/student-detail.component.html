@@ -16,6 +16,7 @@
                 <h2>{{student.title}}</h2>
                 <div class="cvSlogan">
                     <p>{{student.slogan}}</p>
+                    <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.png,.docx">
                 </div>
 
                 <div class="cvTags">

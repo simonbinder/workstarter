@@ -190,12 +190,13 @@ public class CompanyAdminService {
 	 * @param langKey
 	 *            language key
 	 */
-	public void updateCompanyAdmin(String firstName, String lastName, String email, String langKey) {
+	public void updateCompanyAdmin(String firstName, String lastName, String email, String langKey, Company company) {
 		companyAdminRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).ifPresent(companyAdmin -> {
 			companyAdmin.setFirstName(firstName);
 			companyAdmin.setLastName(lastName);
 			companyAdmin.setEmail(email);
 			companyAdmin.setLangKey(langKey);
+			companyAdmin.setCompany(company);
 			companyAdminSearchRepository.save(companyAdmin);
 			log.debug("Changed Information for User: {}", companyAdmin);
 		});

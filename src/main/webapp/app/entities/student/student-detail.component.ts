@@ -71,6 +71,7 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     fileChange(event) {
     let fileList: FileList = event.target.files;
     if(fileList.length > 0) {
+        alert("drin");
         let file: File = fileList[0];
         let formData:FormData = new FormData();
         formData.append('file', file, file.name);

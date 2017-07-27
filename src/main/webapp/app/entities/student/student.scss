@@ -63,7 +63,27 @@ h2
             height: 100%;
             margin-left: 50%;
             transform: translateX(-50%);
+            z-index: 2;
         }
+
+        .imageedit
+        {
+            z-index: 1;
+            background: #F2F2F2 url("../../../content/images/UploadImage.svg") no-repeat center center;
+            background-size: 70px;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            position: absolute;
+            left: 0;
+            display: none;
+        }
+
+        
+    }
+    .profile-img:hover .imageedit
+    {
+        display: block;
     }
 
     .profil-content
@@ -307,6 +327,9 @@ h2
 }
 
 
-
+#imageupload
+{
+    display: none;
+}
 
 

@@ -1,0 +1,27 @@
+<form class="form" role="form" (ngSubmit)="save()">
+    
+    <div class="form-group">
+        <label for="title" jhiTranslate="editView.form.project.project">Your Project</label>
+        <input type="text" class="form-control" name="Project title" id="title" placeholder="{{'editView.form.project.title' | translate}}"
+        [(ngModel)]="project.title">
+        <input type="text" class="form-control" name="Project context" id="context" placeholder="{{'editView.form.project.context' | translate}}"
+        [(ngModel)]="project.context">
+        <input type="text" class="form-control" name="Year" id="year" placeholder="{{'editView.form.project.year' | translate}}"
+        [(ngModel)]="project.year">
+        <input type="text" class="form-control" name="Image Url for Project" id="imageurl" placeholder="{{'editView.form.project.imageurl' | translate}}"
+        [(ngModel)]="project.imageUrl">
+    </div>
+    
+    <div class="form-group">
+        <label for="targetDegree" jhiTranslate="editView.form.project.details">Details</label>
+        <input type="text" class="form-control" name="Description" id="description" placeholder="{{'editView.form.project.description' | translate}}"
+        [(ngModel)]="project.description">
+        <input type="text" class="form-control" name="Hyperlink to your project" id="link" placeholder="{{'editView.form.project.link' | translate}}"
+        [(ngModel)]="project.link">
+    </div>
+
+
+    <button type="submit" class="btn btn-primary savebtn" jhiTranslate="editView.button.save">Save</button>
+    <button type="button" (click)="delete()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.delete">Delete</button>
+    
+</form>

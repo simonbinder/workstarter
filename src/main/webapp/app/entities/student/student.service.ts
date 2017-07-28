@@ -6,6 +6,7 @@ import { Student } from './student.model';
 import { Profession } from "../profession/profession.model";
 import { School } from "../school/school.model";
 import { Keywords } from "../keywords/keywords.model";
+import { Project } from "../project/project.model";
 
 @Injectable()
 export class StudentService {
@@ -85,6 +86,27 @@ export class StudentService {
     deleteSchool(school: School, studentId:number, schoolId:number): Observable<Response> {
         return this.http.delete(`${this.resourceUrl}/${studentId}/${"schools"}/${schoolId}`);
     }
+
+    ////////// Project ///////
+    updateProject(project: Project, studentId:number, projectId:number): Observable<Project> {
+        let copy: Project = Object.assign({}, project);
+        return this.http.put(`${this.resourceUrl}/${studentId}/${"project"}/${projectId}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    createProject(project: Project, studentId:number): Observable<Project> {
+        let copy: Project = Object.assign({}, project);
+        return this.http.post(`${this.resourceUrl}/${studentId}/${"project"}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    deleteProject(project: Project, studentId:number, projectId:number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${studentId}/${"project"}/${projectId}`);
+    }
+
+    //////////////////////////
 
     find(id: number): Observable<Student> {
         return this.http.get(`${this.resourceUrl}/${id}`).map((res: Response) => {

@@ -12,6 +12,7 @@
             <div [ngSwitch]="editComponent">
                 <student-editJobs    *ngSwitchCase="'editJobs'" [_student]="student" [_componentId]="componentId"></student-editJobs>
                 <student-editSchools    *ngSwitchCase="'editSchools'" [_student]="student" [_componentId]="componentId"></student-editSchools>
+                <student-editProject    *ngSwitchCase="'editProject'" [_student]="student" [_componentId]="componentId"></student-editProject>
                 <student-editPresentation    *ngSwitchCase="'editPresentation'" [_student]="student" [_componentId]="componentId"></student-editPresentation>
                 <student-editKeywords    *ngSwitchCase="'editKeywords'"></student-editKeywords>
                 <job-apply    *ngSwitchCase="'jobApply'" [_student]="student" [_componentId]="componentId"></job-apply>

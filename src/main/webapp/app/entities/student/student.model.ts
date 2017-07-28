@@ -15,6 +15,7 @@ export class Student {
     public password?: string;
     public keywords?: any[];
     public schools?: any[];
+    public projects?: any[];
     public professions?: any[];
     constructor(
         id?: any,
@@ -33,6 +34,7 @@ export class Student {
         password?: string,
         keywords?: any[],
         schools?: any[],
+        projects?: any[],
         professions?: any[]
     ) {
         this.id = id ? id : null;
@@ -51,6 +53,7 @@ export class Student {
         this.password = password ? password : null;
         this.keywords = keywords ? keywords : null;
         this.schools = schools ? schools : null;
+        this.projects = projects ? projects : null;
         this.professions = professions ? professions : null;
     }
 }

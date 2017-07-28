@@ -97,24 +97,23 @@
                             <span class="fa fa-plus"></span>
                         </button>
                     </div>
-                    <div class="project window row" >
+                    <div class="project window row" *ngFor="let project of student.projects">
                           
                         <span class="col-3 image">
                             <div class="project-img">
-                                <!--<img *ngIf="project.imageUrl" src="{{project.imageUrl}}">-->
-                                <img src="http://nbe.gov.ge/files/auction_images/img_33665.jpg">
+                                <img *ngIf="project.imageUrl" src="{{project.imageUrl}}">
                             </div>
                         </span>
                         <span class="col-8 description">
-                            <h2>Autonomes Fahren</h2>
-                            <p class="subline1">In Kooperation mit Dailer 2014</p>
-                            <p class="aboutproject">Description</p>
+                            <h2>{{project.title}}</h2>
+                            <p class="subline1">{{project.context}}, {{year}}</p>
+                            <p class="aboutproject">{{project.description}}</p>
                             </span>
                         <span class="col-1 buttonarea" >
-                            <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editJobs", student, profession.id)'>
+                            <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editProject", student, project.id)'>
                                     <span class="fa fa-pencil"></span>
                             </button>
-                            <button class="iconButton downloadButton" (click)='edit("editJobs", student, profession.id)'>
+                            <button class="iconButton downloadButton">
                                     <i class="fa fa-download" aria-hidden="true"></i>
                             </button>
                         </span>

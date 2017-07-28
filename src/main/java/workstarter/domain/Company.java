@@ -57,7 +57,7 @@ public class Company implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<Jobadvertisment> jobs = new ArrayList<>();
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER, cascade=CascadeType.MERGE, orphanRemoval=true) 
     @JoinColumn(unique = true)
     private CompanyAdmin admin;
 

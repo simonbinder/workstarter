@@ -56,7 +56,7 @@ public class CompanyService {
 	public Company updateJob(Long companyID, Long jobID, Jobadvertisment jobadvertisment) {
 		Company company = companyRepository.getOne(companyID);
 		Jobadvertisment oldJobadvertisment = jobadvertismentRepository.getOne(jobID);
-		company.updateJob(oldJobadvertisment, jobadvertisment);
+//		company.updateJob(oldJobadvertisment, jobadvertisment);
 		oldJobadvertisment.jobname(jobadvertisment.getJobname());
 		oldJobadvertisment.description(jobadvertisment.getDescription());
 		oldJobadvertisment.title(jobadvertisment.getTitle());

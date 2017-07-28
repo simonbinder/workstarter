@@ -382,7 +382,7 @@ public class StudentService {
 	public Student updateProject(Long studentID, Long projectID, Project project) {
 		Student student = studentRepository.getOne(studentID);
 		Project oldProject = projectRepository.getOne(projectID);
-		student.updateProjects(oldProject, project);
+//		student.updateProjects(oldProject, project);
 		oldProject.title(project.getTitle());
 		oldProject.description(project.getDescription());
 		oldProject.context(project.getContext());

@@ -79,7 +79,6 @@ export class JobadvertismentDetailComponent implements OnInit, OnDestroy {
     }
 
     edit() {
-        console.log(this.company);
         this.modalRef = this.editViewModalService.open("editJobadvertisment", this.company, this.jobadvertisment.id);
     }
 

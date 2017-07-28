@@ -63,6 +63,10 @@ export class CompanyAdminDetailComponent implements OnInit, OnDestroy {
         this.modalRef = this.editViewModalService.open(editComponent, companyAdmin, componentId);
     }
 
+    addJob() {
+        this.modalRef = this.editViewModalService.open("editJobadvertisment", this.companyAdmin.company, -1);
+    }
+
 
     load (id) {
         this.companyAdminService.find(id).subscribe(companyAdmin => {

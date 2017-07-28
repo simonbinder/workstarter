@@ -33,6 +33,11 @@
         </div> <!-- profilheader -->
 
             <div class="carrier row justify-content-center">
+                <div id="buttoncontainer" class="col-10" *ngIf="isMyAccount" >
+                <button class="iconButton" (click)='addJob()'>
+                    <span class="fa fa-plus"></span>
+                </button>
+                </div>
                 <div class="jobAdvertisements col-10" *ngFor="let jobAd of companyAdmin.company.jobs">
                     <div class="jobAd row" [routerLink]="['../../jobadvertisment', jobAd.id, 'ca', companyAdmin.id]">
 

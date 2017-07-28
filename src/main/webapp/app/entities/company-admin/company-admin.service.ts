@@ -16,20 +16,20 @@ export class CompanyAdminService {
     ////////// Jobadvertisments ///////
     updateProfession(job: Jobadvertisment, companyId:number, jobId:number): Observable<Jobadvertisment> {
         let copy: Jobadvertisment = Object.assign({}, job);
-        return this.http.put(`${this.resourceUrl}/${companyId}/${"jobadvertisment"}/${jobId}`, copy).map((res: Response) => {
+        return this.http.put(`${this.companyUrl}/${companyId}/${"jobadvertisments"}/${jobId}`, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     createProfession(job: Jobadvertisment, companyId:number): Observable<Jobadvertisment> {
         let copy: Jobadvertisment = Object.assign({}, job);
-        return this.http.post(`${this.resourceUrl}/${companyId}/${"jobadvertisment"}`, copy).map((res: Response) => {
+        return this.http.post(`${this.companyUrl}/${companyId}/${"jobadvertisments"}`, copy).map((res: Response) => {
             return res.json();
         });
     }
 
     deleteProfession(job: Jobadvertisment, companyId:number, jobId:number): Observable<Response> {
-        return this.http.delete(`${this.resourceUrl}/${companyId}/${"jobadvertisment"}/${jobId}`);
+        return this.http.delete(`${this.companyUrl}/${companyId}/${"jobadvertisments"}/${jobId}`);
     }
     ///////////
 

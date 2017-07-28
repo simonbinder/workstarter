@@ -25,7 +25,7 @@ export * from './student/student.service';
 export * from './student/editForms/student-editJobs.component';
 export * from './student/editForms/student-editSchools.component';
 export * from './student/editForms/student-editProject.component';
-export * from './student/editForms/student-editKeywords.component';
+export * from './student/editForms/ca-editJobadvertisment.component';
 export * from './student/editForms/student-editPresentation.component';
 export * from './student/editForms/job-apply.component';
 export * from './student/editForms/ca-editCompany.component';

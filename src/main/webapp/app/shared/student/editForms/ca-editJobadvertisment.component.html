@@ -1,0 +1,33 @@
+<form class="form" role="form" (ngSubmit)="save()">
+    <div class="form-group">
+        <label for="position" jhiTranslate="editView.form.jobadvertisment.position">Position</label>
+        <input type="text" class="form-control" name="jobname" id="jobname" placeholder="{{'editView.form.jobadvertisment.jobname' | translate}}"
+        [(ngModel)]="jobadvertisment.jobname">
+        <input type="text" class="form-control" name="location" id="location" placeholder="{{'editView.form.jobadvertisment.location' | translate}}"
+        [(ngModel)]="jobadvertisment.location">
+        <input type="text" class="form-control" name="Jobtitle" id="title" placeholder="{{'editView.form.jobadvertisment.title' | translate}}"
+        [(ngModel)]="jobadvertisment.title">
+        <input type="text" class="form-control" name="Describe job" id="description" placeholder="{{'editView.form.jobadvertisment.description' | translate}}"
+        [(ngModel)]="jobadvertisment.description">
+    </div>
+    <div class="form-group">
+        <label for="exercises" jhiTranslate="editView.form.jobadvertisment.company">Exercises</label>
+        <input type="text" class="form-control" name="Descripe exercises" id="exercises" placeholder="{{'editView.form.jobadvertisment.companyname' | translate}}"
+        [(ngModel)]="jobadvertisment.exercises">
+        <input type="text" class="form-control" name="Describe tasks" id="tasks" placeholder="{{'editView.form.jobadvertisment.tasks' | translate}}"
+        [(ngModel)]="jobadvertisment.tasks">
+    </div>
+
+    <div class="form-group">
+        <label for="date" jhiTranslate="editView.form.jobadvertisment.contact">Date</label>    
+        <input type="text" class="form-control" name="When to start" id="startdate" placeholder="{{'editView.form.jobadvertisment.startdate' | translate}}"
+        >
+        <input type="text" class="form-control" name="Duration" id="duration" placeholder="{{'editView.form.jobadvertisment.duration' | translate}}"
+        >
+    </div>
+
+
+    <button type="submit" class="btn btn-primary savebtn" jhiTranslate="editView.button.save">Save</button>
+    <button type="button" (click)="delete()" class="btn btn-primary deletebtn" jhiTranslate="editView.button.delete">Delete</button>
+    
+</form>

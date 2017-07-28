@@ -3,13 +3,36 @@ import { Http, Response, URLSearchParams, BaseRequestOptions } from '@angular/ht
 import { Observable } from 'rxjs/Rx';
 
 import { CompanyAdmin } from './company-admin.model';
+import { Jobadvertisment } from "../jobadvertisment/jobadvertisment.model";
 @Injectable()
 export class CompanyAdminService {
 
     private resourceUrl = 'api/company-admins';
     private resourceSearchUrl = 'api/_search/company-admins';
+    private companyUrl = 'api/companies';
 
     constructor(private http: Http) { }
+
+    ////////// Jobadvertisments ///////
+    updateProfession(job: Jobadvertisment, companyId:number, jobId:number): Observable<Jobadvertisment> {
+        let copy: Jobadvertisment = Object.assign({}, job);
+        return this.http.put(`${this.resourceUrl}/${companyId}/${"jobadvertisment"}/${jobId}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    createProfession(job: Jobadvertisment, companyId:number): Observable<Jobadvertisment> {
+        let copy: Jobadvertisment = Object.assign({}, job);
+        return this.http.post(`${this.resourceUrl}/${companyId}/${"jobadvertisment"}`, copy).map((res: Response) => {
+            return res.json();
+        });
+    }
+
+    deleteProfession(job: Jobadvertisment, companyId:number, jobId:number): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/${companyId}/${"jobadvertisment"}/${jobId}`);
+    }
+    ///////////
+
 
     create(companyAdmin: CompanyAdmin): Observable<CompanyAdmin> {
         let copy: CompanyAdmin = Object.assign({}, companyAdmin);

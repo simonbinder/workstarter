@@ -6,7 +6,6 @@ import { JhiLanguageService, EventManager } from 'ng-jhipster';
 import { EditViewService } from '../editView/editView.service';
 import { StateStorageService } from '../auth/state-storage.service';
 import { SocialService } from '../social/social.service';
-import { StudentEditJobs } from '../student/editForms/student-editJobs.component';
 import { Subscription } from "rxjs/Subscription";
 
 @Component({

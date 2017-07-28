@@ -14,9 +14,9 @@
                 <student-editSchools    *ngSwitchCase="'editSchools'" [_student]="student" [_componentId]="componentId"></student-editSchools>
                 <student-editProject    *ngSwitchCase="'editProject'" [_student]="student" [_componentId]="componentId"></student-editProject>
                 <student-editPresentation    *ngSwitchCase="'editPresentation'" [_student]="student" [_componentId]="componentId"></student-editPresentation>
-                <student-editKeywords    *ngSwitchCase="'editKeywords'"></student-editKeywords>
                 <job-apply    *ngSwitchCase="'jobApply'" [_student]="student" [_componentId]="componentId"></job-apply>
                 <ca-editCompany *ngSwitchCase="'editCompany'" [_student]="student" [_componentId]="componentId"></ca-editCompany> 
+                <ca-editJobadvertisment    *ngSwitchCase="'editJobadvertisment'" [_student]="student" [_componentId]="componentId"></ca-editJobadvertisment>
                 <unknown-edit  *ngSwitchDefault></unknown-edit>
             </div>
             <p></p>

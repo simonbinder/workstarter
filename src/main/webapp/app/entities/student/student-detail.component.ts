@@ -69,16 +69,19 @@ export class StudentDetailComponent implements OnInit, OnDestroy {
     }
 
     fileChange(event) {
-    let fileList: FileList = event.target.files;
-    if(fileList.length > 0) {
-        alert("drin");
-        let file: File = fileList[0];
-        let formData:FormData = new FormData();
-        formData.append('file', file, file.name);
-        this.studentService.uploadImage(this.student.id, formData)
-            .subscribe((res: Response) =>
-                    this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
-    }
+        if(!this.isMyAccount)
+        {
+            return;
+        }
+        let fileList: FileList = event.target.files;
+        if(fileList.length > 0) {
+            let file: File = fileList[0];
+            let formData:FormData = new FormData();
+            formData.append('file', file, file.name);
+            this.studentService.uploadImage(this.student.id, formData)
+                .subscribe((res: Response) =>
+                        this.onSaveSuccess(res), (res: Response) => this.onSaveError(res));
+        }
 }
 
    private onSaveSuccess (result: Response) {

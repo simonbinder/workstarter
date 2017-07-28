@@ -71,6 +71,16 @@ h2
         padding-top: 20px;
         padding-bottom: 20px;
 
+
+        position:relative;
+
+        .iconButton
+        {
+            position:absolute;
+            top: 27px;
+            right: 15px;
+        }    
+
         .cvSlogan
         {
             min-height: 110px;

@@ -91,7 +91,14 @@ h2
         padding-top: 20px;
         padding-bottom: 20px;
 
-        
+        position:relative;
+
+        .iconButton
+        {
+            position:absolute;
+            top: 27px;
+            right: 15px;
+        }        
 
         .cvSlogan
         {
@@ -311,6 +318,11 @@ h2
     {
         margin-top: 3.5px !important;
         margin-left: 1.3px !important;
+    }
+
+    .fa-envelope
+    {
+        margin-top: 1.5px !important;
     }
 }
 

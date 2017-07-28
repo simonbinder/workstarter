@@ -4,15 +4,18 @@
 
         <div class="profilheader row justify-content-center">
             <div class="col-3">
-                <div class="profile-img" (click)="imageupload.click()">
+                <div class="profile-img">
                     <img *ngIf="student.imageUrl" src="{{student.imageUrl}}">
-                    <span class="imageedit"></span>
+                    <span (click)="imageupload.click()" *ngIf="isMyAccount" class="imageedit"></span>
                 </div>
             </div>
             <input id="imageupload" #imageupload type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".jpg,.png,.docx">
             <div class="profil-content col-7">
                 <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editPresentation", student, -1)'>
                     <span class="fa fa-pencil"></span>
+                </button>
+                <button *ngIf="!isMyAccount" class="iconButton">
+                    <span class="fa fa-envelope"></span>
                 </button>
                 <h1>{{student.firstName}} {{student.lastName}}</h1>
                 <h2>{{student.title}}</h2>

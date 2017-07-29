@@ -2,6 +2,30 @@
     "editView": {
         "title": "Bearbeite Berufserfahrung",
         "form": {
+            "companyAdmin":{
+                "person": "Person",
+                "firstName": "Vorname",
+                "lastName": "Nachname",
+                "location": "Standort",
+                "company": "Unternehmen",
+                "companyName": "Unternehmensname",
+                "domain": "Domain",
+                "description": "Beschreibung",
+                "sector": "Sektor"
+            },
+            "jobadvertisment":{
+                "position": "Position",
+                "jobname": "Jobname",
+                "location":"Standort",
+                "title": "Titel",
+                "description":"Beschreibung",
+                "company":"Unternehmen",
+                "companyname": "Name des Unternehmens",
+                "tasks": "Aufgaben",
+                "contact": "Kontakt",
+                "startdate": "Startdatum",
+                "duration": "Dauer"
+            },
             "jobs": {
                 "position": "Position",
                 "describtion": "Beschreibe deine Tätigkeit",

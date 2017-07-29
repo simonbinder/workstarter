@@ -2,6 +2,17 @@
     "editView": {
         "title": "Edit Berufserfahrung",
         "form": {
+               "companyAdmin":{
+                "person": "Person",
+                "firstName": "Firstname",
+                "lastName": "Lastname",
+                "location": "Location",
+                "company": "Company",
+                "companyName": "Company Name",
+                "domain": "Domain",
+                "description": "Description",
+                "sector": "Sector"
+            },
             "jobs": {
                 "position": "Position",
                 "describtion": "Describe your Job",
@@ -14,6 +25,19 @@
                 "date": "Date",
                 "startdate": "When did your employment start?",
                 "enddate": "When did your employment end?"
+            },
+             "jobadvertisment":{
+                "position": "Position",
+                "jobname": "Jobname",
+                "location":"Location",
+                "title": "Title",
+                "description":"Description",
+                "company":"Company",
+                "companyname":"Name of your company",
+                "tasks": "Tasks",
+                "contact": "Contact",
+                "startdate": "Startdate",
+                "duration": "Duration"
             },
             "schools": {
                 "school": "Your school",

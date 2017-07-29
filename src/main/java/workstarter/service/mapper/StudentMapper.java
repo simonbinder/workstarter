@@ -3,6 +3,7 @@ package workstarter.service.mapper;
 import workstarter.domain.Authority;
 import workstarter.domain.Keywords;
 import workstarter.domain.Profession;
+import workstarter.domain.Project;
 import workstarter.domain.Resume;
 import workstarter.domain.School;
 import workstarter.domain.Student;
@@ -106,6 +107,18 @@ public interface StudentMapper {
     		Profession profession = new Profession();
     		profession.setCompanyName(string);
     		return profession;
+    	}).collect(Collectors.toList());
+    }
+    
+    default List<String> stringsFromProjects (List<Project> project){
+    	return project.stream().map(Project::getTitle).collect(Collectors.toList());
+    }
+    
+    default List<Project> projectsFromStrings(List<String> strings) {
+    	return strings.stream().map(string -> {
+    		Project project = new Project();
+    		project.setTitle(string);
+    		return project;
     	}).collect(Collectors.toList());
     }
 }

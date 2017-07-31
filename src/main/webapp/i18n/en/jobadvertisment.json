@@ -23,7 +23,11 @@
             "contact": "Contact",
             "location": "Location",
             "tasks": "Tasks",
-            "company": "Company"
+            "company": "Company",
+            "lookingfor": "We are looking for a(n) ",
+            "necessaryskills": "Necessary skills:",
+            "apply": "Apply",
+            "yourtasks": "Your tasks:"
         }
     }
 }

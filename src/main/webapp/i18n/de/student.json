@@ -1,6 +1,9 @@
 {
     "workstarterApp": {
         "student" : {
+            "profession": "Berufserfahrung",
+            "education": "Ausbildung",
+            "addkeywords": "Füge Schlüsselwörter hinzu",
             "home": {
                 "title": "Students",
                 "createLabel": "Student erstellen",

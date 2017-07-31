@@ -11,7 +11,8 @@
                 "companyName": "Unternehmensname",
                 "domain": "Domain",
                 "description": "Beschreibung",
-                "sector": "Sektor"
+                "sector": "Sektor",
+                "size": "Unternehmensgröße"
             },
             "jobadvertisment":{
                 "position": "Position",

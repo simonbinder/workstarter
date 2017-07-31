@@ -1,5 +1,7 @@
 {
     "home": {
+        "slogan": "Workstarter ist eine Plattform auf der Studenten mit ihrem Lebenlauf und ihren Projekte auf sich aufmerksam machen können.",
+        "register": "Kostenlos Registrieren!",
         "title": "Willkommen, Java Hipster!",
         "subtitle": "Dies ist Ihre Hauptseite",
         "logged": {

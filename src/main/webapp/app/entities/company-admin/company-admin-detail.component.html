@@ -21,7 +21,10 @@
                     <p>{{companyAdmin.company.description}}</p>
                 </div>
                 <a class="piano">{{companyAdmin.company.domain}}</a>
-                <p class="piano"><span jhiTranslate="workstarterApp.companyAdmin.companysize">Companysize: </span>100.000<span jhiTranslate="workstarterApp.companyAdmin.employees"> employees</span></p>
+                <p  class="piano" *ngIf="companyAdmin.company.address">
+                    <span jhiTranslate="workstarterApp.companyAdmin.companysize">Company size: </span>{{companyAdmin.company.address}}
+                    <span jhiTranslate="workstarterApp.companyAdmin.employees"> employees</span>
+                </p>
                 <p class="piano"><span jhiTranslate="workstarterApp.companyAdmin.sector">Sector: </span>{{companyAdmin.company.sector}}</p>
 
 

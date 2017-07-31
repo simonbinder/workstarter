@@ -1,6 +1,6 @@
 {
     "editView": {
-        "title": "Edit Berufserfahrung",
+        "title": "Edit professional experience",
         "form": {
                "companyAdmin":{
                 "person": "Person",
@@ -11,7 +11,8 @@
                 "companyName": "Company Name",
                 "domain": "Domain",
                 "description": "Description",
-                "sector": "Sector"
+                "sector": "Sector",
+                "size": "Size of your company"
             },
             "jobs": {
                 "position": "Position",

@@ -25,7 +25,7 @@
 
                 <div class="cvTags">
                     <div *ngIf="isEmpty(student.keywords)" class="small-card greyedout">
-                        <span> add some keywords </span>
+                        <span jhiTranslate="student.addkeywords"> add some keywords </span>
                     </div>
                     <div class="small-card" *ngFor="let keyword of student.keywords">
                         <span>{{keyword.name}}</span>
@@ -40,7 +40,7 @@
 
                 <div class="cvJobs col-5">
                     <div class="jobTitle">
-                        <h2>Education</h2>
+                        <h2 jhiTranslate="student.education">Education</h2>
                         <button *ngIf="isMyAccount" class="iconButton pulsButton" (click)='edit("editSchools", student, -1)'>
                             <span class="fa fa-plus"></span>
                         </button>
@@ -65,7 +65,7 @@
 
                 <div class="cvJobs col-5">
                     <div class="jobTitle">
-                        <h2>Jobs</h2>
+                        <h2 jhiTranslate="student.profession">Professional experience</h2>
                         <button *ngIf="isMyAccount" class="iconButton pulsButton" (click)='edit("editJobs", student, -1)'>
                             <span class="fa fa-plus"></span>
                         </button>

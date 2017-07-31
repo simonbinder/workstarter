@@ -18,8 +18,8 @@
             },
             "firstname": "Vorname",
             "lastname": "Nachname",
-            "companies": "Companies",
-            "company": "Company",
+            "companies": "Firmen",
+            "company": "Firma",
             "companysize": "Unternehmensgröße: ",
             "sector": "Branche: ",
             "employees": " Mitarbeiter"

@@ -73,22 +73,18 @@
                 "addSomeKeywords": "Add a new keyword",
                 "addKeyword": "Add"
             },
-            "companyAdmin": {
-                "firstName": "Vorname",
-                "lastName": "Nachname",
-                "location": "An welchem Standord bist du?",
-                "companyName": "Name deiner Firma",
-                "domain": "Firmen Domäne",
-                "description": "Bitte beschreibe deine Firma",
-                "sector": "Branche deiner Firma",
-                "person": "Deine Person",
-                "company": "Deine Firma"
+            "jobapply": {
+                "applicationmail": "Your application letter",
+                "pleasetype": "Tell us why you want that job. We are going to visit your profil afterwards.",
+                "applyfor": "Application for "
             }
 
         },
         "button" : {
             "save": "Save",
-            "delete": "Delete"
+            "delete": "Delete",
+            "send": "Send",
+            "cancel": "Cancel"
         }
     }
 }

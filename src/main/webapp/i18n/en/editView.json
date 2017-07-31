@@ -14,6 +14,16 @@
                 "sector": "Sector",
                 "size": "Size of your company"
             },
+            "project":{
+                "project": "Project",
+                "title": "Title",
+                "context": "Context",
+                "year": "Year",
+                "imageurl": "Image-URL",
+                "details": "Details",
+                "description":"Description",
+                "link": "link"
+            },
             "jobs": {
                 "position": "Position",
                 "describtion": "Describe your Job",

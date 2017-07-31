@@ -113,9 +113,9 @@
                             <button *ngIf="isMyAccount" class="iconButton" (click)='edit("editProject", student, project.id)'>
                                     <span class="fa fa-pencil"></span>
                             </button>
-                            <button class="iconButton downloadButton">
+                            <a class="iconButton downloadButton" href="{{project.link}}">
                                     <i class="fa fa-download" aria-hidden="true"></i>
-                            </button>
+                            </a>
                         </span>
                     </div>
                     </div> <!-- window -->
